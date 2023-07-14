@@ -20,49 +20,47 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-@Configuration
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+@RequiredArgsConstructor  // Lombok annotation to generate a constructor requiring all final fields
+@Configuration  // Indicates that a class declares one or more @Bean methods and may be processed by the Spring container
+public class JwtAuthenticationFilter extends OncePerRequestFilter {  // Custom filter extending OncePerRequestFilter
 
-    private final JwtUtil jwtUtil;
-    private final StaffMemberRepository staffMemberRepository ;
+    private final JwtUtil jwtUtil;  // JWT utility class
+    private final StaffMemberRepository staffMemberRepository ;  // Repository to query StaffMember data
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-
         // Extract JWT token from cookie
         String token = null;
         if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
-                if (cookie.getName().equals("jwt")) {
-                    token = cookie.getValue();
+            for (Cookie cookie : request.getCookies()) {  // Iterating through the cookies
+                if (cookie.getName().equals("jwt")) {  // If a cookie named "jwt" is found
+                    token = cookie.getValue();  // Get the value of the cookie
                     break;
                 }
             }
         }
-        if (token!=null && jwtUtil.validateToken(token))
-        {
-            String username = jwtUtil.extractUsername(token);
-            System.out.println("Username: " + username);
-            List<String> roles = jwtUtil.extractRoles(token);
-            System.out.println("Roles: " + roles);
+        if (token!=null && jwtUtil.validateToken(token)) {  // If a token was found and it is valid
+            String username = jwtUtil.extractUsername(token);  // Extract the username from the token
+            List<String> roles = jwtUtil.extractRoles(token);  // Extract the roles from the token
 
-            UserDetails userDetails = staffMemberRepository.findByUserName(username);
-            System.out.println("UserDetails: " + userDetails);
-            if (userDetails != null) {
-                List<GrantedAuthority> authorities = roles.stream()
+            UserDetails userDetails = staffMemberRepository.findByUserName(username);  // Find the user in the repository
+
+            if (userDetails != null) {  // If the user was found
+                List<GrantedAuthority> authorities = roles.stream()  // Convert the roles to authorities
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-                System.out.println("Authorities: " + authorities);
 
+                // Create an authentication token with the user and authorities
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+                // Set the authentication in the context
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
+        // Proceed with the filter chain
         filterChain.doFilter(request,response);
     }
 }

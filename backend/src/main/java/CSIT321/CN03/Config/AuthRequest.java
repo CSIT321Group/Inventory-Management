@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter  // Lombok annotation to generate getters
+@Setter  // Lombok annotation to generate setters
+@NoArgsConstructor  // Lombok annotation to generate a no-args constructor
 public class AuthRequest {
 
-    private String userName;
-    private String password;
+    private String userName;  // Field to store username
+    private String password;  // Field to store password
 }

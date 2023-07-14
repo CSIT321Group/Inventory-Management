@@ -8,22 +8,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class StaffMemberService implements UserDetailsService {
+@Service  // Indicates that this class is a Service
+public class StaffMemberService implements UserDetailsService {  // Implementing UserDetailsService to load user-specific data
 
-    private final StaffMemberRepository staffMemberRepository;
+    private final StaffMemberRepository staffMemberRepository;  // Repository to access StaffMember data from the database
 
-    @Autowired
+    @Autowired  // Autowiring the repository
     public StaffMemberService(StaffMemberRepository staffMemberRepository) {
         this.staffMemberRepository = staffMemberRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        StaffMember staffMember = staffMemberRepository.findByUserName(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {  // Method to load user details by username
+        StaffMember staffMember = staffMemberRepository.findByUserName(username);  // Retrieve the staff member with the provided username
         if (staffMember == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("User not found");  // Throw an exception if the user could not be found
         }
-        return staffMember;
+        return staffMember;  // Return the found staff member
     }
 }

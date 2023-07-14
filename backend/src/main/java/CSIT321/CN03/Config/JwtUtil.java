@@ -20,7 +20,7 @@ public class JwtUtil{
     @Value("${jwt.expiration}")
     private Long jwtExpiration;
 
-
+    // Following methods handle JWT extraction, validation and generation tasks
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
