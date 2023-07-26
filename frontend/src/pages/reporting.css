@@ -1,0 +1,64 @@
+.report-filtering-component {
+    border-radius: 30px;
+    width: 95%;
+    transition: 0.3s;
+    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.2);
+    height: 250px;
+    /* outline: auto; */
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+}
+
+.header Button{
+    width: auto;
+    height: auto;
+    margin-left: 200px;
+}
+
+.report-filtering-card {
+    margin-left: 230px;
+    margin-top: 100px;
+}
+
+.report-filtering-title{
+    text-transform: capitalize;
+    text-align: left;
+}
+
+.report-statistics-component {
+    border-radius: 30px;
+    width: 95%;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 500px;
+    outline: auto;
+}
+
+.report-statistics-card {
+    margin-left: 230px;
+    margin-top: 150px;
+}
+
+.report-statistics-title{
+    text-transform: capitalize;
+    text-align: left;
+}
+
+.report-statistics-header {
+    display: flex;
+}
+
+.report-options {
+    display: inline-block;
+}
+
+.report-statistics-noshow {
+    border-radius: 30px;
+    width: 95%;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
+    height: 500px;
+}

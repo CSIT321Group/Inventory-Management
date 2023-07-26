@@ -1,0 +1,57 @@
+.employeePageLayout {
+	margin-left: 100px;
+	margin-top: 50px;
+	width: 85%;
+}
+
+.content{
+	padding: 5px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 8px 8px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 10px;
+}
+
+h1 {
+	text-align: left;
+	margin-left: '200px';
+}
+
+.filterTable {
+	width: 97%;
+	height: 150px;
+}
+.filterCols {
+	border-right: 1px solid;
+}
+.filterCols ~ * {
+	padding: 10px;
+}
+form {
+	margin: 20px;
+}
+.filterSpacing{
+	height: 100px;
+}
+.searchInput {
+	border-radius: 10px;
+	height: 50px;
+	width: 75%;
+}
+
+.employeeTable {
+	margin: 20px;
+	width: 97%;
+	text-align: center;
+	border-collapse: collapse;
+	border: 1px solid;
+}
+
+.employeeTable td {
+	border: 1px solid;
+	border-collapse: collapse;
+}
+.actionButtons {
+	width: 25%;
+	padding: 10px;
+	border: 1px solid;
+	background-color: white;
+}

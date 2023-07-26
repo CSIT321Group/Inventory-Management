@@ -1,0 +1,62 @@
+form {margin-top: 50px;}
+
+input[type=username], input[type=password] {
+  width: 200px;
+  padding: 10px 10px;
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background: #81BECE;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.Login h1 {
+    margin-top: 50px;
+    color: white;
+}
+
+.link{
+    color: #fff;
+    text-decoration: underline;
+    margin-bottom: 30px;
+}
+
+.link:hover{
+  color: #81BECE;
+}
+
+.Login {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    padding: 90px 0 90px 0;
+    background-image: url("login-background.jpg");
+    background-size:cover;
+}
+
+.sub-main {
+    display: flex;
+    justify-content: center;
+    height: 500px;
+    width: 500px;
+    padding-top: 30px;
+    border-radius: 50%;
+    background-color: #012E4A;
+}
+
+h1{
+    text-align: center;
+    justify-content: center;
+}
