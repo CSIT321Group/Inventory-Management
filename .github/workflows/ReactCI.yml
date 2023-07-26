@@ -25,6 +25,9 @@ jobs:
     - name: Add missing dependencies
       run: cd frontend && yarn add chart.js && yarn add --dev @babel/plugin-proposal-private-property-in-object
 
+    - name: Add TypeScript
+      run: cd frontend && yarn add typescript
+
     - name: Build
       run: cd frontend && yarn run build
 
