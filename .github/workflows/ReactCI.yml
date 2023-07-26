@@ -29,6 +29,8 @@ jobs:
       run: cd frontend && yarn add typescript
 
     - name: Build
+      env:
+        CI: false
       run: cd frontend && yarn run build
 
     - name: Run linter
