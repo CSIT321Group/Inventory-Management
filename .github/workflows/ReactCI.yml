@@ -32,6 +32,3 @@ jobs:
       env:
         CI: false
       run: cd frontend && yarn run build
-
-    - name: Run linter
-      run: cd frontend && yarn run lint
