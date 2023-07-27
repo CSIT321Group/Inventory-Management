@@ -1,5 +1,6 @@
 package CSIT321.CN03.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,15 +26,19 @@ public class Warehouse {
     private String warehouse_Address;
     private String warehouse_contact;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     private Set<StockRoom> stockRooms = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     private Set<OutsideStorage> outsideStorages = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     private Set<StaffMember> staffMembers = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     private Set<Vehicle> vehicles = new LinkedHashSet<>();
 

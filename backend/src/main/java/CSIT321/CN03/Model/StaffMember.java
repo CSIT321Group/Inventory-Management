@@ -1,5 +1,6 @@
 package CSIT321.CN03.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class StaffMember implements UserDetails{
     private String userName;
     private String password;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
@@ -37,6 +39,7 @@ public class StaffMember implements UserDetails{
     private String email;
     private String phone;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "staff_roles",
             joinColumns = @JoinColumn(name = "staff_id"),
