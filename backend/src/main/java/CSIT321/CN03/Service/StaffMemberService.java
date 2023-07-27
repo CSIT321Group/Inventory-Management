@@ -2,6 +2,7 @@ package CSIT321.CN03.Service;
 
 import CSIT321.CN03.Model.StaffMember;
 import CSIT321.CN03.Repository.StaffMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,11 +10,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service  // Indicates that this class is a Service
+//@RequiredArgsConstructor
 public class StaffMemberService implements UserDetailsService {  // Implementing UserDetailsService to load user-specific data
 
     private final StaffMemberRepository staffMemberRepository;  // Repository to access StaffMember data from the database
 
-    @Autowired  // Autowiring the repository
+    @Autowired  // Autowiring the repository this can be omitted by using @RequiredArgsConstructor on top of the class declaration
     public StaffMemberService(StaffMemberRepository staffMemberRepository) {
         this.staffMemberRepository = staffMemberRepository;
     }
