@@ -44,8 +44,11 @@ input[text] {
 }
 
 .inventoryTable {
+    margin: 20px;
     border: 1px solid;
-    width: auto;
+    width: 97%;
+    text-align: center;
+    border-collapse: collapse;
 }
 
 .inventoryTable tr, th, td {
