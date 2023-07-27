@@ -1,21 +1,43 @@
+input[text] {
+    width: 120px;
+    height: 40px;
+}
 .report-filtering-component {
     border-radius: 30px;
     width: 95%;
     transition: 0.3s;
     box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.2);
-    height: 250px;
-    /* outline: auto; */
+    height: 300px;
 }
 
-.header{
+.filterRows {
     display: flex;
-    justify-content: center;
+    padding: 5px;
 }
 
-.header Button{
-    width: auto;
-    height: auto;
-    margin-left: 200px;
+.filterRows h3 {
+    margin-left: 10px;
+    width: 100px;
+    text-align: end;
+}
+
+.filterRows input {
+    transform: translateY(40%);
+}
+
+.checkBox {
+    margin-left: 20px;
+    transform: translateY(35%);
+}
+
+.report-filtering-component td {
+    border: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .report-filtering-card {
@@ -61,4 +83,34 @@
     transition: 0.3s;
     box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
     height: 500px;
+}
+
+
+.anotherItemButton {
+    margin-top: 30px;
+    width: 130px;
+    background-color: white;
+    color: blue;
+}
+
+h1 {
+    display: inline-flex;
+    color: #003463;
+    font-family: Archivo;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    margin-left: 250px;
+    margin-top: 100px;
+}
+
+.generateReportButton {
+    width: 180px;
+    height: 40px;
+    margin-right: 125px;
+    transform: translateY(90%);
+    border-radius: 30px;
+    color: black;
 }

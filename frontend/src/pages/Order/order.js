@@ -1,35 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 // import Popup from './New_Order/new_order_popup';
 // import SearchBar from "./searchbar";
 import './order.css';
-import * as Icons from 'react-icons/fa';
+import * as FaIcons from 'react-icons/fa';
  
 export default function Order() {
     // const [buttonPopup, setButtonPopup] = useState(false);
-    const [searchValue, setSearchValue] = useState("");
-    const [deliveryDateValue, setDeliveryDateValue] = useState("");
-    const [productValue, setProductValue] = useState("");
-    const [statusValue, setStatuseValue] = useState("");
+    // const [searchValue, setSearchValue] = useState("");
+    // const [deliveryDateValue, setDeliveryDateValue] = useState("");
+    // const [productValue, setProductValue] = useState("");
+    // const [statusValue, setStatuseValue] = useState("");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
 
-    }
+    // }
     
     return (
         <>
             <div className="orderPageLayout">
-                <h1>Table Filters</h1>
+                <div className="header">
+                    <h1>Table Filters</h1>
+                    <button className="newOrderButton">
+                        NEW ORDER &ensp;
+                        <FaIcons.FaShare />
+                    </button>
+                </div>
                 <div className="content">
                     <div>
                         <form action="" className="filterComponent">
-                            <input style={{borderRadius:"30px"}} className="searchInput" type="text" placeholder="Search"/>
-                            <h3>Delivery Date:</h3>
-                            <input className="searchInput" type="text"/>
-                            <h3>Product:</h3>
-                            <input className="searchInput" type="text"/>
-                            <h3>Status:</h3>
-                            <input className="searchInput" type="text"/>
+                            <table>
+                                <tr style={{marginRight:"50px"}}>
+                                    <td className="filterOrder">
+                                        <input style={{borderRadius:30}} type="text" placeholder="Search"/>
+                                    </td>
+                                    <td className="filterOrder">
+                                        <h3>Delivery Date:</h3>
+                                        <input className="searchInput" type="text"/>
+                                    </td>
+                                    <td className="filterOrder">
+                                        <h3>Product:</h3>
+                                        <input className="searchInput" type="text"/>
+                                    </td>
+                                    <td className="filterOrder">
+                                        <h3>Status:</h3>
+                                        <input className="searchInput" type="text"/>
+                                    </td>                                        
+                                </tr>
+                                <tr className="filterOrderButton">
+                                        <button className="applyButton">APPLY FILTERS</button>
+                                </tr>
+                            </table>
                         </form>
                     </div>
                 </div>

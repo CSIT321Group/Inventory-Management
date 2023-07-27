@@ -7,7 +7,7 @@ export default function Employee() {
     return (
         <div className="employeePageLayout">
             <br/><br/>
-            <h1 style={{marginLeft:"200px"}}>Table Filter</h1>
+            <h1>Table Filter</h1>
             <div className="content">
                 <div>
                     <form action="">
@@ -24,13 +24,13 @@ export default function Employee() {
                                 </td>
                                 <td className="filterCols">
                                     <label htmlFor="permissions"><h3>Permissions</h3></label>
-                                    <input type="checkbox" value="level-1"/>Level 1<br/>
-                                    <input type="checkbox" value="level-2"/>Level 2<br/>
-                                    <input type="checkbox" value="level-3"/>Level 3<br/>
-                                    <input type="checkbox" value="level-4"/>Level 4<br/>
+                                    Level 1<input type="checkbox" value="level-1"/><br/>
+                                    Level 2<input type="checkbox" value="level-2"/><br/>
+                                    Level 3<input type="checkbox" value="level-3"/><br/>
+                                    Level 4<input type="checkbox" value="level-4"/><br/>
                                 </td>
                                 <td>
-                                    <button style={{width:"160px", height:"40px", borderRadius:"30px", textAlign:"center", color:"black"}}>APPLY FILTERS</button>
+                                    <button className='applyButton'>APPLY FILTERS</button>
                                 </td>
                             </tr>
                         </table>
@@ -39,7 +39,7 @@ export default function Employee() {
             </div>
             <br/><br/>
             <IconContext.Provider value={{color: 'black'}}>
-            <h1 style={{marginLeft:"200px"}}>Employees Table</h1>
+            <h1>Employees Table</h1>
             <div className="content">
                 <div>
                     <table className="employeeTable">
@@ -58,12 +58,10 @@ export default function Employee() {
                             <td>
                                 <button className="actionButtons">
                                     <FaIcons.FaEdit />
-                                    {/* <img src={editImage} alt="edit"/> */}
                                 </button>
                                 |
                                 <button className="actionButtons">
                                     <FaIcons.FaShare />
-                                    {/* <img src={shareImage} alt="share"/> */}
                                 </button>
                             </td>
                         </tr>
@@ -75,12 +73,10 @@ export default function Employee() {
                             <td>
                                 <button className="actionButtons">
                                     <FaIcons.FaEdit />
-                                    {/* <img src={editImage} alt="edit"/> */}
                                 </button>   
                                     |
                                 <button className="actionButtons">
                                     <FaIcons.FaShare />
-                                    {/* <img src={shareImage} alt="share"/> */}
                                 </button>
                             </td>
                         </tr>
