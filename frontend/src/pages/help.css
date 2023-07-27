@@ -1,0 +1,41 @@
+.helpPageLayout {
+	margin-left: 245px;
+	width: 75%;
+}
+.content {
+	padding: 5px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 10px;
+}
+.content-info {
+	margin: 10px;
+}
+.formButtons {
+	padding: 10px;
+}
+.app {
+  display: flex;
+  
+  flex-direction: column;
+  gap: 20px;
+}
+.sign {
+  font-size: 25px;
+}
+.accordian {
+  width: 80%;
+  border: 1px solid #E5E5E5FF;
+}
+.accordian-header {
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 15px;
+  border: 2px solid rgb(133, 133, 133);
+  background-color: #E5E5E5FF;
+}
+.accordian-body {
+  padding: 15px 5px;
+}
