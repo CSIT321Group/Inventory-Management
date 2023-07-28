@@ -33,6 +33,10 @@ form {
 .filterSpacing{
 	height: 100px;
 }
+.filterRow {
+	border: none;
+	outline: none;
+}
 .searchInput {
 	border-radius: 10px;
 	height: 50px;

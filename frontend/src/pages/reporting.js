@@ -87,7 +87,7 @@ export default function Reporting() {
 			<div className='report-statistics-card'>
 				<div className='header'>
 					<h1>Report Statistics</h1>
-					<button>EXPORT AS PDF</button>
+					<button className='exportPDFButton'>EXPORT AS PDF</button>
 				</div>
 					{show ?
 					<div style={{display:"inline-flex"}}>

@@ -1,9 +1,20 @@
 import React from 'react';
+// import { useEffect, useState } from 'react';
 import './employee.css';
 import * as FaIcons from 'react-icons/fa';
-import { IconContext } from 'react-icons';             
+import { IconContext } from 'react-icons';   
+// import axios from 'axios';          
 
 export default function Employee() {
+    // const [staff, setStaff] = useState(null);
+    // const baseURL = 'http://localhost:8080/api/staff/1';
+
+    // useEffect(() => {
+    //     axios.get(baseURL).then((response) => {
+    //         setStaff(response.data);
+    //     });
+    // }, []);
+
     return (
         <div className="employeePageLayout">
             <br/><br/>
@@ -29,7 +40,7 @@ export default function Employee() {
                                     Level 3<input type="checkbox" value="level-3"/><br/>
                                     Level 4<input type="checkbox" value="level-4"/><br/>
                                 </td>
-                                <td>
+                                <td className='filterButton'>
                                     <button className='applyButton'>APPLY FILTERS</button>
                                 </td>
                             </tr>

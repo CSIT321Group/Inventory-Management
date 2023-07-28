@@ -121,3 +121,12 @@ h1 {
     border-radius: 30px;
     color: black;
 }
+
+.exportPDFButton {
+    width: 180px;
+    height: 40px;
+    margin-right: 125px;
+    transform: translateY(90%);
+    border-radius: 30px;
+    color: black;
+}
