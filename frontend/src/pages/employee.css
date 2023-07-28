@@ -12,14 +12,16 @@
 
 h1 {
 	text-align: left;
-	margin-left: '200px';
+	margin-left: 200px;
 }
 
 .filterTable {
 	width: 97%;
 	height: 150px;
+	border: none;
 }
 .filterCols {
+	border: none;
 	border-right: 1px solid;
 }
 .filterCols ~ * {
@@ -37,6 +39,15 @@ form {
 	width: 75%;
 }
 
+.applyButton {
+	width: 160px;
+	height: 40px;
+	border-radius: 30px;
+	text-align: center;
+	color: black;
+	border: none;
+}
+
 .employeeTable {
 	margin: 20px;
 	width: 97%;
@@ -45,10 +56,6 @@ form {
 	border: 1px solid;
 }
 
-.employeeTable td {
-	border: 1px solid;
-	border-collapse: collapse;
-}
 .actionButtons {
 	width: 25%;
 	padding: 10px;
