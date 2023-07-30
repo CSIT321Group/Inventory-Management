@@ -5,7 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import ShowNavBar from './components/Navbar/ShowNavBar';
-import Home from './pages';
+import Home from './pages/dashboard';
 import Order from './pages/Order/order';
 import Inventory from './pages/inventory';
 import Login from './pages/login';
