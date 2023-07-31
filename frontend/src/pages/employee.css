@@ -1,41 +1,33 @@
-.employeePageLayout {
-	margin-left: 100px;
-	margin-top: 50px;
-	width: 85%;
-}
-
-.content{
-	padding: 5px;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 8px 8px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
-    border-radius: 10px;
-}
-
-h1 {
-	text-align: left;
-	margin-left: 200px;
-}
-
 .filterTable {
 	width: 97%;
 	height: 150px;
 	border: none;
 }
+
 .filterCols {
 	border: none;
 	border-right: 1px solid;
 }
+
 .filterCols ~ * {
 	padding: 10px;
 }
+
 form {
 	margin: 20px;
 }
+
 .filterSpacing{
 	height: 100px;
 }
+
 .filterRow {
 	border: none;
 	outline: none;
+}
+
+.filterButton {
+	border: none;
 }
 .searchInput {
 	border-radius: 10px;
@@ -44,12 +36,12 @@ form {
 }
 
 .applyButton {
+	margin-left: 100px;
 	width: 160px;
 	height: 40px;
 	border-radius: 30px;
 	text-align: center;
 	color: black;
-	border: none;
 }
 
 .employeeTable {

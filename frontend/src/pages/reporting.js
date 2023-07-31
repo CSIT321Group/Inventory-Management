@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './pageLayout.css';
 import './reporting.css';
 import { Doughnut } from 'react-chartjs-2';
 import DropDown from './DropDownReport';
@@ -42,70 +43,69 @@ export default function Reporting() {
 	}
 
 	return (
-		<div>
-			<div className='report-filtering-card'>
-				<div className='header'>
-					<h1>Report Filters</h1>
-					<button onClick= {() => toggleShow(!show)} className='generateReportButton'> GENERATE REPORT</button>
-				</div>
-				<div className='report-filtering-component'>
-					<table>
-						<tr>
-							<td>
-								<h3>Report Type</h3>
-								<DropDown/>
-							</td>
-							<td>
-								<h3>Report Name</h3>
-								<input type='text' placeholder='General Report...'/>
-							</td>
-						</tr>
-						<br/>
-						<tr className='filterRows'>
-							<h3>SKU: &ensp;</h3>
-							<input type='text'/>
-							<h3>Category: &ensp;</h3>
-							<input type='text'/>
-							<h3>Supplier: &ensp;</h3>
-							<input type='text'/>
-						</tr>
-						<tr className='filterRows'>
-							<h3>Name: &ensp;</h3>
-							<input type='text'/>
-							<h3>Order ID: &ensp;</h3>
-							<input type='text'/>
-							<h3>Location: &ensp;</h3>
-							<input type='text'/>
-							<span className='checkBox'><input type='checkbox' />&ensp;Include zero qty</span>
-						</tr>
-					</table>
-				</div>
-				<button className='anotherItemButton'><i>+ Another Item</i></button>
-				
+		<>
+			<div className='header'>
+				<h1>Report Filters</h1>
+				<button onClick= {() => toggleShow(!show)} className='button'> GENERATE REPORT</button>
 			</div>
+			<div className='content'>
+				<table>
+					<tr>
+						<td>
+							<h3>Report Type</h3>
+							<DropDown/>
+						</td>
+						<td>
+							<h3>Report Name</h3>
+							<input type='text' placeholder='General Report...'/>
+						</td>
+					</tr>
+					<br/>
+					<tr className='filterRows'>
+						<h3>SKU: &ensp;</h3>
+						<input type='text'/>
+						<h3>Category: &ensp;</h3>
+						<input type='text'/>
+						<h3>Supplier: &ensp;</h3>
+						<input type='text'/>
+					</tr>
+					<tr className='filterRows'>
+						<h3>Name: &ensp;</h3>
+						<input type='text'/>
+						<h3>Order ID: &ensp;</h3>
+						<input type='text'/>
+						<h3>Location: &ensp;</h3>
+						<input type='text'/>
+						<span className='checkBox'><input type='checkbox' />&ensp;Include zero qty</span>
+					</tr>
+				</table>
+			</div>
+			<button className='anotherItemButton'><i>+ Another Item</i></button>
 
-			<div className='report-statistics-card'>
-				<div className='header'>
+			<div className='header'>
 					<h1>Report Statistics</h1>
-					<button className='exportPDFButton'>EXPORT AS PDF</button>
-				</div>
-					{show ?
-					<div style={{display:"inline-flex"}}>
+					<button className='button'>EXPORT AS PDF</button>
+			</div>
+				{show ?
+					<div className='content'>
+						<table className='reportingTable'>
+							<tr>
+								<td>
+									<Doughnut data={data} options={{maintainAspectRatio:false}} />
+								</td>
+								<td>
+									<Bar style= {{padding: '20px'}} data = {data} options = {options}/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					:
+					<div className='report-statistics-noshow'>
 						<div>
-							<Doughnut data={data} options={{maintainAspectRatio:false}} />
-						</div>
-						<div>
-							<Bar style= {{padding: '20px'}} data = {data} options = {options}/>
+							<h2 style={{textAlign:"center", alignContent:"center", marginTop:"250px"}}>GENERATE A REPORT ABOVE</h2>
 						</div>
 					</div>
-						:
-						<div className='report-statistics-noshow'>
-							<div>
-								<h2 style={{textAlign:"center", alignContent:"center", marginTop:"250px"}}>GENERATE A REPORT ABOVE</h2>
-							</div>
-						</div>
-					}
-				</div>
-		</div>
+				}
+		</>
   	)
 }

@@ -1,11 +1,12 @@
 import React from 'react';
+import './pageLayout.css';
 import './inventory.css';
  
 const Inventory = () => {
     return (
         <>
             <h1>Table Filters</h1>
-            <div className='component'>
+            <div className='content'>
                 <table>
                     <tr className='filterRow'>
                         <h3>SKU: &ensp;</h3>
@@ -27,7 +28,7 @@ const Inventory = () => {
             </div>
             <button className='applyFilterButton'>APPLY FILTERS</button>
             <h1>Inventory Table</h1>
-            <div className='component'>
+            <div className='content'>
                 <div>
                     <table className='inventoryTable'>
                         <tr>

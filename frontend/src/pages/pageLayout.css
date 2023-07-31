@@ -1,0 +1,17 @@
+.content {
+    margin-left: 250px;
+    margin-right: 50px;
+    justify-content: space-evenly;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 8px 8px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 30px;
+    max-width: 2500px;
+}
+
+.header {
+    margin-top: 50px;
+    margin-left: 250px;
+    margin-right: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 // import Popup from './New_Order/new_order_popup';
 // import SearchBar from "./searchbar";
+import '../pageLayout.css';
 import './order.css';
 import * as FaIcons from 'react-icons/fa';
  
@@ -18,7 +19,7 @@ export default function Order() {
     
     return (
         <>
-            <div className="orderPageLayout">
+            <div>
                 <div className="header">
                     <h1>Table Filters</h1>
                     <button className="newOrderButton">
@@ -28,22 +29,22 @@ export default function Order() {
                 </div>
                 <div className="content">
                     <div>
-                        <form action="" className="filterComponent">
+                        <form action="">
                             <table>
-                                <tr style={{marginRight:"50px"}}>
+                                <tr>
                                     <td className="filterOrder">
                                         <input style={{borderRadius:30}} type="text" placeholder="Search"/>
                                     </td>
                                     <td className="filterOrder">
-                                        <h3>Delivery Date:</h3>
+                                        <h3>Delivery Date: &ensp;</h3>
                                         <input className="searchInput" type="text"/>
                                     </td>
                                     <td className="filterOrder">
-                                        <h3>Product:</h3>
+                                        <h3>Product: &ensp;</h3>
                                         <input className="searchInput" type="text"/>
                                     </td>
                                     <td className="filterOrder">
-                                        <h3>Status:</h3>
+                                        <h3>Status: &ensp;</h3>
                                         <input className="searchInput" type="text"/>
                                     </td>                                        
                                 </tr>
@@ -56,7 +57,9 @@ export default function Order() {
                 </div>
             </div>
 
-            <h1>Orders Table</h1>
+            <div className="header">
+                <h1>Orders Table</h1>
+            </div>
             <div className="content">
                 <table className="orderTable">
                     <tr>

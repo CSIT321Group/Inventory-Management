@@ -1,4 +1,5 @@
 import React from 'react';
+import './pageLayout.css';
 // import { useEffect, useState } from 'react';
 import './employee.css';
 import * as FaIcons from 'react-icons/fa';
@@ -16,9 +17,11 @@ export default function Employee() {
     // }, []);
 
     return (
-        <div className="employeePageLayout">
+        <>
             <br/><br/>
-            <h1>Table Filter</h1>
+            <div className='header'>
+                <h1>Table Filter</h1>
+            </div>
             <div className="content">
                 <div>
                     <form action="">
@@ -50,7 +53,9 @@ export default function Employee() {
             </div>
             <br/><br/>
             <IconContext.Provider value={{color: 'black'}}>
-            <h1>Employees Table</h1>
+            <div className='header'>
+                <h1>Employees Table</h1>
+            </div>
             <div className="content">
                 <div>
                     <table className="employeeTable">
@@ -95,6 +100,6 @@ export default function Employee() {
                 </div> 
             </div> 
             </IconContext.Provider>
-        </div>
+        </>
     );
 }
