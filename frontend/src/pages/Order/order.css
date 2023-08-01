@@ -44,7 +44,6 @@ input[type=text] {
 .newOrderButton {
     width: 150px;
     height: 40px;
-    margin-right: 125px;
     transform: translateY(20%);
     border-radius: 30px;
     color: black;

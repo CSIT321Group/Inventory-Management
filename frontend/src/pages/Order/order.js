@@ -22,7 +22,7 @@ export default function Order() {
             <div>
                 <div className="header">
                     <h1>Table Filters</h1>
-                    <button className="newOrderButton">
+                    <button className="button">
                         NEW ORDER &ensp;
                         <FaIcons.FaShare />
                     </button>

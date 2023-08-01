@@ -16,13 +16,13 @@ export default function Reporting() {
 
 	const [show, toggleShow] = useState(true);
 
-	const labels = ["In-stock", "Out-of-Stock"];
+	const labels = ["In-stock", "Out-of-Stock", "Future Stock", "Predicted Loss", "Future Growth"];
 
 	const data = {
 		labels: labels,
 		datasets: [{
 			label: 'Test',
-			data: [10, 8],
+			data: [10, 8, 13, 4, 20],
 			backgroundColor: [
 				'#007bff', // blue
 				'#FF0000', // red
@@ -44,6 +44,7 @@ export default function Reporting() {
 
 	return (
 		<>
+			<br/><br/>
 			<div className='header'>
 				<h1>Report Filters</h1>
 				<button onClick= {() => toggleShow(!show)} className='button'> GENERATE REPORT</button>
@@ -51,11 +52,11 @@ export default function Reporting() {
 			<div className='content'>
 				<table>
 					<tr>
-						<td>
+						<td className='filterData'>
 							<h3>Report Type</h3>
 							<DropDown/>
 						</td>
-						<td>
+						<td className='filterData'>
 							<h3>Report Name</h3>
 							<input type='text' placeholder='General Report...'/>
 						</td>

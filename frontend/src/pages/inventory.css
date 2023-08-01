@@ -1,29 +1,35 @@
+.input[text]{
+    width: 120px;
+    height: 40px;
+    padding: 10px;
+}
 .component h3 {
     width: 100px;
     margin-left: 10px;
     text-align: end;
 }
 
-input[text] {
-    padding: 10px;
-}
-
 .filterRow {
     display: flex;
+    text-align: end;
+}
+
+.filterRow h3 {
+    width: 130px;
+    text-align: end;
+}
+
+.rowButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 50px;
 }
 
 .applyFilterButton {
-    display: flex;
-
+    border-radius: 30px;
     width: 150px;
     color: #1A1D21;
-    text-align: center;
-    font-family: Roboto;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    font-variant: all-small-caps;
 }
 
 .inventoryTable {

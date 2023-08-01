@@ -3,6 +3,12 @@ input[text] {
     height: 40px;
 }
 
+.filterData {
+    float: left;
+    border: none;
+    margin-left: 60px;
+}
+
 .filterRows {
     display: flex;
     padding: 5px;
@@ -31,21 +37,12 @@ input[text] {
     height: 500px;
 }
 
-
 .anotherItemButton {
     margin-left: 250px;
-    margin-top: 30px;
+    margin-top: 40px;
     width: 130px;
     background-color: white;
     color: blue;
-}
-
-.button {
-    width: 180px;
-    height: 40px;
-    transform: translateY(10%);
-    border-radius: 30px;
-    color: black;
 }
 
 .reportingTable {
@@ -53,4 +50,8 @@ input[text] {
     width: 97%;
     justify-content: space-between;
     border-collapse: collapse;
+}
+
+.reportingTable td {
+    border: none;
 }
