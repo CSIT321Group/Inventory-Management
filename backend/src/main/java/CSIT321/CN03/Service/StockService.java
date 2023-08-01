@@ -21,4 +21,8 @@ public class StockService {
     public List<Stock> getAllStock() {
         return stockRepository.findAll();
     }
+
+    public List<Stock> search(String searchText) {
+        return stockRepository.search(searchText);
+    }
 }
