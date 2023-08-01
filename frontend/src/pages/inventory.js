@@ -5,7 +5,9 @@ import './inventory.css';
 const Inventory = () => {
     return (
         <>
-            <h1>Table Filters</h1>
+            <div className='header'>
+                <h1>Table Filters</h1>
+            </div>
             <div className='content'>
                 <table>
                     <tr className='filterRow'>
@@ -24,10 +26,14 @@ const Inventory = () => {
                         <h3> Location: &ensp;</h3>
                         <input type='text' />
                     </tr>
+                    <tr className='rowButton'>
+                        <button className='applyFilterButton'>APPLY FILTERS</button>
+                    </tr>
                 </table>
             </div>
-            <button className='applyFilterButton'>APPLY FILTERS</button>
-            <h1>Inventory Table</h1>
+            <div className='header'>  
+                <h1>Inventory Table</h1>
+            </div>
             <div className='content'>
                 <div>
                     <table className='inventoryTable'>
