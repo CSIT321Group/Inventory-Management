@@ -27,4 +27,9 @@ public class StaffController {
     public List<StaffMember> getAllStaffMembers() {
         return staffService.getAllStaffMembers();
     }
+
+    @GetMapping(path = "/search/{searchText}")
+    public List<StaffMember> searchStaffMembers(@PathVariable String searchText) {
+        return staffService.searchStaffMembers(searchText);
+    }
 }
