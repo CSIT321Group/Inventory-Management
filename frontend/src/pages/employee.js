@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './pageLayout.css';
-// import { useEffect, useState } from 'react';
 import './employee.css';
 import * as FaIcons from 'react-icons/fa';
 import { IconContext } from 'react-icons';   
-// import axios from 'axios';          
+import axios from 'axios';          
 
 export default function Employee() {
-    // const [staff, setStaff] = useState(null);
-    // const baseURL = 'http://localhost:8080/api/staff/1';
+    const [employees, setEmployees] = useState([]);
+    const [searchInput, setSearchInput] = useState('');
+    const [getAllEmployees, setGetAllEmployees] = useState(true);
 
-    // useEffect(() => {
-    //     axios.get(baseURL).then((response) => {
-    //         setStaff(response.data);
-    //     });
-    // }, []);
+    const searchEmployees = async (searchText) => {
+        const result = await axios.get('http://localhost:8080/api/staff/search/${searchText}');
+        setEmployees(result.data);
+    }
+
+    const fetchAllEmployees = async () => {
+        const result = await axios.get('http:://localhost:8080/api/staff');
+        setEmployees(result.data);
+    }
+
+    const handleApplyFilters = (event) => {
+        event.preventDefault();
+        if(searchInput) {
+            searchEmployees(searchInput);
+        } else {
+            fetchAllEmployees();
+        }
+    }
 
     return (
         <>
@@ -28,7 +41,14 @@ export default function Employee() {
                         <table className="filterTable">
                             <tr>
                                 <td className="filterCols">
-                                    <input className="searchInput" type="text" placeholder="Search"/>
+                                    <input className="searchInput" 
+                                    type="text" 
+                                    placeholder="Search"
+                                    value={searchInput}
+                                    onChange={e => {
+                                        setSearchInput(e.target.value);
+                                        setGetAllEmployees(!e.target.value);
+                                    }}/>
                                 </td>
                                 <td className="filterCols">
                                     <label htmlFor="Position"><h3>Position</h3></label>
@@ -44,7 +64,7 @@ export default function Employee() {
                                     Level 4<input type="checkbox" value="level-4"/><br/>
                                 </td>
                                 <td className='filterButton'>
-                                    <button className='applyButton'>APPLY FILTERS</button>
+                                    <button className='applyButton' onClick={handleApplyFilters}>APPLY FILTERS</button>
                                 </td>
                             </tr>
                         </table>
@@ -53,7 +73,46 @@ export default function Employee() {
             </div>
             <br/><br/>
             <IconContext.Provider value={{color: 'black'}}>
-            <div className='header'>
+                {employees.length > 0 && (
+                    <>
+                        <div className='header'>
+                            <h1>Employees Table</h1>
+                        </div>
+                        <div className='content'>
+                            <div>
+                                <table className='employeeTable'>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Full Name</th>
+                                        <th>Position</th>
+                                        <th>Permissions</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    {
+                                        employees.map((employee) => (
+                                            <tr key={employee.id}>
+                                                <td>{employee.id}</td>
+                                                <td>{employee.first_name + " " + employee.last_name}</td>
+                                                <td>Position Placeholder</td>
+                                                <td>{employee.authorities.map((auth) => auth.authority).join(', ')}</td>
+                                                <td>
+                                                    <button className='actionButtons'>
+                                                        <FaIcons.FaEdit />
+                                                    </button>
+                                                    |
+                                                    <button className='actionButtons'>
+                                                        <FaIcons.FaShare/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </>
+                )}
+            {/* <div className='header'>
                 <h1>Employees Table</h1>
             </div>
             <div className="content">
@@ -98,7 +157,7 @@ export default function Employee() {
                         </tr>
                     </table>
                 </div> 
-            </div> 
+            </div>  */}
             </IconContext.Provider>
         </>
     );
