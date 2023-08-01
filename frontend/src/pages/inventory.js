@@ -9,27 +9,41 @@ const Inventory = () => {
                 <h1>Table Filters</h1>
             </div>
             <div className='content'>
-                <table>
-                    <tr className='filterRow'>
-                        <h3>SKU: &ensp;</h3>
-                        <input type='text' />
-                        <h3>Category: &ensp;</h3>
-                        <input type='text' />
-                        <h3> Supplier: &ensp;</h3>
-                        <input type='text' />
-                    </tr>
-                    <tr className='filterRow'>
-                        <h3>Name: &ensp;</h3>
-                        <input type='text' />
-                        <h3>Last Update: &ensp;</h3>
-                        <input type='text' />
-                        <h3> Location: &ensp;</h3>
-                        <input type='text' />
-                    </tr>
-                    <tr className='rowButton'>
-                        <button className='applyFilterButton'>APPLY FILTERS</button>
-                    </tr>
-                </table>
+                <form>
+                    <table className='inventoryFilterTable'>
+                        <tr className='filterRow'>
+                            <td>
+                                <h3>SKU: &ensp;</h3>
+                                <input type="text" />
+                            </td>
+                            <td>
+                                <h3>Category: &ensp;</h3>
+                                <input type="text" />
+                            </td>
+                            <td>
+                                <h3> Supplier: &ensp;</h3>
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr className='filterRow'>
+                            <td>
+                                <h3>Name: &ensp;</h3>
+                                <input type="text" />
+                            </td>
+                            <td>
+                                <h3>Last Update: &ensp;</h3>
+                                <input type="text" />
+                            </td>
+                            <td>
+                                <h3> Location: &ensp;</h3>
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr className='rowButton'>
+                            <button className='applyFilterButton'>APPLY FILTERS</button>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <div className='header'>  
                 <h1>Inventory Table</h1>
