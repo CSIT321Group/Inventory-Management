@@ -19,4 +19,6 @@ public class StaffService {
     public List<StaffMember> getAllStaffMembers() {
         return staffMemberRepository.findAll();
     }
+
+    public List<StaffMember> searchStaffMembers(String searchText) { return staffMemberRepository.search(searchText); }
 }
