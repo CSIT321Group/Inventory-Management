@@ -2,6 +2,8 @@ package CSIT321.CN03;
 
 import CSIT321.CN03.Model.*;
 import CSIT321.CN03.Repository.*;
+import CSIT321.CN03.Service.StockService;
+import CSIT321.CN03.Service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +29,10 @@ public class PrototypeApplication {
 	private ConsumablesRepository consumablesRepository;
 	@Autowired
 	private EquipmentRepository equipmentRepository;
+	@Autowired
+	private StockService stockService;
+	@Autowired
+	private SupplierService supplierService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PrototypeApplication.class, args);
@@ -116,6 +122,22 @@ public class PrototypeApplication {
 			e.setUnit_price(455);
 			e.setStock_quantity(12);
 			equipmentRepository.save(e);
+
+			Supplier supplier = new Supplier();
+			supplier.setSupplierName("Supplier 1");
+			supplier.setSupplier_address("Supplier 1 address");
+			supplier.setSupplier_contact("Supplier 1 contact");
+			supplier = supplierService.saveSupplier(supplier);
+
+			// assign stocks to supplier
+			Stock stock1 = stockService.getStockById(1L);
+			Stock stock2 = stockService.getStockById(2L);
+			Stock stock3 = stockService.getStockById(3L);
+
+			stockService.assignSupplierToStock(1L, supplier.getId());
+			stockService.assignSupplierToStock(2L, supplier.getId());
+			stockService.assignSupplierToStock(3L, supplier.getId());
+
 
 			// Outputs for testing
 			System.out.println(admin.getUsername());

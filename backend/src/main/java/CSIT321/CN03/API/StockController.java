@@ -4,6 +4,7 @@ import CSIT321.CN03.Model.Stock;
 import CSIT321.CN03.Service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,5 +31,11 @@ public class StockController {
     @GetMapping("/search/{searchText}")
     public List<Stock> search(@PathVariable String searchText) {
         return stockService.search(searchText);
+    }
+
+    @PutMapping("/{stockId}/supplier/{supplierId}")
+    public ResponseEntity<Stock> assignSupplierToStock(@PathVariable Long stockId, @PathVariable Long supplierId) {
+        Stock stock = stockService.assignSupplierToStock(stockId, supplierId);
+        return ResponseEntity.ok(stock);
     }
 }
