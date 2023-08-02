@@ -11,12 +11,12 @@ export default function Employee() {
     const [getAllEmployees, setGetAllEmployees] = useState(true);
 
     const searchEmployees = async (searchText) => {
-        const result = await axios.get('http://localhost:8080/api/staff/search/${searchText}');
+        const result = await axios.get(`http://localhost:8080/api/staff/search/${searchText}`);
         setEmployees(result.data);
     }
 
     const fetchAllEmployees = async () => {
-        const result = await axios.get('http:://localhost:8080/api/staff');
+        const result = await axios.get('http://localhost:8080/api/staff');
         setEmployees(result.data);
     }
 
