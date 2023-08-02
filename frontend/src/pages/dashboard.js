@@ -1,10 +1,17 @@
 import React from 'react';
+import './pageLayout.css';
+import '../components/widget/widget';
  
 const Dashboard = () => {
     return (
-        <div>
-            <h1>Welcome to the Home page</h1>
-        </div>
+        <>
+            <div className='header'>
+                <h1>Dashboard</h1>
+            </div>
+            <div className='content'>
+
+            </div>
+        </>
     );
 };
  

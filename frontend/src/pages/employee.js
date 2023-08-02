@@ -162,52 +162,6 @@ export default function Employee() {
                         </div>
                     </>
                 )}
-            {/* <div className='header'>
-                <h1>Employees Table</h1>
-            </div>
-            <div className="content">
-                <div>
-                    <table className="employeeTable">
-                        <tr>
-                            <th>Employee ID</th>
-                            <th>Full Name</th>
-                            <th>Position</th>
-                            <th>Permissions</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>John Smith</td>
-                            <td>Warehouse Staff</td>
-                            <td>Access Level: 1</td>
-                            <td>
-                                <button className="actionButtons">
-                                    <FaIcons.FaEdit />
-                                </button>
-                                |
-                                <button className="actionButtons">
-                                    <FaIcons.FaShare />
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>654321</td>
-                            <td>Callum Murray</td>
-                            <td>Warehouse Manager</td>
-                            <td>Access Level: 3</td>
-                            <td>
-                                <button className="actionButtons">
-                                    <FaIcons.FaEdit />
-                                </button>   
-                                    |
-                                <button className="actionButtons">
-                                    <FaIcons.FaShare />
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </div> 
-            </div>  */}
             </IconContext.Provider>
         </>
     );
