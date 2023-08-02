@@ -1,6 +1,7 @@
 package CSIT321.CN03.Model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public abstract class Stock {
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Supplier supplier;
 
     private String stock_name;
