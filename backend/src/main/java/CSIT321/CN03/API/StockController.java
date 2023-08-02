@@ -26,4 +26,9 @@ public class StockController {
     public List<Stock> getAllStock() {
         return stockService.getAllStock();
     }
+
+    @GetMapping("/search/{searchText}")
+    public List<Stock> search(@PathVariable String searchText) {
+        return stockService.search(searchText);
+    }
 }

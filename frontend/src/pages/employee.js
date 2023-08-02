@@ -16,7 +16,7 @@ export default function Employee() {
     }
 
     const fetchAllEmployees = async () => {
-        const result = await axios.get('http:://localhost:8080/api/staff');
+        const result = await axios.get('http://localhost:8080/api/staff');
         setEmployees(result.data);
     }
 
