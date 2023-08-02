@@ -1,6 +1,7 @@
 import React from 'react'
-import "./widget.scss";
+
 import { Grading, KeyboardArrowUp, PersonOutlined, ShoppingCartOutlined, Warehouse } from '@mui/icons-material';
+import "../widget/widget.scss"
 
 const Widget =({type}) => {
     let data;
