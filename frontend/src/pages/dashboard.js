@@ -1,18 +1,15 @@
-import React from 'react';import "./dashboard.scss";
+import React from 'react';
 import Widget from '../pages/widget/widget';
 import Chart from '../pages/chart/Chart';
 import Featured from '../pages/featured/Featured';
 import Table from '../pages/table/Table';
-
+import "../pages/dashboard.scss"
  
 const Dashboard = () => {
     return (
         <>
-			<div className='header'>
+			<div className='headings'>
 				<h1>Quick View</h1>
-			</div>
-			<div className='content'>
-
 			</div>
 			<div className="widgets">
 				<div className="bestSeller"> <Widget type="BestSeller"/></div>

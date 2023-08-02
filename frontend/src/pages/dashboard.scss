@@ -1,27 +1,23 @@
-.home{
-    display:flex;
-    .homeContainer{
-        
-        flex: 6;
-        .headings{
-            display:flex;
-            width:10px;
-            height:15px;
-            border-radius: 5px;
-            font-size:small;
-            gap:30px;
-            margin:25px;
-            margin-bottom: 30px;
+.headings{
+        margin-top: 50px;
+        margin-left: 250px;
+        margin-right: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         }
         .widgets{
+            margin-left: 250px;
+            margin-right: 50px;
+            justify-content: space-evenly;
             display: flex;
-            padding:15px;
-            -webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
-            box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
+            padding:10px;
+            -webkit-box-sizing: 2px 4px 9px 1px rgba(0,0,0,0.47);
+            box-shadow: 2px 4px 9px 1px rgba(201,201,201,0.47);
             border-radius:10px ;
-            gap: 60px;
+            gap: 50px;
             background-color: rgb(203, 203, 203);   
-            width:max-content;
+            width:fit-content;
             //box-sizing: border-box;
             .bestSeller{
                 background-color: rgb(156, 255, 156);
@@ -38,21 +34,26 @@
             }
         }
         .charts{
-            display:flex;
-            padding:20px;
-            gap:20px;
-            padding: 5px 20px;  
+            margin-left: 240px;
+            margin-right: 50px;
+            justify-content: space-evenly;
+            display: flex;
+            padding:10px;
+            gap:50px;
+            //padding: 5px 20px;  
         }
         .listContainer{
-            padding:15px;
+            margin-top:50px;
+            margin-left: 250px;
+            margin-right: 50px;
+            justify-content: space-evenly;
+            display: flex;
+            padding:10px;
             -webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
             box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
-            margin:20px;
         }
         .listTitle{
             font-weight: 500;
+            display:flex;
             color: gray;
-            margin-bottom: 15px;
         }
-    }
-}
