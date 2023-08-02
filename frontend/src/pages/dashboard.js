@@ -1,8 +1,8 @@
 import React from 'react';import "./dashboard.scss";
-import Widget from '../components/widget/widget';
-import Chart from '../components/chart/Chart';
-import Featured from '../components/featured/Featured';
-import Table from '../components/table/Table';
+import Widget from '../pages/widget/widget';
+import Chart from '../pages/chart/Chart';
+import Featured from '../pages/featured/Featured';
+import Table from '../pages/table/Table';
 
  
 const Dashboard = () => {
