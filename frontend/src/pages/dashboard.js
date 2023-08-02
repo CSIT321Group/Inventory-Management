@@ -1,7 +1,7 @@
 import React from 'react';import "./dashboard.scss";
 import Widget from '../pages/widget/widget';
 import Chart from '../pages/chart/Chart';
-import Featured from '../pages/featured/Featured';
+import Featured from '../components/featured/Featured';
 import Table from '../pages/table/Table';
 
  
