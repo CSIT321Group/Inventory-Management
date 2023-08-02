@@ -1,0 +1,58 @@
+.home{
+    display:flex;
+    .homeContainer{
+        
+        flex: 6;
+        .headings{
+            display:flex;
+            width:10px;
+            height:15px;
+            border-radius: 5px;
+            font-size:small;
+            gap:30px;
+            margin:25px;
+            margin-bottom: 30px;
+        }
+        .widgets{
+            display: flex;
+            padding:15px;
+            -webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
+            border-radius:10px ;
+            gap: 60px;
+            background-color: rgb(203, 203, 203);   
+            width:max-content;
+            //box-sizing: border-box;
+            .bestSeller{
+                background-color: rgb(156, 255, 156);
+                
+            }
+            .lowStock{
+                background-color: red;
+            }
+            .inStock{
+                background-color: rgb(5, 204, 5);
+            }
+            .outOrder{
+                background-color: rgb(161, 161, 253);
+            }
+        }
+        .charts{
+            display:flex;
+            padding:20px;
+            gap:20px;
+            padding: 5px 20px;  
+        }
+        .listContainer{
+            padding:15px;
+            -webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
+            margin:20px;
+        }
+        .listTitle{
+            font-weight: 500;
+            color: gray;
+            margin-bottom: 15px;
+        }
+    }
+}
