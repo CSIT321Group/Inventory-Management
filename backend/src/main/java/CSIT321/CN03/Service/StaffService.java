@@ -2,6 +2,7 @@ package CSIT321.CN03.Service;
 
 import CSIT321.CN03.Model.StaffMember;
 import CSIT321.CN03.Repository.StaffMemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,8 @@ public class StaffService {
     @Autowired
     private StaffMemberRepository staffMemberRepository;
     public StaffMember getStaffMemberById(Long id) {
-        return staffMemberRepository.findById(id).orElse(null);
+
+        return staffMemberRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Staff member not found with id: " + id));
     }
 
     public List<StaffMember> getAllStaffMembers() {

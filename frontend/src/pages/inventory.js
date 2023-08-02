@@ -19,12 +19,23 @@ const Inventory = () => {
 
             try {
                 const response = await axios.get(endpoint);
-                const updatedData = response.data.map(item => {
+                const updatedData = await Promise.all(response.data.map(async item => {
+                    // fetch supplier details
+                    let supplierName = "Placeholder";
+                    if (typeof item.supplier === 'number') {  // check if supplier is an ID
+                        try {
+                            const supplierResponse = await axios.get(`http://localhost:8080/api/supplier/${item.supplier}`);
+                            supplierName = supplierResponse.data.supplierName;
+                        } catch(error) {
+                            console.error(`Error fetching supplier details: ${error}`);
+                        }
+                    }
+
                     return {...item,
                         stockRoom: item.stockRoom || "Placeholder",
-                        supplier: item.supplier || "Placeholder",
+                        supplier: supplierName,
                         totalValue: `$${item.unit_price * item.stock_quantity}`};
-                });
+                }));
                 setData(updatedData);
             } catch(error) {
                 console.error(`Error fetching data: ${error}`);
