@@ -1,12 +1,5 @@
-.home{
-    display:flex;
-    .homeContainer{
-        
-        flex: 6;
-        .headings{
+.headings{
             display:flex;
-            width:10px;
-            height:15px;
             border-radius: 5px;
             font-size:small;
             gap:30px;
@@ -15,7 +8,7 @@
         }
         .widgets{
             display: flex;
-            padding:15px;
+            padding:10px;
             -webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
             box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
             border-radius:10px ;
@@ -54,5 +47,3 @@
             color: gray;
             margin-bottom: 15px;
         }
-    }
-}
