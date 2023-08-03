@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function Employee() {
     const [employees, setEmployees] = useState([]);
     const [searchInput, setSearchInput] = useState('');
-    const [getAllEmployees, setGetAllEmployees] = useState(true);
+    const [setGetAllEmployees] = useState(true);
 
     const searchEmployees = async (searchText) => {
         const result = await axios.get(`http://localhost:8080/api/staff/search/${searchText}`);

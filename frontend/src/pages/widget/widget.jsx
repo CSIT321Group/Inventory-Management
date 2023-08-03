@@ -38,7 +38,7 @@ const Widget =({type}) => {
                 data={
                     title:"Out",
                     isMoney:true,
-                    link:"view sales order",
+                    link:"View sales order",
                     icon:<Grading className="icon" style={{color:"white", backgroundColor:"grey",}}/>,
 
                 };

@@ -1,7 +1,7 @@
 import React from "react";
 import "./chart.scss"
 
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
     {
@@ -47,26 +47,25 @@ const Chart =() => {
         <div className="chart">
             <div className="title"> Last couple years revenue</div>
             <ResponsiveContainer width="100%" aspect={2/1}>
-<BarChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Revenue" fill="#82ca9d" />
-        </BarChart>
-        </ResponsiveContainer>
-
+			<BarChart
+				width={500}
+				height={300}
+				data={data}
+				margin={{
+					top: 5,
+					right: 30,
+					left: 20,
+					bottom: 5,
+				}}
+        	>
+			<CartesianGrid strokeDasharray="3 3" />
+			<XAxis dataKey="name" />
+			<YAxis />
+			<Tooltip />
+			<Legend />
+			<Bar dataKey="Revenue" fill="#82ca9d" />
+			</BarChart>
+			</ResponsiveContainer>
         </div>
     )
 };

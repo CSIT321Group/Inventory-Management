@@ -6,13 +6,13 @@ import "react-circular-progressbar/dist/styles.css";
 
 
 const Featured =() => {
-    const data =[
-        {name:'pipe',vlaue:20},
-        {name:'water cleaner',value:120},
-        {name:'clorine',value:220},
-        {name:'water pumps',value:205},
+    // const data =[
+    //     {name:'pipe',vlaue:20},
+    //     {name:'water cleaner',value:120},
+    //     {name:'clorine',value:220},
+    //     {name:'water pumps',value:205},
 
-    ]
+    // ]
 
     return(
         <div className="featured"> 
