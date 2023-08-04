@@ -12,7 +12,8 @@ input[type=text]{
 
 .filterRow {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    width: 80%;
 }
 
 .filterRow h3 {
@@ -24,6 +25,10 @@ input[type=text]{
 }
 .filterRow td {
     border: none;
+    display: flex;
+}
+
+.filterRowDiv{
     display: flex;
 }
 

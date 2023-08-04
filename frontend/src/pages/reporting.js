@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './pageLayout.css';
 import './reporting.css';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
 import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 
 export default function Reporting() {
 	Chart.register(

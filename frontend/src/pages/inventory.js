@@ -56,22 +56,34 @@ const Inventory = () => {
                 <h1>Table Filters</h1>
             </div>
             <div className='content'>
-                <table>
+                <table className='inventoryFilterTable'>
                     <tr className='filterRow'>
-                        <h3>SKU: &ensp;</h3>
-                        <input type='text' value={skuSearch} onChange={(e) => setSkuSearch(e.target.value)} />
-                        <h3>Category: &ensp;</h3>
-                        <input type='text' />
-                        <h3>Supplier: &ensp;</h3>
-                        <input type='text' />
+                        <div className='filterRowDiv'>
+                            <h3>SKU: &ensp;</h3>
+                            <input type='text' value={skuSearch} onChange={(e) => setSkuSearch(e.target.value)} />
+                        </div>
+                        <div className='filterRowDiv'>
+                            <h3>Category: &ensp;</h3>
+                            <input type='text' />
+                        </div>
+                        <div  className='filterRowDiv'>
+                            <h3>Supplier: &ensp;</h3>
+                            <input type='text' />
+                        </div>
                     </tr>
                     <tr className='filterRow'>
-                        <h3>Name: &ensp;</h3>
-                        <input type='text' value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} />
-                        <h3>Last Update: &ensp;</h3>
-                        <input type='text' />
-                        <h3>Location: &ensp;</h3>
-                        <input type='text' />
+                        <div className='filterRowDiv'>
+                            <h3>Name: &ensp;</h3>
+                            <input type='text' value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} />
+                        </div>
+                        <div className='filterRowDiv'>
+                            <h3>Last Update: &ensp;</h3>
+                            <input type='text' />
+                        </div>
+                        <div className='filterRowDiv'>
+                            <h3>Location: &ensp;</h3>
+                            <input type='text' />
+                        </div>
                     </tr>
                     <tr className='rowButton'>
                         <button className='applyFilterButton' onClick={handleFilterClick}>APPLY FILTERS</button>
