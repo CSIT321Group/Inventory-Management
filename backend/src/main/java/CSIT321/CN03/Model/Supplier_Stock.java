@@ -1,5 +1,6 @@
 package CSIT321.CN03.Model;
 
+import CSIT321.CN03.Model.Stock.Stock;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

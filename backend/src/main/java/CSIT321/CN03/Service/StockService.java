@@ -1,6 +1,6 @@
 package CSIT321.CN03.Service;
 
-import CSIT321.CN03.Model.Stock;
+import CSIT321.CN03.Model.Stock.Stock;
 import CSIT321.CN03.Model.Supplier;
 import CSIT321.CN03.Repository.StockRepository;
 import jakarta.persistence.EntityNotFoundException;

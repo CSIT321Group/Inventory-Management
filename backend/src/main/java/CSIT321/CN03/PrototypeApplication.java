@@ -1,13 +1,19 @@
 package CSIT321.CN03;
 
 import CSIT321.CN03.Model.*;
+import CSIT321.CN03.Model.Enums.Stockroom_Type;
+import CSIT321.CN03.Model.StockRoom.*;
 import CSIT321.CN03.Repository.*;
+import CSIT321.CN03.Service.DataInitialisation.*;
 import CSIT321.CN03.Service.StockService;
 import CSIT321.CN03.Service.SupplierService;
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -17,134 +23,34 @@ import java.util.HashSet;
 import java.util.List;
 
 @SpringBootApplication
+@EnableCaching
 public class PrototypeApplication {
 
+
 	@Autowired
-	private StaffMemberRepository staffMemberRepository;
+	private WarehouseInitializationService warehouseInitializationService;
+
 	@Autowired
-	private WarehouseRepository warehouseRepository;
+	private StaffInitializationService staffInitializationService;
+
 	@Autowired
-	private RawMaterialRepository rawMaterialRepository;
+	private RoleInitializationService roleInitializationService;
 	@Autowired
-	private ConsumablesRepository consumablesRepository;
+	private SupplierInitializationService supplierInitializationService;
 	@Autowired
-	private EquipmentRepository equipmentRepository;
-	@Autowired
-	private StockService stockService;
-	@Autowired
-	private SupplierService supplierService;
+	private StockInitializationService stockInitializationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PrototypeApplication.class, args);
 	}
 
-	//Add a new Staffmember everytime the program is executed for testing purposes
-	@Bean
-	public CommandLineRunner run(BCryptPasswordEncoder encoder, RoleRepository roleRepository, PermissionRepository permissionRepository) {
-		return args -> {
-			Warehouse warehouse = new Warehouse();
-			warehouse.setWarehouse_Name("Main Warehouse");
-			warehouse.setWarehouse_Address("123 Fake Street");
-			warehouseRepository.save(warehouse);
-
-
-			// create permissions
-			Permission inventoryPermission = new Permission();
-			inventoryPermission.setName("Inventory");
-			permissionRepository.save(inventoryPermission);
-
-			Permission orderPermission = new Permission();
-			orderPermission.setName("Order");
-			permissionRepository.save(orderPermission);
-
-			Permission reportingPermission = new Permission();
-			reportingPermission.setName("Reporting");
-			permissionRepository.save(reportingPermission);
-
-			Permission empInfoPermission = new Permission();
-			empInfoPermission.setName("EmployeeInfo");
-			permissionRepository.save(empInfoPermission);
-
-			// create a role and assign permissions
-			Role userRole = new Role();
-			userRole.setName("ROLE_USER");
-			userRole.setPermissions(new HashSet<>(Arrays.asList(inventoryPermission, orderPermission)));
-			roleRepository.save(userRole);
-
-			// create a staff member and assign the role
-			StaffMember staffMember = new StaffMember();
-			staffMember.setUserName("ba449");
-			staffMember.setFirst_name("Brendan");
-			staffMember.setLast_name("Alderton");
-			staffMember.setWarehouse(warehouseRepository.findById(1L).orElse(null));
-			staffMember.setPassword(encoder.encode("password"));
-			staffMember.setRoles(new HashSet<>(Collections.singletonList(userRole)));
-			staffMemberRepository.save(staffMember);
-			staffMember = staffMemberRepository.findByUserName("ba449");
-
-			System.out.println(staffMember.getUsername());
-			System.out.println(staffMember.getPassword());
-			System.out.println(staffMember.getId());
-
-			// Fetch all permissions
-			List<Permission> allPermissions = permissionRepository.findAll();
-
-			// Create admin role and assign all permissions
-			Role adminRole = new Role();
-			adminRole.setName("ROLE_ADMIN");
-			adminRole.setPermissions(new HashSet<>(allPermissions));
-			roleRepository.save(adminRole);
-
-			// Create a staff member and assign the admin role
-			StaffMember admin = new StaffMember();
-			admin.setUserName("admin");
-			admin.setFirst_name("Admin");
-			admin.setLast_name("Istrator");
-			admin.setWarehouse(warehouseRepository.findById(1L).orElse(null));
-			admin.setPassword(encoder.encode("password"));
-			admin.setRoles(new HashSet<>(Collections.singletonList(adminRole)));
-			staffMemberRepository.save(admin);
-
-			RawMaterial rm = new RawMaterial();
-			rm.setUnit_price(10.0);
-			rm.setStock_name("Raw Material Test");
-			rm.setStock_quantity(100);
-			rawMaterialRepository.save(rm);
-
-			Consumables c = new Consumables();
-			c.setStock_name("Consumable Test");
-			c.setStock_quantity(44);
-			c.setUnit_price(12.33);
-			consumablesRepository.save(c);
-
-			Equipment e = new Equipment();
-			e.setStock_name("Equipment Test");
-			e.setUnit_price(455);
-			e.setStock_quantity(12);
-			equipmentRepository.save(e);
-
-			Supplier supplier = new Supplier();
-			supplier.setSupplierName("Supplier 1");
-			supplier.setSupplier_address("Supplier 1 address");
-			supplier.setSupplier_contact("Supplier 1 contact");
-			supplier = supplierService.saveSupplier(supplier);
-
-			// assign stocks to supplier
-			Stock stock1 = stockService.getStockById(1L);
-			Stock stock2 = stockService.getStockById(2L);
-			Stock stock3 = stockService.getStockById(3L);
-
-			stockService.assignSupplierToStock(1L, supplier.getId());
-			stockService.assignSupplierToStock(2L, supplier.getId());
-			stockService.assignSupplierToStock(3L, supplier.getId());
-
-
-			// Outputs for testing
-			System.out.println(admin.getUsername());
-			System.out.println(admin.getPassword());
-			System.out.println(admin.getId());
-		};
+	@PostConstruct
+	public void init() {
+		roleInitializationService.initializeRolesAndPermissions();
+		warehouseInitializationService.initializeWarehouses();
+		supplierInitializationService.initializeSuppliers();
+		staffInitializationService.initializeStaffMembers();
+		stockInitializationService.initializeStocks();
 	}
-
 
 }

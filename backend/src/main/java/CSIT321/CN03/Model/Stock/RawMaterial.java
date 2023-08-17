@@ -1,5 +1,6 @@
-package CSIT321.CN03.Model;
+package CSIT321.CN03.Model.Stock;
 
+import CSIT321.CN03.Model.Stock.Stock;
 import jakarta.persistence.*;
 
 @Entity

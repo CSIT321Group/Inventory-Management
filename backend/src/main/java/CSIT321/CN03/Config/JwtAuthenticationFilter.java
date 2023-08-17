@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {  // Custom filter extending OncePerRequestFilter
 
     private final JwtUtil jwtUtil;  // JWT utility class
-    private final StaffMemberRepository staffMemberRepository ;  // Repository to query StaffMember data
+    private final StaffMemberRepository staffMemberRepository  ;  // Repository to query StaffMember data
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,

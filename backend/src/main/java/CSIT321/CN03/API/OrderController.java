@@ -1,0 +1,59 @@
+package CSIT321.CN03.API;
+
+import CSIT321.CN03.Model.Enums.Order_Status;
+import CSIT321.CN03.Model.Order.Order;
+import CSIT321.CN03.Service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api/order")
+public class OrderController {
+
+    @Autowired
+    private OrderService orderService;
+
+    @GetMapping("/{id}")
+    public Order getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
+    }
+
+    @GetMapping
+    public List<Order> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @PostMapping
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+        Order newOrder = orderService.createOrder(order);
+        return ResponseEntity.ok(newOrder);
+    }
+
+    @PutMapping("/{orderId}/supplier/{supplierId}")
+    public ResponseEntity<Order> assignSupplierToOrder(@PathVariable Long orderId, @PathVariable Long supplierId) {
+        Order order = orderService.assignSupplierToOrder(orderId, supplierId);
+        return ResponseEntity.ok(order);
+    }
+
+    @PutMapping("/{orderId}/status/supplier")
+    public ResponseEntity<Order> updateOrderStatusBySupplier(@PathVariable Long orderId, @RequestBody Order_Status status) {
+        Order order = orderService.updateOrderStatusBySupplier(orderId, status);
+        return ResponseEntity.ok(order);
+    }
+
+    @PutMapping("/{orderId}/status/warehouse")
+    public ResponseEntity<Order> updateOrderStatusByWarehouse(@PathVariable Long orderId, @RequestBody Order_Status status) {
+        Order order = orderService.updateOrderStatusByWarehouse(orderId, status);
+        return ResponseEntity.ok(order);
+    }
+
+    @PutMapping("/{orderId}/cancel")
+    public ResponseEntity<Order> cancelOrder(@PathVariable Long orderId) {
+        Order order = orderService.cancelOrder(orderId);
+        return ResponseEntity.ok(order);
+    }
+}

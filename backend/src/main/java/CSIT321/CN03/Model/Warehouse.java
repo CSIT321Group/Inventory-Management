@@ -1,5 +1,7 @@
 package CSIT321.CN03.Model;
 
+import CSIT321.CN03.Model.Order.Order;
+import CSIT321.CN03.Model.StockRoom.StockRoom;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,5 +43,9 @@ public class Warehouse {
     @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     private Set<Vehicle> vehicles = new LinkedHashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "warehouse")
+    private Set<Order> orders = new LinkedHashSet<>();
 
 }

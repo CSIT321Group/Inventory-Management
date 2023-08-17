@@ -1,6 +1,6 @@
 package CSIT321.CN03.API;
 
-import CSIT321.CN03.Model.Stock;
+import CSIT321.CN03.Model.Stock.Stock;
 import CSIT321.CN03.Service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
