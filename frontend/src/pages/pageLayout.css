@@ -2,7 +2,8 @@
     margin-left: 250px;
     margin-right: 50px;
     justify-content: space-evenly;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 4px 4px;
+    box-shadow: rgba(17, 17, 26, 0.1) 8px 8px 8px 8px;
+    border: 1px solid;
     border-radius: 30px;
     max-width: 2500px;
 }
