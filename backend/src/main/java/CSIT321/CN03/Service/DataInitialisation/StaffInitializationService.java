@@ -1,10 +1,10 @@
 package CSIT321.CN03.Service.DataInitialisation;
 
-import CSIT321.CN03.Model.Role;
-import CSIT321.CN03.Model.StaffMember;
+import CSIT321.CN03.Model.Employee.Role;
+import CSIT321.CN03.Model.Employee.StaffMember;
 import CSIT321.CN03.Model.Warehouse;
-import CSIT321.CN03.Repository.RoleRepository;
-import CSIT321.CN03.Repository.StaffMemberRepository;
+import CSIT321.CN03.Repository.Employee.RoleRepository;
+import CSIT321.CN03.Repository.Employee.StaffMemberRepository;
 import CSIT321.CN03.Repository.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

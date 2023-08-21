@@ -2,8 +2,7 @@ package CSIT321.CN03.Service.DataInitialisation;
 
 import CSIT321.CN03.Model.Stock.Stock;
 import CSIT321.CN03.Model.StockRoom.Position;
-import CSIT321.CN03.Repository.PositionRepository;
-import CSIT321.CN03.Repository.StockRepository;
+import CSIT321.CN03.Repository.StockRoom.PositionRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package CSIT321.CN03.Repository;
+package CSIT321.CN03.Repository.Employee;
 
-import CSIT321.CN03.Model.StaffMember;
+import CSIT321.CN03.Model.Employee.StaffMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

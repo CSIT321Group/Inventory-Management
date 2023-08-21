@@ -1,6 +1,6 @@
 package CSIT321.CN03.API;
 
-import CSIT321.CN03.Model.StaffMember;
+import CSIT321.CN03.Model.Employee.StaffMember;
 import CSIT321.CN03.Service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

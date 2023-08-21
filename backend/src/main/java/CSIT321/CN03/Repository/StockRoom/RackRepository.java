@@ -1,4 +1,4 @@
-package CSIT321.CN03.Repository;
+package CSIT321.CN03.Repository.StockRoom;
 
 import CSIT321.CN03.Model.StockRoom.Rack;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package CSIT321.CN03.Repository;
+package CSIT321.CN03.Repository.Order;
 
 import CSIT321.CN03.Model.Order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

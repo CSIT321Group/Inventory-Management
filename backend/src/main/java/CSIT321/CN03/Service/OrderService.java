@@ -4,7 +4,7 @@ import CSIT321.CN03.Model.Enums.Order_Status;
 import CSIT321.CN03.Model.Order.Order;
 import CSIT321.CN03.Model.Order.Order_Item;
 import CSIT321.CN03.Model.Supplier;
-import CSIT321.CN03.Repository.OrderRepository;
+import CSIT321.CN03.Repository.Order.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

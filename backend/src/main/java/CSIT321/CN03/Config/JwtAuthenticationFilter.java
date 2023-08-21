@@ -1,6 +1,6 @@
 package CSIT321.CN03.Config;
 
-import CSIT321.CN03.Repository.StaffMemberRepository;
+import CSIT321.CN03.Repository.Employee.StaffMemberRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;

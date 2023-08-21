@@ -4,14 +4,13 @@ import CSIT321.CN03.Model.Stock.*;
 import CSIT321.CN03.Model.StockRoom.Position;
 import CSIT321.CN03.Model.StockRoom.StockRoom;
 import CSIT321.CN03.Model.Supplier;
-import CSIT321.CN03.Repository.PositionRepository;
-import CSIT321.CN03.Repository.StockRepository;
-import CSIT321.CN03.Repository.StockRoomRepository;
+import CSIT321.CN03.Repository.StockRoom.PositionRepository;
+import CSIT321.CN03.Repository.Stock.StockRepository;
+import CSIT321.CN03.Repository.StockRoom.StockRoomRepository;
 import CSIT321.CN03.Repository.SupplierRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

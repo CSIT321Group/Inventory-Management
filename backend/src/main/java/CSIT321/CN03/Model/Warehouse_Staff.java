@@ -1,5 +1,6 @@
 package CSIT321.CN03.Model;
 
+import CSIT321.CN03.Model.Employee.StaffMember;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

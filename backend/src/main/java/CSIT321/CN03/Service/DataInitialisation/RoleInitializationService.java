@@ -1,9 +1,9 @@
 package CSIT321.CN03.Service.DataInitialisation;
 
-import CSIT321.CN03.Model.Permission;
-import CSIT321.CN03.Model.Role;
-import CSIT321.CN03.Repository.PermissionRepository;
-import CSIT321.CN03.Repository.RoleRepository;
+import CSIT321.CN03.Model.Employee.Permission;
+import CSIT321.CN03.Model.Employee.Role;
+import CSIT321.CN03.Repository.Employee.PermissionRepository;
+import CSIT321.CN03.Repository.Employee.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

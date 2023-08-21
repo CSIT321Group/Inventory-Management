@@ -1,5 +1,6 @@
 package CSIT321.CN03.Model;
 
+import CSIT321.CN03.Model.Employee.StaffMember;
 import CSIT321.CN03.Model.Order.Order;
 import CSIT321.CN03.Model.StockRoom.StockRoom;
 import com.fasterxml.jackson.annotation.JsonIgnore;

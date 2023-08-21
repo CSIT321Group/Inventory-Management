@@ -1,4 +1,4 @@
-package CSIT321.CN03.Model;
+package CSIT321.CN03.Model.Employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

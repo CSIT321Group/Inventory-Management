@@ -4,6 +4,7 @@ import CSIT321.CN03.Model.Enums.Stockroom_Type;
 import CSIT321.CN03.Model.StockRoom.*;
 import CSIT321.CN03.Model.Warehouse;
 import CSIT321.CN03.Repository.*;
+import CSIT321.CN03.Repository.StockRoom.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
