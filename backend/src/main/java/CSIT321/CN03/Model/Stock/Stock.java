@@ -1,7 +1,6 @@
 package CSIT321.CN03.Model.Stock;
 
-import CSIT321.CN03.Model.StockRoom.Position;
-import CSIT321.CN03.Model.StockRoom.StockRoom;
+import CSIT321.CN03.Model.StockRoom.*;
 import CSIT321.CN03.Model.Supplier;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -50,6 +49,8 @@ public abstract class Stock {
     @Column(insertable = false, updatable = false)
     private String stock_type;
 
+    private String location;
+
     public Stock() {
         DiscriminatorValue discriminatorValue = this.getClass().getAnnotation(DiscriminatorValue.class);
         if (discriminatorValue != null) {
@@ -67,5 +68,33 @@ public abstract class Stock {
         double z2 = other.position.getShelf().getId();
 
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
+    }
+
+    public String getLocation() {
+        if (position == null) {
+            return "Position not set for this stock";
+        }
+
+        Shelf shelf = position.getShelf();
+        if (shelf == null) {
+            return "Shelf not set for this stock's position";
+        }
+
+        Rack rack = shelf.getRack();
+        if (rack == null) {
+            return "Rack not set for this stock's shelf";
+        }
+
+        Aisle aisle = rack.getAisle();
+        if (aisle == null) {
+            return "Aisle not set for this stock's rack";
+        }
+
+        StockRoom stockRoom = aisle.getStockRoom();
+        if (stockRoom == null) {
+            return "StockRoom not set for this stock's aisle";
+        }
+
+        return String.format("SR%d|%s|%s|%s|%s", stockRoom.getId(), aisle.getAisleIdentifier(), rack.getRackIdentifier(),position.getShelf().getLevel(), position.getPositionIdentifier());
     }
 }
