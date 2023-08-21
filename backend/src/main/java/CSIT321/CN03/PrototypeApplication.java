@@ -39,6 +39,8 @@ public class PrototypeApplication {
 	private SupplierInitializationService supplierInitializationService;
 	@Autowired
 	private StockInitializationService stockInitializationService;
+	@Autowired
+	private OrderInitializationService orderInitializationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PrototypeApplication.class, args);
@@ -51,6 +53,7 @@ public class PrototypeApplication {
 		supplierInitializationService.initializeSuppliers();
 		staffInitializationService.initializeStaffMembers();
 		stockInitializationService.initializeStocks();
+		orderInitializationService.initializeOrders();
 	}
 
 }
