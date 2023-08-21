@@ -70,31 +70,26 @@ public abstract class Stock {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
     }
 
-    public String getLocation() {
-        if (position == null) {
-            return "Position not set for this stock";
+    public void setPosition(Position position) {
+        this.position = position;
+        if (position != null) {
+            this.location = generateLocation(position);
+        } else {
+            this.location = null;
         }
+    }
 
+    private String generateLocation(Position position) {
         Shelf shelf = position.getShelf();
-        if (shelf == null) {
-            return "Shelf not set for this stock's position";
-        }
-
         Rack rack = shelf.getRack();
-        if (rack == null) {
-            return "Rack not set for this stock's shelf";
-        }
-
         Aisle aisle = rack.getAisle();
-        if (aisle == null) {
-            return "Aisle not set for this stock's rack";
-        }
-
         StockRoom stockRoom = aisle.getStockRoom();
-        if (stockRoom == null) {
-            return "StockRoom not set for this stock's aisle";
-        }
 
-        return String.format("SR%d|%s|%s|%s|%s", stockRoom.getId(), aisle.getAisleIdentifier(), rack.getRackIdentifier(),position.getShelf().getLevel(), position.getPositionIdentifier());
+        return String.format("SR%s|%s|%s|%s|%s",
+                stockRoom.getId(),
+                aisle.getAisleIdentifier(),
+                rack.getRackIdentifier(),
+                shelf.getLevel(),
+                position.getPositionIdentifier());
     }
 }
