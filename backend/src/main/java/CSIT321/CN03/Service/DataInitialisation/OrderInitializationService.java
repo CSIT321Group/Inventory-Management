@@ -86,7 +86,6 @@ public class OrderInitializationService {
             } else {
                 order.setStatus(Order_Status.CANCELLED);
             }
-            System.out.println("Order " + x + " of " + newOrders.size() + " set.");
         }
 
         long startTime = System.currentTimeMillis();
