@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,82 +29,42 @@ public class StockInitializationService {
     private StockRoomRepository stockRoomRepository;
     @Autowired
     private PositionRepository positionRepository;
+    @Autowired
+    private WarehouseReportService warehouseReportService;
     private Set<Long> occupiedPositions = new HashSet<>();
     private Queue<Position> availablePositionsQueue = new LinkedList<>();
+    private List<Stock> temporaryStorage = new ArrayList<>();
+    private Map<String, Position> lastPlacedPositionOfType = new HashMap<>();
+
 
 
     public void initializeStocks() {
         log.info("Initializing stocks...");
+
         Supplier supplierA = supplierRepository.findBySupplierName("SupplierA");
         StockRoom stockRoom1 = stockRoomRepository.findByName("Stock Room 1");
         StockRoom stockRoom2 = stockRoomRepository.findByName("Stock Room 2");
-        List<Position> allPositionsStockRoom1 = positionRepository.findAllByShelf_Rack_Aisle_StockRoom(stockRoom1);
-        List<Position> allPositionsStockRoom2 = positionRepository.findAllByShelf_Rack_Aisle_StockRoom(stockRoom2);
-        log.info("Number of positions in Stock Room 1: {}", allPositionsStockRoom1.size());
-        log.info("Number of positions in Stock Room 2: {}", allPositionsStockRoom2.size());
-        loadOccupiedPositions();
-
-        Set<Long> occupiedPositions = stockRepository.findAllOccupiedPositions();
 
         int itemsPerCategory = 48; // 192 total items divided by 4 categories
 
-        for (Position pos : allPositionsStockRoom1) {
-            if (!occupiedPositions.contains(pos.getId())) {
-                availablePositionsQueue.add(pos);
-                log.info("Total available positions in the queue after initialization: {}", availablePositionsQueue.size());
-
-            }
-        }
-        for (Position pos : allPositionsStockRoom2) {
-            if (!occupiedPositions.contains(pos.getId())) {
-                availablePositionsQueue.add(pos);
-                log.info("Total available positions in the queue after initialization: {}", availablePositionsQueue.size());
-
-            }
-        }
-
         for (int i = 0; i < itemsPerCategory; i++) {
-
-            if(availablePositionsQueue.isEmpty()) {
-                log.warn("No more available positions. Exiting loop.");
-                break;
-            }
-
-            Position positionConsumable = findNextAvailablePosition(stockRoom1);
-            if (positionConsumable == null) {
-                log.info("Stock Room 1 is full for ProductA-Consumable{}. Moving to Stock Room 2.", i);
-                positionConsumable = findNextAvailablePosition(stockRoom2);
-            }
-            log.info("Creating ProductA-Consumable{} in {}", i, positionConsumable.getShelf().getRack().getAisle().getStockRoom().getName());
-            createConsumable("ProductA-Consumable" + i, 100, supplierA, (positionConsumable.getShelf().getRack().getAisle().getStockRoom() != null ? positionConsumable.getShelf().getRack().getAisle().getStockRoom() : stockRoom1), positionConsumable, 10.5);
-
-            Position positionEquipment = findNextAvailablePosition(stockRoom1);
-            if (positionEquipment == null) {
-                log.info("Stock Room 1 is full for ProductB-Equipment{}. Moving to Stock Room 2.", i);
-                positionEquipment = findNextAvailablePosition(stockRoom2);
-            }
-            log.info("Creating ProductB-Equipment{} in {}", i, positionEquipment.getShelf().getRack().getAisle().getStockRoom().getName());
-            createEquipment("ProductB-Equipment" + i, 50, supplierA, (positionEquipment.getShelf().getRack().getAisle().getStockRoom() != null ? positionEquipment.getShelf().getRack().getAisle().getStockRoom() : stockRoom1), positionEquipment, 15.0);
-
-            Position positionRawMaterial = findNextAvailablePosition(stockRoom1);
-            if (positionRawMaterial == null) {
-                log.info("Stock Room 1 is full for ProductC-RawMaterial{}. Moving to Stock Room 2.", i);
-                positionRawMaterial = findNextAvailablePosition(stockRoom2);
-            }
-            log.info("Creating ProductC-RawMaterial{} in {}", i, positionRawMaterial.getShelf().getRack().getAisle().getStockRoom().getName());
-            createRawMaterial("ProductC-RawMaterial" + i, 75, supplierA, (positionRawMaterial.getShelf().getRack().getAisle().getStockRoom() != null ? positionRawMaterial.getShelf().getRack().getAisle().getStockRoom() : stockRoom1), positionRawMaterial, 20.0);
-
-            Position positionMachinery = findNextAvailablePosition(stockRoom1);
-            if (positionMachinery == null) {
-                log.info("Stock Room 1 is full for ProductD-Machinery{}. Moving to Stock Room 2.", i);
-                positionMachinery = findNextAvailablePosition(stockRoom2);
-            }
-            log.info("Creating ProductD-Machinery{} in {}", i, positionMachinery.getShelf().getRack().getAisle().getStockRoom().getName());
-            createMachinery("ProductD-Machinery" + i, 30, supplierA, (positionMachinery.getShelf().getRack().getAisle().getStockRoom() != null ? positionMachinery.getShelf().getRack().getAisle().getStockRoom() : stockRoom1), positionMachinery, 25.0);
+            // Create items but do not assign positions at this point.
+            createConsumable("ProductA-Consumable" + i, 100, supplierA, null, null, 10.5);
+            createEquipment("ProductB-Equipment" + i, 50, supplierA, null, null, 15.0);
+            createRawMaterial("ProductC-RawMaterial" + i, 75, supplierA, null, null, 20.0);
+            createMachinery("ProductD-Machinery" + i, 30, supplierA, null, null, 25.0);
         }
-        //occupiedPositions.clear();
-        System.out.println("Stocks Done");
+
+        // Call the optimizeStockPlacement method to handle the stock placement
+        optimizeStockPlacement();
+
+        reassignDisplacedStocks();
+
+        log.info("Stocks Done");
+        List<Stock> allStocks = stockRepository.findAll();
+        warehouseReportService.printAverageStockDistances(allStocks);
     }
+
 
     private void loadOccupiedPositions() {
         List<Stock> allStocks = stockRepository.findAll();
@@ -113,25 +74,110 @@ public class StockInitializationService {
         log.info("Loaded {} occupied positions.", occupiedPositions.size());
     }
 
-    public Position findNextAvailablePosition(StockRoom stockRoom) {
-        log.info("Searching for the next available position in {}", stockRoom.getName());
-        Position nextAvailablePosition = availablePositionsQueue.poll();
-        log.info("Polled position with ID: {} from availablePositionsQueue", nextAvailablePosition.getId());
-        if (nextAvailablePosition == null) {
-            return null; // Return null if no position is available.
+    public void optimizeStockPlacement() {
+        List<Stock> stocks = stockRepository.findAllOrderByStockType();
+
+        Map<String, List<Stock>> groupedStocks = stocks.stream()
+                .collect(Collectors.groupingBy(Stock::getStockType));
+
+        for (Map.Entry<String, List<Stock>> entry : groupedStocks.entrySet()) {
+            List<Stock> stockTypeGroup = entry.getValue();
+            for (Stock stock : stockTypeGroup) {
+                Position position = positionRepository.findFirstByIsOccupiedFalse();
+                if (position != null) {
+                    position.setIsOccupied(true);
+                    stock.setPosition(position);
+                    stock.setStockRoom(position.getShelf().getRack().getAisle().getStockRoom());
+                    // Save updated entities
+                    positionRepository.save(position);
+                    stockRepository.save(stock);
+                }
+            }
+        }
+    }
+
+    public Position findNextAvailablePosition(StockRoom stockRoom, String stockType) {
+        log.info("Searching for the next available position in {} for stock type {}", stockRoom.getName(), stockType);
+
+        Position startPosition = lastPlacedPositionOfType.getOrDefault(stockType, null);
+        if (startPosition == null) {
+            startPosition = availablePositionsQueue.peek();
         }
 
+        Position nextAvailablePosition = getNextPositionFrom(startPosition);
+
+        log.info("Selected position with ID: {} for stock type {}",
+                (nextAvailablePosition != null ? nextAvailablePosition.getId() : "null"), stockType);
+
+        // Check if position is occupied and move stock to temporary storage if it is
+        if (isPositionOccupied(nextAvailablePosition)) {
+            Stock displacedStock = stockRepository.findByPosition(nextAvailablePosition);
+            temporaryStorage.add(displacedStock);
+            // Nullify the position of the displaced stock in the database
+            displacedStock.setPosition(null);
+            stockRepository.save(displacedStock);
+        }
+
+        // If the polled position's stock room doesn't match the desired one, return it to the queue
         if (!nextAvailablePosition.getShelf().getRack().getAisle().getStockRoom().equals(stockRoom)) {
             availablePositionsQueue.offer(nextAvailablePosition);  // Add back the position into the queue.
             return null;
         }
+        lastPlacedPositionOfType.put(stockType, nextAvailablePosition);
         return nextAvailablePosition;
     }
+
+    private Position getNextPositionFrom(Position startPosition) {
+        if (startPosition == null || !availablePositionsQueue.contains(startPosition)) {
+            // If startPosition is null or not in the availablePositionsQueue,
+            // then start from the beginning of the queue.
+            return availablePositionsQueue.poll();
+        }
+
+        // Convert queue to a list to iterate starting from a specific position
+        List<Position> positionList = new ArrayList<>(availablePositionsQueue);
+
+        int startIndex = positionList.indexOf(startPosition);
+
+        // Start searching from the startIndex
+        for (int i = startIndex; i < positionList.size(); i++) {
+            Position currentPosition = positionList.get(i);
+            if (!isPositionOccupied(currentPosition)) {
+                availablePositionsQueue.remove(currentPosition);  // Remove from the queue as it's being used
+                return currentPosition;
+            }
+        }
+
+        // If we haven't returned by this point, it means there's no available position
+        // after the given startPosition in the list. We'll need to loop from the start of the list.
+        for (int i = 0; i < startIndex; i++) {
+            Position currentPosition = positionList.get(i);
+            if (!isPositionOccupied(currentPosition)) {
+                availablePositionsQueue.remove(currentPosition);  // Remove from the queue as it's being used
+                return currentPosition;
+            }
+        }
+
+        return null;  // Return null if no position is available.
+    }
+
 
     public boolean isPositionOccupied(Position position) {
         boolean isOccupied = occupiedPositions.contains(position.getId());
         log.info("Position {} is occupied: {}", position.getId(), isOccupied);
         return isOccupied;
+    }
+
+    public void reassignDisplacedStocks() {
+        for (Stock displacedStock : temporaryStorage) {
+            Position newPosition = findNextAvailablePosition(displacedStock.getStockRoom(), displacedStock.getStock_type());
+            if (newPosition != null) {
+                displacedStock.setPosition(newPosition);
+                stockRepository.save(displacedStock);
+            } else {
+                // Handle cases where no new position is found. E.g., log a warning.
+            }
+        }
     }
 
     private Consumables createConsumable(String productName, int quantity, Supplier supplier, StockRoom stockRoom1, Position position, double unitPrice) {
@@ -188,7 +234,9 @@ public class StockInitializationService {
     }
 
     private void markPositionAsOccupied(Position position) {
-        position.setIsOccupied(true);
-        positionRepository.save(position); // Ensure the updated position is persisted
+        if(position != null) {
+            position.setIsOccupied(true);
+        }
     }
+
 }

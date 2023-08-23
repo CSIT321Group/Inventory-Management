@@ -14,6 +14,8 @@ import lombok.Setter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static CSIT321.CN03.Utils.WarehouseUtils.*;
+
 @Entity
 @Getter
 @Setter
@@ -58,18 +60,6 @@ public abstract class Stock {
         }
     }
 
-    public double distanceTo(Stock other) {
-        double x1 = this.stockRoom.getId();
-        double y1 = this.position.getId();
-        double z1 = this.position.getShelf().getId();
-
-        double x2 = other.stockRoom.getId();
-        double y2 = other.position.getId();
-        double z2 = other.position.getShelf().getId();
-
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
-    }
-
     public void setPosition(Position position) {
         this.position = position;
         if (position != null) {
@@ -77,6 +67,26 @@ public abstract class Stock {
         } else {
             this.location = null;
         }
+    }
+
+
+    public double distanceTo(Stock other) {
+        int stockRoomDist = 0, aisleDist = 0, rackDist = 0, shelfDist = 0;
+
+        if (!this.position.getShelf().getRack().getAisle().getStockRoom().getId().equals(
+                other.position.getShelf().getRack().getAisle().getStockRoom().getId())) {
+            stockRoomDist = STOCKROOM_WEIGHT;
+        } else if (!this.position.getShelf().getRack().getAisle().getId().equals(
+                other.position.getShelf().getRack().getAisle().getId())) {
+            aisleDist = AISLE_WEIGHT;
+        } else if (!this.position.getShelf().getRack().getId().equals(
+                other.position.getShelf().getRack().getId())) {
+            rackDist = RACK_WEIGHT;
+        } else {
+            shelfDist = SHELF_WEIGHT * Math.abs(this.position.getShelf().getLevel() - other.position.getShelf().getLevel());
+        }
+
+        return stockRoomDist + aisleDist + rackDist + shelfDist;
     }
 
     private String generateLocation(Position position) {
@@ -91,5 +101,13 @@ public abstract class Stock {
                 rack.getRackIdentifier(),
                 shelf.getLevel(),
                 position.getPositionIdentifier());
+    }
+
+    public String getStockType() {
+        DiscriminatorValue discriminatorValue = this.getClass().getAnnotation(DiscriminatorValue.class);
+        if (discriminatorValue != null) {
+            return discriminatorValue.value();
+        }
+        return null; // or throw an exception if this scenario is unexpected
     }
 }

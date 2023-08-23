@@ -30,6 +30,45 @@ public class WarehouseReportService {
         return stockTypeCounts;
     }
 
+    public void printStockDistances(List<Stock> allStocks) {
+        Map<String, Long> stockTypeCounts = allStocks.stream()
+                .collect(Collectors.groupingBy(s -> s.getStock_type(), Collectors.counting()));
+
+        for (String type : stockTypeCounts.keySet()) { // For every stock type
+            List<Stock> stocksOfType = allStocks.stream().filter(s -> s.getStock_type().equals(type)).collect(Collectors.toList());
+            for (int i = 0; i < stocksOfType.size(); i++) {
+                for (int j = i + 1; j < stocksOfType.size(); j++) {
+                    Stock stock1 = stocksOfType.get(i);
+                    Stock stock2 = stocksOfType.get(j);
+                    double distance = stock1.distanceTo(stock2);
+                    System.out.println("Distance between " + stock1.getStock_name() + " and " + stock2.getStock_name() + " = " + distance);
+                }
+            }
+        }
+    }
+
+    public void printAverageStockDistances(List<Stock> allStocks) {
+        Map<String, Long> stockTypeCounts = allStocks.stream()
+                .collect(Collectors.groupingBy(s -> s.getStock_type(), Collectors.counting()));
+
+        for (String type : stockTypeCounts.keySet()) { // For every stock type
+            List<Stock> stocksOfType = allStocks.stream().filter(s -> s.getStock_type().equals(type)).collect(Collectors.toList());
+            double totalDistance = 0.0;
+            int pairCount = 0;
+            for (int i = 0; i < stocksOfType.size(); i++) {
+                for (int j = i + 1; j < stocksOfType.size(); j++) {
+                    Stock stock1 = stocksOfType.get(i);
+                    Stock stock2 = stocksOfType.get(j);
+                    totalDistance += stock1.distanceTo(stock2);
+                    pairCount++;
+                }
+            }
+            double averageDistance = totalDistance / pairCount;
+            System.out.println("Average distance for stock type " + type + " = " + averageDistance);
+        }
+    }
+
+
     /**
      * This method provides a report on the distribution of stock types across stock rooms.
      */
@@ -88,24 +127,5 @@ public class WarehouseReportService {
         }
     }
 
-    public void printStockDistances(List<Stock> allStocks) {
-
-        Map<String, List<Stock>> stockTypeGroups = allStocks.stream()
-                .collect(Collectors.groupingBy(Stock::getStock_type));
-
-        stockTypeGroups.forEach((type, stocksOfType) -> {
-            List<Double> distances = new ArrayList<>();
-
-            for (int i = 0; i < stocksOfType.size(); i++) {
-                for (int j = i + 1; j < stocksOfType.size(); j++) {
-                    distances.add(stocksOfType.get(i).distanceTo(stocksOfType.get(j)));
-                }
-            }
-
-            double averageDistance = distances.stream().mapToDouble(Double::doubleValue).average().orElse(0);
-
-            System.out.println("Average distance between stocks of type " + type + " = " + averageDistance);
-        });
-    }
 
 }

@@ -19,6 +19,9 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     Stock findByPosition(Position position);
 
+    @Query("SELECT s FROM Stock s ORDER BY TYPE(s)")
+    List<Stock> findAllOrderByStockType();
+
     @Query("SELECT s.position.id FROM Stock s")
     Set<Long> findAllOccupiedPositions();
 }

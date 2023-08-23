@@ -31,4 +31,5 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
     Position findByAisleAndRackAndShelfAndPositionIdentifier(Aisle aisle, Rack rack, Shelf shelf, String positionIdentifier);
 
     List<Position> findAllByIsOccupiedFalse();
+    Position findFirstByIsOccupiedFalse();
 }

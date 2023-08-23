@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static CSIT321.CN03.Utils.WarehouseUtils.*;
+
 @Entity
 @Getter
 @Setter
@@ -43,21 +45,23 @@ public class Position {
     @Column(name = "is_occupied", nullable = false)
     private boolean isOccupied = false;
 
-    public void printStockDistances(List<Stock> allStocks) {
-        Map<String, Long> stockTypeCounts = allStocks.stream()
-                .collect(Collectors.groupingBy(s -> s.getStock_type(), Collectors.counting()));
 
-        for (String type : stockTypeCounts.keySet()) { // For every stock type
-            List<Stock> stocksOfType = allStocks.stream().filter(s -> s.getStock_type().equals(type)).collect(Collectors.toList());
-            for (int i = 0; i < stocksOfType.size(); i++) {
-                for (int j = i + 1; j < stocksOfType.size(); j++) {
-                    Stock stock1 = stocksOfType.get(i);
-                    Stock stock2 = stocksOfType.get(j);
-                    double distance = stock1.distanceTo(stock2);
-                    System.out.println("Distance between " + stock1.getStock_name() + " and " + stock2.getStock_name() + " = " + distance);
+    public int getWeight() {
+        int weight = 0;
+
+        if (this.getShelf() != null) {
+            weight += SHELF_WEIGHT;
+            if (this.getShelf().getRack() != null) {
+                weight += RACK_WEIGHT;
+                if (this.getShelf().getRack().getAisle() != null) {
+                    weight += AISLE_WEIGHT;
+                    if (this.getShelf().getRack().getAisle().getStockRoom() != null) {
+                        weight += STOCKROOM_WEIGHT;
+                    }
                 }
             }
         }
+        return weight;
     }
 
     @Override
