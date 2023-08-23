@@ -8,6 +8,7 @@ import CSIT321.CN03.Repository.StockRoom.PositionRepository;
 import CSIT321.CN03.Repository.Stock.StockRepository;
 import CSIT321.CN03.Repository.StockRoom.StockRoomRepository;
 import CSIT321.CN03.Repository.SupplierRepository;
+import CSIT321.CN03.Utils.StockSimulationUtils;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +46,21 @@ public class StockInitializationService {
         StockRoom stockRoom1 = stockRoomRepository.findByName("Stock Room 1");
         StockRoom stockRoom2 = stockRoomRepository.findByName("Stock Room 2");
 
-        int itemsPerCategory = 48; // 192 total items divided by 4 categories
+        Random random = new Random();
 
-        for (int i = 0; i < itemsPerCategory; i++) {
-            // Create items but do not assign positions at this point.
-            createConsumable("ProductA-Consumable" + i, 100, supplierA, null, null, 10.5);
-            createEquipment("ProductB-Equipment" + i, 50, supplierA, null, null, 15.0);
-            createRawMaterial("ProductC-RawMaterial" + i, 75, supplierA, null, null, 20.0);
-            createMachinery("ProductD-Machinery" + i, 30, supplierA, null, null, 25.0);
+        int totalStocks = 192;
+
+        Set<String> consumedNames = new HashSet<>();
+        List<Runnable> stockCreators = new ArrayList<Runnable>() {{
+            add(() -> createConsumable(generateRandomName(StockSimulationUtils.CONSUMABLES_FIRST_WORD, StockSimulationUtils.CONSUMABLES_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(5.0, 15.0)));
+            add(() -> createEquipment(generateRandomName(StockSimulationUtils.EQUIPMENT_FIRST_WORD, StockSimulationUtils.EQUIPMENT_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(10.0, 30.0)));
+            add(() -> createRawMaterial(generateRandomName(StockSimulationUtils.RAW_MATERIALS_FIRST_WORD, StockSimulationUtils.RAW_MATERIALS_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(15.0, 40.0)));
+            add(() -> createMachinery(generateRandomName(StockSimulationUtils.MACHINERY_FIRST_WORD, StockSimulationUtils.MACHINERY_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(20.0, 50.0)));
+        }};
+
+        for (int i = 0; i < totalStocks; i++) {
+            // Randomly pick one of the stock creator functions and run it
+            stockCreators.get(random.nextInt(stockCreators.size())).run();
         }
 
         // Call the optimizeStockPlacement method to handle the stock placement
@@ -63,6 +71,32 @@ public class StockInitializationService {
         log.info("Stocks Done");
         List<Stock> allStocks = stockRepository.findAll();
         warehouseReportService.printAverageStockDistances(allStocks);
+    }
+
+    private String generateRandomName(List<String> firstWords, List<String> secondWords, Set<String> consumedNames) {
+        Random random = new Random();
+        String generatedName;
+
+        do {
+            int firstIndex = random.nextInt(firstWords.size());
+            int secondIndex = random.nextInt(secondWords.size());
+
+            generatedName = firstWords.get(firstIndex) + "-" + secondWords.get(secondIndex);
+        } while (consumedNames.contains(generatedName));
+
+        consumedNames.add(generatedName);
+        return generatedName;
+    }
+
+    private int randomQuantity() {
+        Random random = new Random();
+        return random.nextInt(201); // Random quantity between 0 and 200
+    }
+
+    private double randomPrice(double min, double max) {
+        Random random = new Random();
+        double randomValue = min + (max - min) * random.nextDouble();
+        return Math.round(randomValue * 100.0) / 100.0; // Rounding to 2 decimal places
     }
 
 
