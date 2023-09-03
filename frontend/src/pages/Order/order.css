@@ -28,7 +28,7 @@ input[type=text] {
 .orderTable th, td {
     border: 1px solid;
     border-collapse: collapse;
-    padding: 10px;
+    padding: 8px;
 }
 
 .filterTable {
@@ -52,4 +52,47 @@ input[type=text] {
 .filterOrderButton {
     display: flex;
     justify-content: space-between;
+}
+.newOrderItemsTable {
+    border: 1px solid;
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
+}
+.newOrderItemsTable th{
+    border: none;
+}
+.newOrderItemsTable td{
+    border: none;
+    text-align: center;
+}
+.newOrderItemsTable tr{
+    border: 1px solid;
+}
+.newOrderItemsTable input, select{
+    padding: 5px;    
+}
+.newOrderPaymentTable {
+    border: 1px solid;
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
+}
+.newOrderPaymentTable th{
+    border: none;
+}
+.newOrderPaymentTable td{
+    border: none;
+    text-align: center;
+}
+.newOrderPaymentTable tr{
+    border: 1px solid;
+}
+.newOrderPaymentTable input{
+    padding: 5px;    
+}
+.newOrderSubmit {
+    padding: 15px;
+    margin-left: 864px;
+    width: 10%;
 }
