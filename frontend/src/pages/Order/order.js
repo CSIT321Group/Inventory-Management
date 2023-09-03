@@ -1,31 +1,113 @@
-import React from "react";
-// import Popup from './New_Order/new_order_popup';
-// import SearchBar from "./searchbar";
+import React, { useState, useEffect } from 'react';
+import Popup from './New_Order/new_order_popup';
+import SearchBar from "./searchbar";
 import '../pageLayout.css';
-import './order.css';
 import * as FaIcons from 'react-icons/fa';
+import './order.css';
  
 export default function Order() {
-    // const [buttonPopup, setButtonPopup] = useState(false);
-    // const [searchValue, setSearchValue] = useState("");
-    // const [deliveryDateValue, setDeliveryDateValue] = useState("");
-    // const [productValue, setProductValue] = useState("");
-    // const [statusValue, setStatuseValue] = useState("");
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const [deliveryDateValue, setDeliveryDateValue] = useState("");
+    const [productValue, setProductValue] = useState("");
+    const [statusValue, setStatuseValue] = useState("");
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    // }
+    }
     
     return (
         <>
             <div>
-                <div className="header">
-                    <h1>Table Filters</h1>
-                    <button className="button">
-                        NEW ORDER &ensp;
-                        <FaIcons.FaShare />
+                <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px"}}>
+                    <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px"}} onClick={() => setButtonPopup(true)}>
+                    NEW ORDER
                     </button>
+                    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                        <form>
+                            <h1>Order Items</h1>
+                            <div className='new-order-card'>     
+                                <table className='newOrderItemsTable'>                                 
+                                    <tr>    
+                                        <th>Product</th>
+                                        <th>Supplier</th>
+                                        <th>Quantity</th>
+                                        <th>Cost Per Item</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    <tr>                                      
+                                        <td>
+                                            <select id="product" name="product">
+                                                <option value="prod1">Prod1</option>
+                                                <option value="prod2">Prod2</option>
+                                                <option value="prod3">Prod3</option>
+                                                <option value="prod4">Prod4</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select id="product" name="product">
+                                                <option value="prod1">Prod1</option>
+                                                <option value="prod2">Prod2</option>
+                                                <option value="prod3">Prod3</option>
+                                                <option value="prod4">Prod4</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name='quantity'></input>
+                                        </td>
+                                        <td>
+                                            <p>$$$/per unit</p>
+                                        </td>
+                                        <td>
+                                            <p>$$$</p>
+                                        </td>                                  
+                                    </tr>                                
+                                </table>   
+                            </div>
+                            <h1>Payment</h1>
+                            <div className='new-order-card'>
+                                <table className='newOrderPaymentTable'>
+                                    <tr>
+                                        <th>Account Details</th>
+                                        <th>Order Payment Details</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label htmlFor="accName">Account Name:</label>
+                                            <input type="text" name='accName'></input>
+                                        </td>
+                                        <td>
+                                            <label htmlFor="prodTotal">Product Total:</label>
+                                            <p>$$$</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label htmlFor="accBSB">Account BSB:</label>
+                                            <input type="text" name='accBSB'></input>
+                                        </td>
+                                        <td>
+                                            <label htmlFor="shipCost">Shipping Cost:</label>
+                                            <p>$$$</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label htmlFor="accNum">Account Number:</label>
+                                            <input type="text" name='accNum'></input>
+                                        </td>
+                                        <td>
+                                            <label htmlFor="totalOrder">Total Order Cost:</label>
+                                            <p>$$$</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br/>
+                            <input className='newOrderSubmit' type="submit"></input>
+                        </form>
+                    </Popup>
                 </div>
                 <div className="content">
                     <div>
@@ -92,23 +174,8 @@ export default function Order() {
 
 
 
-            {/* <div style={{display:"flex", marginLeft:"200px", marginTop:"100px"}}>
-                <h1 style={{marginLeft:"50px"}}>Table Filters</h1>
-                <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", height:'40px', borderRadius:"30px"}} onClick={() => setButtonPopup(true)}>
-                NEW ORDER
-                </button>
-                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                    <h1>Order Items</h1>
-                    <div className='new-order-card'>
-                        <p>This is the first card.</p>
-                    </div>
-                    <h1>Payment</h1>
-                    <div className='new-order-card'>
-                        <p>This is the second card.</p>
-                    </div>
-                </Popup>
-            </div>
-            <div style={{
+            
+            {/*<div style={{
                     position:"absolute",
                     marginLeft:"220px",
                     marginRight:"100px",
@@ -157,7 +224,7 @@ export default function Order() {
                         <td>OPEN</td>
                     </tr>
                 </table>
-            </div> */}
+        </div> */}
         </>
     );
 };
