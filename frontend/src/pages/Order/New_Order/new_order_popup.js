@@ -9,9 +9,6 @@ function Popup(props) {
 					X
 				</button>
 				{props.children}
-				<div className='popup-inner-card'>
-
-				</div>
 			</div>
     	</div>
  	 ):"";
