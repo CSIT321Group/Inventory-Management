@@ -20,8 +20,8 @@ export default function Help(){
     return (
         <div className="helpPageLayout">
             <h1>Having trouble??? This page might help you!</h1>
-            <div className="content">
-                <h2>Frequently Asked Questions (FAQs)</h2>
+            <div className="helpContent">
+                <h2 className="contentHeaders">Frequently Asked Questions (FAQs)</h2>
                 <div className="content-info">
                     <div className="app">
                       <div className="accordian">
@@ -109,8 +109,8 @@ export default function Help(){
                 </div>
             </div>
             <br/><br/>
-            <div className="content">
-                <h2>Helpful Documentation</h2>
+            <div className="helpContent">
+                <h2 className="contentHeaders">Helpful Documentation</h2>
                 <div className="content-info">
                     <a href="./Help_Documentation/Operation_Manual.docx" download>Operation Manual</a>&emsp;&emsp;
                     <a href="./Help_Documentation/Operation_Manual.docx" download>Help Documentation</a>&emsp;&emsp;
@@ -118,8 +118,8 @@ export default function Help(){
                 </div>
             </div>
             <br/><br/>
-            <div className="content">                
-                <h2>Contact Us</h2>
+            <div className="helpContent">                
+                <h2 className="contentHeaders">Contact Us</h2>
                 <div className="content-info">
                     <p>If you still haven't been able to find something to help you, 
                     please contact us using the following platforms or fill in the help form below.</p>
@@ -131,17 +131,17 @@ export default function Help(){
                     <fieldset>
                     <br/>
                         <label htmlFor="name">Name: </label>
-                        <input type="text" id="name"/>
+                        <input className="helpInputs" type="text" id="name"/>
                         <br/>
                         <label htmlFor="email">Contact Email: </label>
-                        <input type="email" id="email"/>
+                        <input className="helpInputs" type="email" id="email"/>
                         <br/>
                         <label htmlFor="phone">Contact Phone Number: </label>
-                        <input type="tel" id="phone"/>
+                        <input className="helpInputs" type="tel" id="phone"/>
                         <br/><br/>
                         <label htmlFor="help">How can we help?</label>
                         <br/>
-                        <textarea id="help" rows="8" cols="35"/>
+                        <textarea className="helpInputs" id="help" rows="8" cols="35"/>
                         <br/><br/>
                         <input className="formButtons" type="submit"/>  
                         <span></span>
