@@ -31,8 +31,8 @@ public class Rack {
     @JsonIdentityReference(alwaysAsId = true)
     private Aisle aisle;
 
-    @OneToMany(mappedBy = "rack", fetch = FetchType.EAGER)
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "rack", fetch = FetchType.LAZY)
+    //@JsonIdentityReference(alwaysAsId = true)
     private Set<Shelf> shelves = new LinkedHashSet<>();
 
     private String rackIdentifier; // e.g., R1, R2, etc.

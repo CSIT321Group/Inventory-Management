@@ -10,10 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import static CSIT321.CN03.Utils.WarehouseUtils.*;
 
 @Entity
@@ -32,7 +28,7 @@ public class Position {
 
     @ManyToOne
     @JoinColumn(name = "shelf_id")
-    @JsonIdentityReference(alwaysAsId = true)
+    //@JsonIdentityReference(alwaysAsId = true)
     private Shelf shelf;
 
     @OneToOne(mappedBy = "position")

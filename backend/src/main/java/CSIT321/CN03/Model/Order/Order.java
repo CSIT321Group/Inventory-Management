@@ -4,6 +4,7 @@ import CSIT321.CN03.Model.Enums.Order_Status;
 import CSIT321.CN03.Model.Supplier;
 import CSIT321.CN03.Model.Warehouse;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,10 +44,12 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
+    @JsonIgnore
     private Supplier supplier;
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
+    @JsonIgnore
     private Warehouse warehouse;
 
     private boolean isInternalOrder;

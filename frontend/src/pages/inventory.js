@@ -12,32 +12,23 @@ const Inventory = () => {
         const fetchData = async () => {
             let endpoint = `http://localhost:8080/api/stock`;
 
-            if(skuSearch || nameSearch){
+            if (skuSearch || nameSearch) {
                 const search = `${skuSearch}${nameSearch}`;
                 endpoint = `http://localhost:8080/api/stock/search/${search}`;
             }
 
             try {
                 const response = await axios.get(endpoint);
-                const updatedData = await Promise.all(response.data.map(async item => {
-                    // fetch supplier details
-                    let supplierName = "Placeholder";
-                    if (typeof item.supplier === 'number') {  // check if supplier is an ID
-                        try {
-                            const supplierResponse = await axios.get(`http://localhost:8080/api/supplier/${item.supplier}`);
-                            supplierName = supplierResponse.data.supplierName;
-                        } catch(error) {
-                            console.error(`Error fetching supplier details: ${error}`);
-                        }
-                    }
-
-                    return {...item,
+                const updatedData = response.data.map(item => {
+                    return {
+                        ...item,
                         stockRoom: item.stockRoom || "Placeholder",
-                        supplier: supplierName,
-                        totalValue: `$${item.unit_price * item.stock_quantity}`};
-                }));
+                        supplier: item.supplierName || "Placeholder",
+                        totalValue: `$${item.unit_price * item.stock_quantity}`
+                    };
+                });
                 setData(updatedData);
-            } catch(error) {
+            } catch (error) {
                 console.error(`Error fetching data: ${error}`);
             }
         };
@@ -112,10 +103,10 @@ const Inventory = () => {
                                 <tr>
                                     <td>{item.id || "Placeholder"}</td>
                                     <td>{item.stock_name || "Placeholder"}</td>
-                                    <td>Placeholder</td>
-                                    <td>{item.supplier}</td>
-                                    <td>{item.stockRoom}</td>
-                                    <td>Placeholder</td>
+                                    <td>{item.stock_type}</td>
+                                    <td>{item.supplierName}</td>
+                                    <td>{item.location}</td>
+                                    <td>"Placeholder"</td>
                                     <td>{item.stock_quantity}</td>
                                     <td>{`$${item.unit_price}`}</td>
                                     <td>{item.totalValue}</td>

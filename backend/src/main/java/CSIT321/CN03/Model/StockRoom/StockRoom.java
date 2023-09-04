@@ -39,7 +39,7 @@ public class StockRoom {
     @OneToMany(mappedBy = "stockRoom", fetch = FetchType.EAGER)
     private Set<Stock> stocks = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "stockRoom", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "stockRoom", fetch = FetchType.LAZY)
     private Set<Aisle> aisles = new LinkedHashSet<>();
 
     @Enumerated(EnumType.STRING)

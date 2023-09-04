@@ -2,7 +2,6 @@ package CSIT321.CN03.Model.StockRoom;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,8 +31,8 @@ public class Aisle {
     @JsonIdentityReference(alwaysAsId = true)
     private StockRoom stockRoom;
 
-    @OneToMany(mappedBy = "aisle", fetch = FetchType.EAGER)
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "aisle", fetch = FetchType.LAZY)
+    //@JsonIdentityReference(alwaysAsId = true)
     private Set<Rack> racks = new LinkedHashSet<>();
 
     private String aisleIdentifier; // e.g., A1, A2, etc.

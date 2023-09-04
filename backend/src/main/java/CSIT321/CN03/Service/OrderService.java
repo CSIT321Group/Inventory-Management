@@ -22,11 +22,11 @@ public class OrderService {
     private SupplierService supplierService;
 
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Order not found with id: " + id));
+        return orderRepository.findOrderWithOrderItemsAndPositions(id).orElseThrow(() -> new EntityNotFoundException("Order not found with id: " + id));
     }
 
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findOrdersWithOrderItemsAndPositions();
     }
 
     @Transactional

@@ -16,7 +16,7 @@ public class SupplierService {
     private SupplierRepository supplierRepository;
 
     public Supplier getSupplierById(Long id) {
-        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Supplier not found with id: " + id));
+        return supplierRepository.findDetailedSupplierById(id).orElseThrow(() -> new EntityNotFoundException("Supplier not found with id: " + id));
     }
 
     public Supplier getSupplierByName(String name) {

@@ -31,8 +31,8 @@ public class Shelf {
     @JsonIdentityReference(alwaysAsId = true)
     private Rack rack;
 
-    @OneToMany(mappedBy = "shelf", fetch = FetchType.EAGER)
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "shelf", fetch = FetchType.LAZY)
+    //@JsonIdentityReference(alwaysAsId = true)
     private Set<Position> positions = new LinkedHashSet<>();
 
     private int level; // 1 (bottom shelf), 2, 3,

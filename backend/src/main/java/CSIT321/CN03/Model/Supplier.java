@@ -27,10 +27,10 @@ public class Supplier {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Stock> stocks = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
     private Set<Order> orders = new LinkedHashSet<>();
 
     private String supplierName;

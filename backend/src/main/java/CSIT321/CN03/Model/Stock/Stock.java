@@ -8,11 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static CSIT321.CN03.Utils.WarehouseUtils.*;
 
@@ -45,6 +41,8 @@ public abstract class Stock {
     @JsonIdentityReference(alwaysAsId = true)
     private Supplier supplier;
 
+    private String supplierName;
+
     private String stock_name;
     private int stock_quantity;
     private double unit_price;
@@ -66,6 +64,13 @@ public abstract class Stock {
             this.location = generateLocation(position);
         } else {
             this.location = null;
+        }
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+        if (supplier != null) {
+            this.supplierName = supplier.getSupplierName();
         }
     }
 

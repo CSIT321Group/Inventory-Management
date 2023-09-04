@@ -19,6 +19,14 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     Stock findByPosition(Position position);
 
+    @Query("SELECT s FROM Stock s " +
+            "JOIN FETCH s.position p " +
+            "JOIN FETCH p.shelf sh " +
+            "JOIN FETCH sh.rack r " +
+            "JOIN FETCH r.aisle a " +
+            "JOIN FETCH a.stockRoom sr")
+    List<Stock> findAllWithDetails();
+
     @Query("SELECT s FROM Stock s ORDER BY TYPE(s)")
     List<Stock> findAllOrderByStockType();
 
