@@ -6,6 +6,7 @@ import CSIT321.CN03.Model.Warehouse;
 import CSIT321.CN03.Repository.Employee.RoleRepository;
 import CSIT321.CN03.Repository.Employee.StaffMemberRepository;
 import CSIT321.CN03.Repository.WarehouseRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 @Service
+@Transactional
 public class StaffInitializationService {
 
     @Autowired
