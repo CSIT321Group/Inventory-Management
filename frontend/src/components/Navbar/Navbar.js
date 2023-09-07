@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
-import Logo from './logo-coloured.png';
+import Logo from './logo_default.png';
 import * as IoIcons from "react-icons/io";
 import Popup from './Popup';
 // import { logout } from '../Authentication/authenticationSlice';
