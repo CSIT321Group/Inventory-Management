@@ -30,16 +30,6 @@ const Dashboard = () => {
 			</div>
 			<div className='content'>
 				<Table/>
-				<table>
-					<tr>
-						<th>No.</th>
-						<th>Product Name</th>
-						<th>Amount</th>
-						<th>Employee Number</th>
-						<th>Timestamp</th>
-						<th>Action</th>
-					</tr>
-				</table>
 			</div>
        </>
        
