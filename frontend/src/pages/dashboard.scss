@@ -18,17 +18,17 @@
             //max-width: 2500px;
             //box-sizing: border-box;
             .bestSeller{
-                background-color: rgb(156, 255, 156);
+                background-color: rgba(71,133,88,255);
                 
             }
             .lowStock{
-                background-color: red;
+                background-color: rgba(162,61,61,255);
             }
             .inStock{
-                background-color: rgb(5, 204, 5);
+                background-color: rgba(73,141,248,255);
             }
             .outOrder{
-                background-color: rgb(161, 161, 253);
+                background-color: rgba(0,52,99,255);
             }
         }   
         .charts{
