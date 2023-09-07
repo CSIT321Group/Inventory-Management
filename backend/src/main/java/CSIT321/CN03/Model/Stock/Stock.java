@@ -19,13 +19,13 @@ import static CSIT321.CN03.Utils.WarehouseUtils.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "stock_type")
 @Table(name = "stock")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "stockId")
 public abstract class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Stock_SEQ")
     @SequenceGenerator(name = "Stock_SEQ")
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Long stockId;
 
     @ManyToOne
     @JoinColumn(name = "stock_room_id")

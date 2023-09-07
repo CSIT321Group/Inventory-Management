@@ -101,15 +101,15 @@ const Inventory = () => {
                             </tr>
                             {data.map((item) => (
                                 <tr>
-                                    <td>{item.id || "Placeholder"}</td>
+                                    <td>{item.stockId || "Placeholder"}</td>
                                     <td>{item.stock_name || "Placeholder"}</td>
                                     <td>{item.stock_type}</td>
                                     <td>{item.supplierName}</td>
                                     <td>{item.location}</td>
                                     <td>"Placeholder"</td>
                                     <td>{item.stock_quantity}</td>
-                                    <td>{`$${item.unit_price}`}</td>
-                                    <td>{item.totalValue}</td>
+                                    <td>{`$${item.unit_price.toFixed(2)}`}</td>
+                                    <td>{`$${(item.unit_price * item.stock_quantity).toFixed(2)}`}</td>
                                 </tr>
                             ))}
                         </table>
