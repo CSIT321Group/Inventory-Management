@@ -22,6 +22,15 @@ h1, h2, h4, h5, h6 {
   color: rgba(7,40,75,255);
 }
 
+.nav-text {
+  font-size: 20px; /* Adjust this value according to your needs */
+}
+
+.nav-text svg { /* This targets the SVG icons from react-icons within the element having the 'nav-text' class */
+  width: 32px;  /* Adjust width according to your needs */
+  height: 32px; /* Adjust height according to your needs */
+}
+
 h3 {
   font-family: 'Archivo', sans-serif;
   color: black;
