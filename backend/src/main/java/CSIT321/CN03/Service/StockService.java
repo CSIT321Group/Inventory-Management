@@ -6,6 +6,7 @@ import CSIT321.CN03.Repository.Stock.StockRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +42,14 @@ public class StockService {
         stock.setSupplier(supplier);
 
         return stockRepository.save(stock);
+    }
+
+    public List<Stock> getTop10LowestStockedItems() {
+        return stockRepository.findTop10LowestStockedItems(PageRequest.of(0, 10));
+    }
+
+    public List<Stock> getRandomStockItems() {
+        return stockRepository.findRandomStockItems();
     }
 }
 

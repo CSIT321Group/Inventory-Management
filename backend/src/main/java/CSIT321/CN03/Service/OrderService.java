@@ -10,7 +10,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -72,5 +75,20 @@ public class OrderService {
         order.setStatus(Order_Status.CANCELLED);
         return orderRepository.save(order);
     }
+
+    public List<Map<String, Object>> getTopSellingItemsByFrequency() {
+        List<Object[]> results = orderRepository.findTopSellingItemsByFrequency();
+
+        return results.stream()
+                .limit(10)
+                .map(record -> {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("stockName", (String) record[0]);
+                    item.put("orderFrequency", (Long) record[1]);
+                    return item;
+                })
+                .collect(Collectors.toList());
+    }
+
 }
 

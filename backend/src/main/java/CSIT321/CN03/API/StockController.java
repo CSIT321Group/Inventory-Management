@@ -38,4 +38,14 @@ public class StockController {
         Stock stock = stockService.assignSupplierToStock(stockId, supplierId);
         return ResponseEntity.ok(stock);
     }
+
+    @GetMapping("/lowest")
+    public List<Stock> getTop10LowestStockedItems() {
+        return stockService.getTop10LowestStockedItems();
+    }
+
+    @GetMapping("/random")
+    public List<Stock> getRandomStockItems() {
+        return stockService.getRandomStockItems();
+    }
 }

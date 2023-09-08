@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -55,5 +56,10 @@ public class OrderController {
     public ResponseEntity<Order> cancelOrder(@PathVariable Long orderId) {
         Order order = orderService.cancelOrder(orderId);
         return ResponseEntity.ok(order);
+    }
+
+    @GetMapping("/top-selling-items")
+    public List<Map<String, Object>> getTopSellingItems() {
+        return orderService.getTopSellingItemsByFrequency();
     }
 }
