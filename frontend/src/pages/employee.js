@@ -58,10 +58,10 @@ export default function Employee() {
                                 </td>
                                 <td className="filterCols">
                                     <label htmlFor="permissions"><h3>Permissions</h3></label>
-                                    Level 1<input type="checkbox" value="level-1"/><br/>
-                                    Level 2<input type="checkbox" value="level-2"/><br/>
-                                    Level 3<input type="checkbox" value="level-3"/><br/>
-                                    Level 4<input type="checkbox" value="level-4"/><br/>
+                                    Inventory<input type="checkbox" value="Inventory"/><br/>
+                                    Order<input type="checkbox" value="Order"/><br/>
+                                    Reporting<input type="checkbox" value="Reporting"/><br/>
+                                    Employee<input type="checkbox" value="Employee"/><br/>
                                 </td>
                                 <td className='filterButton'>
                                     <button className='applyButton' onClick={handleApplyFilters}>APPLY FILTERS</button>
