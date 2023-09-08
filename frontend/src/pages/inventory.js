@@ -51,6 +51,11 @@ const Inventory = () => {
         setData([]);
     };
 
+    const formatStockType = (type) => {
+        // Split the string by underscores, capitalize the first letter of each word, and join them with spaces.
+        return type.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
     // JSX to render the component
     return (
         <>
@@ -116,7 +121,7 @@ const Inventory = () => {
                                 <tr>
                                     <td>{item.stockId || "Placeholder"}</td>
                                     <td>{item.stock_name || "Placeholder"}</td>
-                                    <td>{item.stock_type}</td>
+                                    <td>{formatStockType(item.stock_type)}</td>
                                     <td>{item.supplierName}</td>
                                     <td>{item.location}</td>
                                     <td>"Placeholder"</td>

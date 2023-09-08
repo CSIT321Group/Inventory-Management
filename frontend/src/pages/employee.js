@@ -32,6 +32,26 @@ export default function Employee() {
         }
     }
 
+    // Utility function to capitalize the first letter of a word
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
+// Utility function to process the role
+    const getRoleFromAuthorities = (authorities) => {
+        const role = authorities.find(auth => auth.authority.startsWith('ROLE_'));
+        return role ? capitalizeFirstLetter(role.authority.replace('ROLE_', '')) : 'Unknown';
+    }
+
+// Utility function to process the authorities
+    const getFormattedAuthorities = (authorities) => {
+        return authorities
+            .filter(auth => !auth.authority.startsWith('ROLE_'))
+            .map(auth => capitalizeFirstLetter(auth.authority))
+            .join(', ');
+    }
+
+
     return (
         <>
             <br/><br/>
@@ -91,8 +111,8 @@ export default function Employee() {
                                     <tr key={employee.id}>
                                         <td>{employee.id}</td>
                                         <td>{employee.first_name + " " + employee.last_name}</td>
-                                        <td>Position Placeholder</td> {/* Update this as needed */}
-                                        <td>{employee.authorities.map((auth) => auth.authority).join(', ')}</td>
+                                        <td>{getRoleFromAuthorities(employee.authorities)}</td>
+                                        <td>{getFormattedAuthorities(employee.authorities)}</td>
                                         <td>
                                             <button className='actionButtons'>
                                                 <FaIcons.FaEdit />
