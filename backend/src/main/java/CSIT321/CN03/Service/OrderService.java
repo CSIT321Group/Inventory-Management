@@ -83,12 +83,16 @@ public class OrderService {
                 .limit(10)
                 .map(record -> {
                     Map<String, Object> item = new HashMap<>();
-                    item.put("stockName", (String) record[0]);
-                    item.put("orderFrequency", (Long) record[1]);
+                    item.put("stockId", ((Long) record[0]).longValue());
+                    item.put("stockName", (String) record[1]);
+                    item.put("stockQuantity", ((Number) record[2]).intValue());
+                    item.put("supplierName", (String) record[3]);
+                    item.put("orderFrequency", ((Number) record[4]).longValue());
                     return item;
                 })
                 .collect(Collectors.toList());
     }
+
 
 }
 

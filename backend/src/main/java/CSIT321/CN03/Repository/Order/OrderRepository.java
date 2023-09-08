@@ -36,9 +36,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "WHERE o.id = :orderId")
     Optional<Order> findOrderWithOrderItemsAndPositions(@Param("orderId") Long orderId);
 
-    @Query("SELECT oi.stock.stock_name, COUNT(DISTINCT oi.order) as orderFrequency " +
+    @Query("SELECT oi.stock.stockId, oi.stock.stock_name, oi.stock.stock_quantity, oi.stock.supplier.supplierName, COUNT(DISTINCT oi.order) as orderFrequency " +
             "FROM Order_Item oi " +
-            "GROUP BY oi.stock.stock_name " +
+            "GROUP BY oi.stock.stockId, oi.stock.stock_name, oi.stock.stock_quantity, oi.stock.supplier.supplierName " +
             "ORDER BY orderFrequency DESC")
     List<Object[]> findTopSellingItemsByFrequency();
 
