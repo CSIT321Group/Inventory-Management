@@ -96,3 +96,22 @@ input[type=text] {
     margin-left: 864px;
     width: 10%;
 }
+.accordian-order {
+    width: 100%;
+}
+.accordian-header-order {
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    padding: 5px 5px;
+    justify-content: space-between;
+    border: 2px solid rgb(133, 133, 133);
+    /*background-color: #E5E5E5FF;*/
+}
+.accordian-body-order {
+    width: 100%;
+}
+.accordian-row-order {
+    width: 100%;
+}

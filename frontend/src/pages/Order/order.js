@@ -6,9 +6,6 @@ import React, { useState, useEffect } from 'react';
 import Popup from './New_Order/new_order_popup';
 import axios from 'axios';
 
-
-
-
 export default function Order() {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [searchValue, setSearchValue] = useState("");
@@ -71,20 +68,72 @@ export default function Order() {
             fetchData();
         }
     }, [stockCache]);
+    // Using the useState hook to create and manage state for the component
+    const [data, setData] = useState([]); // To store fetched data
+    const [selectedItem, setSelectedItem] = useState([]);
+    const [skuSearch, setSkuSearch] = useState(''); // SKU search string
+    const [nameSearch, setNameSearch] = useState(''); // Name search string
 
+    // useEffect hook runs side-effects in functional components, similar to componentDidMount and componentDidUpdate combined in class components
+    useEffect(() => {
+        const fetchData = async () => {  // Defining an async function to fetch data from the API
+            // Setting a default endpoint URL
+            let endpoint = `http://localhost:8080/api/stock`;
 
+            // If either skuSearch or nameSearch has a value, we modify the endpoint to search with that value
+            if (skuSearch || nameSearch) {
+                const search = `${skuSearch}${nameSearch}`;
+                endpoint = `http://localhost:8080/api/stock/search/${search}`;
+            }
+
+            try {
+                // Making an asynchronous GET request to the endpoint
+                const response = await axios.get(endpoint);
+                // Mapping the response data to add/update some fields before setting the state
+                const updatedData = response.data.map(item => {
+                    return {
+                        ...item,
+                        stockRoom: item.stockRoom || "Placeholder",
+                        supplier: item.supplierName || "Placeholder",
+                        totalValue: `$${item.unit_price * item.stock_quantity}`
+                    };
+                });
+                // Updating the state with the fetched data
+                setData(updatedData);
+            } catch (error) {
+                // Logging any errors during the fetch process
+                console.error(`Error fetching data: ${error}`);
+            }
+        };
+
+        fetchData(); // Calling the fetchData function to initiate the fetch process
+    }, [skuSearch, nameSearch]);  // useEffect's dependency array, ensures this useEffect runs whenever skuSearch or nameSearch values change
+    
+    // Used for adding another new item to a new order State to show/hide accordion
+    const [show, setShow] = useState(false);
+    const handleOpen = () => {
+        setShow(!show); // Toggle accordion
+    };
+    const [show2, setShow2] = useState(false);
+    const handleOpen2 = () => {
+        setShow2(!show2); // Toggle accordion
+    };
+    const [show3, setShow3] = useState(false);
+    const handleOpen3 = () => {
+        setShow3(!show3); // Toggle accordion
+    };
     return (
         <>
             <div>
                 <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px"}}>
-                    <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px"}} onClick={() => setButtonPopup(true)}>
+                    <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
                         NEW ORDER
                     </button>
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                         <form>
                             <h1>Order Items</h1>
                             <div className='new-order-card'>
-                                <table className='newOrderItemsTable'>
+                                <table id="newOrderItemsTable" className='newOrderItemsTable'>
                                     <tr>
                                         <th>Product</th>
                                         <th>Supplier</th>
@@ -94,19 +143,17 @@ export default function Order() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select id="product" name="product">
-                                                <option value="prod1">Prod1</option>
-                                                <option value="prod2">Prod2</option>
-                                                <option value="prod3">Prod3</option>
-                                                <option value="prod4">Prod4</option>
+                                            <select id="product" name="product" onChange={setSelectedItem}>
+                                                {data.map((item) => (
+                                                    <option value={item.stock_name}> {item.stock_name}</option> 
+                                                ))}
                                             </select>
                                         </td>
                                         <td>
-                                            <select id="product" name="product">
-                                                <option value="prod1">Prod1</option>
-                                                <option value="prod2">Prod2</option>
-                                                <option value="prod3">Prod3</option>
-                                                <option value="prod4">Prod4</option>
+                                            <select id="supplier" name="supplier">
+                                                {data.map((item) => (
+                                                    <option value={item.supplierName}> {item.supplierName}</option> 
+                                                ))}
                                             </select>
                                         </td>
                                         <td>
@@ -119,6 +166,80 @@ export default function Order() {
                                             <p>$$$</p>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td colSpan="5">
+                                            <div className="accordian-order">
+                                                <div className="accordian-header-order" onClick={handleOpen}>
+                                                    <div>Add Another Item</div>
+                                                    <div className="sign">{show ? '-' : '+'}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {show && (
+                                            <><td>
+                                                <select id="product" name="product2" onChange={setSelectedItem}>
+                                                    {data.map((item) => (
+                                                        <option value={item.stock_name}> {item.stock_name}</option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="supplier" name="supplier">
+                                                    {data.map((item) => (
+                                                        <option value={item.supplierName}> {item.supplierName}</option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" name='quantity'></input>
+                                            </td>
+                                            <td>
+                                                <p>$$$/per unit</p>
+                                            </td>
+                                            <td>
+                                                <p>$$$</p>
+                                            </td></>
+                                        )}
+                                    </tr>
+                                    <tr>
+                                        <td colSpan="5">
+                                            <div className="accordian-order">
+                                                <div className="accordian-header-order" onClick={handleOpen2}>
+                                                    <div>Add Another Item</div>
+                                                    <div className="sign">{show2 ? '-' : '+'}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {show2 && (
+                                            <><td>
+                                                <select id="product" name="product2" onChange={setSelectedItem}>
+                                                    {data.map((item) => (
+                                                        <option value={item.stock_name}> {item.stock_name}</option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="supplier" name="supplier">
+                                                    {data.map((item) => (
+                                                        <option value={item.supplierName}> {item.supplierName}</option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" name='quantity'></input>
+                                            </td>
+                                            <td>
+                                                <p>$$$/per unit</p>
+                                            </td>
+                                            <td>
+                                                <p>$$$</p>
+                                            </td></>
+                                        )}
+                                    </tr>                                            
                                 </table>
                             </div>
                             <h1>Payment</h1>
