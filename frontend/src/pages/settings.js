@@ -4,9 +4,12 @@ import './settings.css';
 export default function Settings() {
   return (
     <div className="settings-div">
-        <h2>General</h2>
+      <h1>Settings</h1>
+      <div className="settings-content">
+        <h2 className="settings-content-header">General</h2>
+        <div className="settings-content-info">
           <form>
-          <fieldset>
+          <fieldset className="settings-fieldset">
             <label htmlFor="Lang">Preferred Language </label>
             <select name="Lang" id="">
               <option value="ENG-UK">English-UK</option>
@@ -36,9 +39,14 @@ export default function Settings() {
             </select>
           </fieldset>
           </form>
-        <h2>Accessibility</h2>
+        </div>
+      </div>
+      <br/><br/>
+      <div className="settings-content">
+        <h2 className="settings-content-header">Accessibility</h2>
+        <div className="settings-content-info">
           <form action="">
-          <fieldset>
+          <fieldset className="settings-fieldset">
             <label htmlFor="font-size">Font Size </label>
               <button className="font-buttons">Default</button>
               <button className="font-buttons">Large</button>
@@ -52,6 +60,8 @@ export default function Settings() {
               <button className="font-buttons">Light</button>
           </fieldset>
           </form>
+        </div>
+      </div>
     </div>
   );
 }
