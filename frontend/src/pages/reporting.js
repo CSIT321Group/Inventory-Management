@@ -14,6 +14,7 @@ export default function Reporting() {
 		);
 
 	const [show, toggleShow] = useState(true);
+	const [itemCount, SetItemCount] = useState(1);
 
 	const labels = ["In-stock", "Out-of-Stock", "Future Stock", "Predicted Loss", "Future Growth"];
 
@@ -39,6 +40,12 @@ export default function Reporting() {
 
 	const options = {
 		
+	}
+
+	const AnotherItem = () => {
+
+
+		SetItemCount((prev) => prev + 1);
 	}
 
 	return (
@@ -80,7 +87,7 @@ export default function Reporting() {
 					</tr>
 				</table>
 			</div>
-			<button className='anotherItemButton'><i>+ Another Item</i></button>
+			<button onClick={AnotherItem} className='anotherItemButton'><i>+ Another Item</i></button>
 
 			<div className='header'>
 					<h1>Report Statistics</h1>
