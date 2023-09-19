@@ -1,17 +1,34 @@
 .settings-div{
 	text-align: left;
-	margin-left: 242px;
-    margin-top: 50px;
-	background-color: #EDEDEDFF;
 	width: 75%;
+    margin-top: 75px;
+	margin-left: 250px;
+	width: 75%;
+}
+.settings-content{
+    padding: 5px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 10px;
+    justify-content: space-evenly;
+    border: 1px solid;
+    border-radius: 30px;
+}
+.settings-content-header{
+    margin-left: 15px;
+}
+.settings-content-info {
+    margin: 25px;
+}
+.settings-fieldset {
+    border-radius: 15px;
 }
 form {
 	margin-top: 0px;
 }
 .font-buttons {
-    padding: 5px;
+    padding: 10px;
     margin: 8px 0;
-    background: lightgray;
+    background: rgb(255, 254, 254);
     border: solid #E8E8E8FF;
     cursor: pointer;
     width: 80px;

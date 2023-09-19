@@ -5,6 +5,8 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
+import { ExpandMoreOutlined } from '@mui/icons-material';
+import {Accordion, AccordionDetails, AccordionSummary,Typography }from '@mui/material';
 export default function Reporting() {
 	Chart.register(
 		ArcElement,
@@ -87,7 +89,61 @@ export default function Reporting() {
 					</tr>
 				</table>
 			</div>
-			<button onClick={AnotherItem} className='anotherItemButton'><i>+ Another Item</i></button>
+			<div>
+				<Accordion className="anotherItemButton">
+					<AccordionSummary id="panel1-header"
+					aria-controls='panel1-content'
+					expand ={<ExpandMoreOutlined/>}> <Typography>Add items</Typography>
+					</AccordionSummary>
+					<AccordionDetails className="anotherItemDetails">
+					<br/>	<div className='content'>
+				<table>
+					<tr>
+						<td className='filterData'>
+							<h3>Report Type</h3>
+							<DropDown/>
+						</td>
+						<td className='filterData'>
+							<h3>Report Name</h3>
+							<input type='text' placeholder='General Report...'/>
+						</td>
+					</tr>
+					<br/>
+					<tr className='filterRows'>
+						<h3>SKU: &ensp;</h3>
+						<input type='text'/>
+						<h3>Category: &ensp;</h3>
+						<input type='text'/>
+						<h3>Supplier: &ensp;</h3>
+						<input type='text'/>
+					</tr>
+					<tr className='filterRows'>
+						<h3>Name: &ensp;</h3>
+						<input type='text'/>
+						<h3>Order ID: &ensp;</h3>
+						<input type='text'/>
+						<h3>Location: &ensp;</h3>
+						<input type='text'/>
+						<span className='checkBox'><input type='checkbox' />&ensp;Include zero qty</span>
+					</tr>
+				</table>
+			</div>
+					</AccordionDetails>
+
+
+				</Accordion>
+			</div>
+			
+
+
+
+
+
+
+
+
+
+
 
 			<div className='header'>
 					<h1>Report Statistics</h1>

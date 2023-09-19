@@ -14,41 +14,41 @@ const List =() => {
         {
           no:1 ,
           product: "Pure clean",
-          customer: "John Smith",
-          date: "1 March",
           amount: 785,
+          customer: 12345,
+          date: "1 March",
           status: "Approved",
         },
         {
-            no:2,
+          no:2,
           product: "Clorine",
-          customer: "Michael Doe",
-          date: "1 March",
           amount: 900,
+          customer: 6789,
+          date: "1 March",
           status: "Pending",
         },
         {
-            no:3,
+          no:3,
           product: "Red cleaner",
-          customer: "John Smith",
-          date: "1 March",
           amount: 35,
+          customer: 10111213,
+          date: "1 March",
           status: "Pending",
         },
         {
             no:4,
           product: "Purifier",
-          customer: "Jane Smith",
-          date: "1 March",
           amount: 920,
+          customer: 14151617,
+          date: "1 March",
           status: "Approved",
         },
         {
           no:5,
           product: "Sulphur",
-          customer: "Harold Carol",
-          date: "1 March",
           amount: 2000,
+          customer: 18192021,
+          date: "1 March",
           status: "Pending",
         },
       ];
@@ -57,12 +57,12 @@ const List =() => {
       <Table sx={{ minWidth: 600 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className="tableCell"> Number</TableCell>
-            <TableCell className="tableCell">Product</TableCell>
-            <TableCell className="tableCell">Customer</TableCell>
-            <TableCell className="tableCell">Date</TableCell>
+            <TableCell className="tableCell"> No </TableCell>
+            <TableCell className="tableCell">Product Name</TableCell>
             <TableCell className="tableCell">Amount</TableCell>
-            <TableCell className="tableCell">Status</TableCell>
+            <TableCell className="tableCell">Employee no</TableCell>
+            <TableCell className="tableCell">TimeStamp</TableCell>
+            <TableCell className="tableCell">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -74,9 +74,9 @@ const List =() => {
                   {row.product}
                 </div>
               </TableCell>
+              <TableCell className="tableCell">{row.amount}</TableCell>
               <TableCell className="tableCell">{row.customer}</TableCell>
               <TableCell className="tableCell">{row.date}</TableCell>
-              <TableCell className="tableCell">{row.amount}</TableCell>
               <TableCell className="tableCell">
                 <span className={`status ${row.status}`}>{row.status}</span>
               </TableCell>

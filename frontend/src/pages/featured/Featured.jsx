@@ -18,7 +18,7 @@ const Featured =() => {
         <div className="featured"> 
             <div className="top">
                 <h1 className="title">Total Sales</h1>
-                <MoreVert fontSize="small"/>
+                {/*<MoreVert fontSize="small"/>*/}
             </div>
             <div className="bottom">
                 <div className="featuredChart">
@@ -26,11 +26,12 @@ const Featured =() => {
                 </div>
                 <p className="title">Total sales made today</p>
                 <p className="amount">$420</p>
-                <p className="desc">
+                {/*<p className="desc"> 
                     Previous transactions processing. 
                     Last payments may not be included.
-                </p>
+                </p> */}
                 <div className="summary">
+                    
                     <div className="item">
                         <div className="itemTitle"> Target</div>
                         <div className="itemResult negative">

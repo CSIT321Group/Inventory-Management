@@ -114,7 +114,7 @@ public class WarehouseReportService {
 
     public void printStockDetails(List<Stock> allStocks) {
         for (Stock stock : allStocks) {
-            System.out.println("ID: " + stock.getId());
+            System.out.println("ID: " + stock.getStockId());
             System.out.println("Stock Room: " + stock.getStockRoom());
             System.out.println("Position ID: " + stock.getPosition().getId());
             System.out.println("Shelf: " + stock.getPosition().getShelf());

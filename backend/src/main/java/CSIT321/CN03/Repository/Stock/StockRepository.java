@@ -2,6 +2,7 @@ package CSIT321.CN03.Repository.Stock;
 
 import CSIT321.CN03.Model.Stock.Stock;
 import CSIT321.CN03.Model.StockRoom.Position;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,4 +33,10 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     @Query("SELECT s.position.id FROM Stock s")
     Set<Long> findAllOccupiedPositions();
+
+    @Query("SELECT s FROM Stock s ORDER BY s.stock_quantity ASC")
+    List<Stock> findTop10LowestStockedItems(Pageable pageable);
+
+    @Query(value = "SELECT * FROM stock ORDER BY RANDOM() LIMIT 10", nativeQuery = true)
+    List<Stock> findRandomStockItems();
 }
