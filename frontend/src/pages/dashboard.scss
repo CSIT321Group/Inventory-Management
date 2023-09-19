@@ -14,30 +14,61 @@
             padding:10px;
             box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 4px 4px;
             border-radius:10px ;
-            gap: 20px;
+            gap: 10px;
+            
             //max-width: 2500px;
             //box-sizing: border-box;
             .bestSeller{
                 background-color: rgba(71,133,88,255);
-                
+                padding:25px;
+                justify-content: space-evenly;
+                height:100px;
+                width:250px;
+                box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 4px 4px;
+                border-radius:10px ;
             }
             .lowStock{
                 background-color: rgba(162,61,61,255);
+                padding:25px;
+                justify-content: space-evenly;
+                height:100px;
+                width:250px;
+                box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 4px 4px;
+                border-radius:10px ;
+                
             }
             .inStock{
                 background-color: rgba(73,141,248,255);
+                padding:25px;
+                justify-content: space-evenly;
+                height:100px;
+                width:250px;
+                box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 4px 4px;
+                border-radius:10px ;
+                
             }
             .outOrder{
                 background-color: rgba(0,52,99,255);
+                padding:25px;
+                justify-content: space-evenly;
+                height:100px;
+                width:250px;
+                box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 4px 4px;
+                border-radius:10px ;
+                
+                
             }
         }   
         .charts{
             margin-left: 240px;
             margin-right: 50px;
-            justify-content: space-evenly;
+            //justify-content: space-evenly;
             display: flex;
             padding:10px;
             gap:50px;
+            z-index:-1;
+            position:relative;
+           // background-color: #ffffff;
             //padding: 5px 20px;  
         }
         .listContainer{
