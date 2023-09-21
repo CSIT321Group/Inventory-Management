@@ -24,3 +24,23 @@
     border-radius: 30px;
     color: black;
 }
+
+h1 {
+    color: #003463;
+    font-family: Archivo;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.applyFilterButton {
+    border-radius: 30px;
+    width: 160px;
+    color: #1A1D21;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: normal;
+    font-variant: all-small-caps;
+}

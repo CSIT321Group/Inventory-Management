@@ -16,6 +16,7 @@ export default function Reporting() {
 		);
 
 	const [show, toggleShow] = useState(true);
+	const [itemCount, SetItemCount] = useState(1);
 
 	const labels = ["In-stock", "Out-of-Stock", "Future Stock", "Predicted Loss", "Future Growth"];
 
@@ -41,6 +42,12 @@ export default function Reporting() {
 
 	const options = {
 		
+	}
+
+	const AnotherItem = () => {
+
+
+		SetItemCount((prev) => prev + 1);
 	}
 
 	return (

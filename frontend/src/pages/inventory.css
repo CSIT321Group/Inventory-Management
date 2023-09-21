@@ -37,12 +37,6 @@ input[type=text]{
     float: right;
 }
 
-.applyFilterButton {
-    border-radius: 30px;
-    width: 150px;
-    color: #1A1D21;
-}
-
 .inventoryTable {
     margin: 20px;
     border: 1px solid;

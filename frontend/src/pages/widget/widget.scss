@@ -1,34 +1,43 @@
-.widget{
+.widget {
     display:flex;
     flex:1;
     justify-content: space-between;
-    padding: 20px;
-    width:250px;
     //-webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
     //box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
     //border-radius:10px ;
     height: 100px;
+}
+    .widget:hover{
+        box-shadow:none !important;
+    }
 
     .left,.right{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content:space-between;
+        }
     
         .title{
         font-weight:bold;
+        display:flex;
         font-size:25px;
         color:white;
         margin-bottom: 10px;
+        margin-right:10px;
         }
+
+
         .counter{
         font-size:28px;
-        font-weight: 300;
-            color: white;
-         }
+        color: white;
+        align-self: flex-end;
+
+    }
+
         .link{
         width: max-content;
         font-style: 12px;
-        margin-top: 17px;
+        margin-top: 51px;
         border-bottom: 1px solid gray;}
 
         .percentage{
@@ -44,11 +53,36 @@
         }
         .icon{
             font-style: 18px;
-            margin-top:75px;
+            margin-top:45px;
             padding: 5px;
             border-radius: 5px;
             align-self: flex-end;
         }   
+/* ExpandedCard.css */
 
-    }
-}
+.ExpandedCard {
+    background-color: #fff; /* Background color for the expanded card */
+    padding: 40x; /* Add padding to create space around the content */
+    border-radius: 8px; /* Rounded corners for the card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+    position: relative; /* Position relative for absolute positioning of the close button */
+    width: 400px; /* Limit the maximum width of the card */
+    margin: 0 auto; /* Center the card horizontally */
+  }
+  
+  .ExpandedCard span {
+    font-size: 18px; /* Font size for the title */
+    font-weight: bold; /* Bold font for the title */
+  }
+  
+  .ExpandedCard .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #333; /* Color for the close button */
+    font-size: 20px; /* Font size for the close button */
+  }
+  
+  /* Styles for the Material-UI table can be added if needed */
+  

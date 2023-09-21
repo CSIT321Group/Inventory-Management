@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
-import Logo from './logo_default.png';
+import Logo from './Logo.png';
 import * as IoIcons from "react-icons/io";
 import Popup from './Popup';
 // import { logout } from '../Authentication/authenticationSlice';
@@ -22,7 +22,9 @@ function Navbar() {
             <> */}
             <IconContext.Provider value={{color:"black"}}>
             <div className='navbar'>
-                <img src={Logo} alt='title'/>
+                <div className='logoNavBar'>
+                    <img src={Logo} alt='title'/>
+                </div>
                 <button className='notifications' onClick={<Popup/>}>
                     <IoIcons.IoMdNotifications size={20}/>
                 </button>
