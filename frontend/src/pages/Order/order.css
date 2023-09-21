@@ -96,6 +96,14 @@ input[type=text] {
     margin-left: 864px;
     width: 10%;
 }
+.calculateButton {
+    padding: 15px;
+    margin-left: 864px;
+    width: 10%;
+    border: 1px solid #767676;
+    color: black;
+    background: #efefef;
+}
 .accordian-order {
     width: 100%;
 }
