@@ -123,3 +123,42 @@ input[type=text] {
 .accordian-row-order {
     width: 100%;
 }
+
+.small-table {
+    font-size: 5px; 
+   
+    margin-left:250px;
+    margin-right: 300px;
+    border-radius:2px ;
+    align-items:center;
+    display:flex;
+  }
+  
+  .small-table th,
+  .small-table td {
+ 
+
+    align-items:center;
+    border-radius: 2px;
+    -webkit-text-size-adjust: auto;
+    width: 5px;
+
+  }
+  
+  .small-table .MuiTableCell-root {
+    padding: 2px; 
+    border-radius: 2px; 
+  }
+  
+  .small-table .MuiTableHead-root th {
+    font-weight: normal  ;
+    background-color: #d7d7d7   ;
+  }
+  
+  .small-table .MuiTableRow-root:hover {
+    background-color:transparent; 
+  }
+
+
+
+  

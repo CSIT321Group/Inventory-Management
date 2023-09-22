@@ -1,12 +1,17 @@
 import SearchBar from "./searchbar";
 import '../pageLayout.css';
-import * as FaIcons from 'react-icons/fa';
 import './order.css';
 import React, { useState, useEffect } from 'react';
 import Popup from './New_Order/new_order_popup';
 import axios from 'axios';
 
+import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
+
 export default function Order() {
+    
     const [buttonPopup, setButtonPopup] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [deliveryDateValue, setDeliveryDateValue] = useState("");
@@ -220,6 +225,20 @@ export default function Order() {
         const orderTotalRounded = Math.round(orderTotal*100)/100;
         setTotalOrderCost(orderTotalRounded);
     }
+
+
+        const [openRows, setOpenRows] = React.useState([]);
+      
+        const toggleRow = (orderId) => {
+          if (openRows.includes(orderId)) {
+            setOpenRows(openRows.filter((id) => id !== orderId));
+          } else {
+            setOpenRows([...openRows, orderId]);
+          }
+        };
+
+
+
     return (
         <>
             <div>
@@ -414,34 +433,85 @@ export default function Order() {
                 <div className="header">
                     <h1>Orders Table</h1>
                 </div>
-                <div className="content">
-                    <table className="orderTable">
-                        <thead>
-                        <tr>
-                            <th>Order Num</th>
-                            <th>Delivery Date</th>
-                            <th>Product</th>
-                            <th>Supplier</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {orders.map(order =>
-                            order.orderItems.map(item => (
-                                <tr key={item.id}>
-                                    <td>{order.id}</td>
-                                    <td>{order.deliveryDate}</td>
-                                    <td>{item.stock.stock_name}</td>
-                                    <td>{item.stock.supplierName}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>{order.status}</td>
-                                </tr>
-                            ))
-                        )}
-                        </tbody>
-                    </table>
-                </div>
+                
+                
+                
+                
+                
+                <TableContainer component={Paper} style={{ overflowX: 'hidden', maxWidth: '97%' }}>
+  <Table aria-label="collapsible table" className="small-table" style={{ borderRadius: '20px' }}>
+    <TableHead>
+      <TableRow>
+        <TableCell className="small-cell" />
+        <TableCell>Order Num</TableCell>
+        <TableCell>Delivery Date</TableCell>
+        <TableCell>Supplier</TableCell>
+        <TableCell>Status</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {orders.map((order) => (
+        <React.Fragment key={order.id}>
+          <TableRow onClick={() => toggleRow(order.id)}>
+            <TableCell className="smaller-cell"> 
+              <IconButton size="small">
+                {openRows.includes(order.id) ? (
+                  <KeyboardArrowUpIcon />
+                ) : (
+                  <KeyboardArrowDownIcon />
+                )}
+              </IconButton>
+            </TableCell >
+            <TableCell>{order.id}</TableCell>
+            <TableCell>{order.deliveryDate}</TableCell>
+            <TableCell>{order.orderItems.id}</TableCell>
+            <TableCell>{order.status}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={5}>
+              <Collapse
+                in={openRows.includes(order.id)}
+                timeout="auto"
+                unmountOnExit
+              >
+                <Box sx={{ margin: 2 }}>
+                  <Typography variant="h6" gutterBottom component="div">
+                    Order Details
+                  </Typography>
+                  <Table size="normal" aria-label="purchases">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Product</TableCell>
+                        <TableCell>Supplier</TableCell>
+                        <TableCell>Quantity</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {order.orderItems.map((item) => (
+                        <TableRow key={item.id}>
+                          <TableCell>{item.stock.supplier}</TableCell>
+                          <TableCell>{item.stock.supplierName}</TableCell>
+                          <TableCell>{item.quantity}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Box>
+              </Collapse>
+            </TableCell>
+          </TableRow>
+        </React.Fragment>
+      ))}
+    </TableBody>
+  </Table>
+</TableContainer>
+
+
+
+
+
+
+
             </div>
 
 
@@ -500,6 +570,8 @@ export default function Order() {
                     </tr>
                 </table>
         </div> */}
+        
+        
         </>
     );
 };
