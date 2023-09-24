@@ -20,11 +20,14 @@ input[type=text] {
 }
 
 .orderTable {
-	margin: 20px;
 	width: 97%;
+    margin-left: 15px;
 	border-collapse: collapse;
+    margin-right: 300px;
+    border-radius: 10px ;
+    align-items:center;
+    display:flex;
 }
-
 .orderTable th, td {
     border: 1px solid;
     border-collapse: collapse;
@@ -132,32 +135,26 @@ input[type=text] {
     border-radius:2px ;
     align-items:center;
     display:flex;
-  }
+}
   
-  .small-table th,
-  .small-table td {
- 
-
+.small-table th,
+ .small-table td {
     align-items:center;
     border-radius: 2px;
-    -webkit-text-size-adjust: auto;
     width: 5px;
-
-  }
-  
-  .small-table .MuiTableCell-root {
+}
+.small-table .MuiTableCell-root {
     padding: 2px; 
     border-radius: 2px; 
-  }
-  
-  .small-table .MuiTableHead-root th {
+} 
+.small-table .MuiTableHead-root th {
     font-weight: normal  ;
     background-color: #d7d7d7   ;
-  }
+}
   
-  .small-table .MuiTableRow-root:hover {
+.small-table .MuiTableRow-root:hover {
     background-color:transparent; 
-  }
+}
 
 
 
