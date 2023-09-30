@@ -20,6 +20,7 @@ export default function Order() {
     const [orders, setOrders] = useState([]);
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
     const [objectDetails, setObjectDetails] = useState({
+        stockId: '',
         supplierName: '',
         unit_price: '',
     });
@@ -31,10 +32,6 @@ export default function Order() {
         supplierName3: '',
         unit_price3: '',
     });
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    };
 
     // NEW: Fetching stock cache
     useEffect(() => {
@@ -156,6 +153,7 @@ export default function Order() {
 
         if (selectedObject) {
             setObjectDetails({
+                stockId: selectedObject.stockId,
                 supplierName: selectedObject.supplierName,
                 unit_price: selectedObject.unit_price,
             });
@@ -227,18 +225,60 @@ export default function Order() {
     }
 
 
-        const [openRows, setOpenRows] = React.useState([]);
+    const [openRows, setOpenRows] = React.useState([]);
       
-        const toggleRow = (orderId) => {
-          if (openRows.includes(orderId)) {
+    const toggleRow = (orderId) => {
+        if (openRows.includes(orderId)) {
             setOpenRows(openRows.filter((id) => id !== orderId));
-          } else {
+        } else {
             setOpenRows([...openRows, orderId]);
-          }
+        }
+    };
+    /*SUBMITTING NEW ORDER
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        const order = {
+            status: PENDING,
+            orderDate: new Date().toISOString().split('T')[0],
+            deliveryDate: deliveryDateValue,
+            orderItems: [
+                {
+                    stock: {
+                        stockId: selectedItem.stockId, // or however you access selected item's stockId
+                        stock_type: "equipment" // or however you access selected item's stock type
+                    },
+                    quantity: {totalProdCost}//whateverYouUseToSetQuantity, 
+                },
+                {
+                    stock: {
+                        stockId: selectedItem.stockId, // or however you access selected item's stockId
+                        stock_type: "equipment" // or however you access selected item's stock type
+                    },
+                    quantity: {totalProdCost2}//whateverYouUseToSetQuantity, 
+                },
+                {
+                    stock: {
+                        stockId: selectedItem.stockId, // or however you access selected item's stockId
+                        stock_type: "equipment" // or however you access selected item's stock type
+                    },
+                    quantity: {totalProdCost3}//whateverYouUseToSetQuantity, 
+                },
+                // add other orderItems similarly
+            ],
+            supplier: { id: someSupplierId }, // can get supplier info by name here http://localhost:8080/api/supplier/name/SupplierA or from the Supplier ID in the componant 
+            warehouse: { id: 1 }, // just leave 1 hardcoded
         };
-
-
-
+    
+        try {
+            const response = await axios.post('http://localhost:8080/api/order', order);
+            console.log('Order submitted successfully', response.data);
+        } catch (error) {
+            console.error('There was an error submitting the order!', error);
+        }
+    };
+    */
+   
     return (
         <>
             <div>
