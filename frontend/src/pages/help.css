@@ -1,7 +1,6 @@
 .helpPageLayout {
   margin-top: 75px;
 	margin-left: 250px;
-	width: 75%;
 }
 .helpContent {
 	padding: 5px;
@@ -10,6 +9,8 @@
   justify-content: space-evenly;
   border: 1px solid;
   border-radius: 30px;
+  margin-right: 50px;
+  max-width: 2500px;
 }
 .content-info {
 	margin: 25px;
@@ -30,7 +31,7 @@
   font-size: 25px;
 }
 .accordian {
-  width: 80%;
+  width: 98%;
   border: 1px solid #E5E5E5FF;
 }
 .accordian-header {
@@ -41,7 +42,7 @@
   justify-content: space-between;
   padding: 15px 15px;
   border: 2px solid rgb(133, 133, 133);
-  background-color: #E5E5E5FF;
+  background-color: rgb(252, 252, 252);
 }
 .accordian-body {
   padding: 15px 5px;
@@ -52,4 +53,5 @@
   padding: initial;
   transform: initial;
   box-sizing: initial;
+  padding: 10px;
 }

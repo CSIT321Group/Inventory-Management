@@ -1,9 +1,7 @@
 .settings-div{
 	text-align: left;
-	width: 75%;
     margin-top: 75px;
 	margin-left: 250px;
-	width: 75%;
 }
 .settings-content{
     padding: 5px;
@@ -12,6 +10,8 @@
     justify-content: space-evenly;
     border: 1px solid;
     border-radius: 30px;
+    margin-right: 50px;
+    max-width: 2500px;
 }
 .settings-content-header{
     margin-left: 15px;

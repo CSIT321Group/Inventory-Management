@@ -60,7 +60,7 @@ const Inventory = () => {
     return (
         <>
             <div className='header'>
-                <h1>Table Filters</h1>
+                <h1>Inventory Filters</h1>
             </div>
             <div className='content'>
                 <table className='inventoryFilterTable'>

@@ -22,14 +22,22 @@ export default function Order() {
     const [objectDetails, setObjectDetails] = useState({
         stockId: '',
         supplierName: '',
+        stock_name: '',
+        stock_type: '',
         unit_price: '',
     });
     const [objectDetails2, setObjectDetails2] = useState({
+        stockId2: '',
         supplierName2: '',
+        stock_name2: '',
+        stock_type2: '',
         unit_price2: '',
     });
     const [objectDetails3, setObjectDetails3] = useState({
+        stockId3: '',
         supplierName3: '',
+        stock_name3: '',
+        stock_type3: '',
         unit_price3: '',
     });
 
@@ -155,6 +163,8 @@ export default function Order() {
             setObjectDetails({
                 stockId: selectedObject.stockId,
                 supplierName: selectedObject.supplierName,
+                stock_name: selectedObject.stock_name,
+                stock_type: selectedObject.stock_type,
                 unit_price: selectedObject.unit_price,
             });
         }
@@ -168,7 +178,10 @@ export default function Order() {
 
         if (selectedObject2) {
             setObjectDetails2({
+                stockId2: selectedObject2.stockId,
                 supplierName2: selectedObject2.supplierName,
+                stock_name2: selectedObject2.stock_name,
+                stock_type2: selectedObject2.stock_type,
                 unit_price2: selectedObject2.unit_price,
             });
         }
@@ -182,7 +195,10 @@ export default function Order() {
 
         if (selectedObject3) {
             setObjectDetails3({
+                stockId3: selectedObject3.stockId,
                 supplierName3: selectedObject3.supplierName,
+                stock_name3: selectedObject3.stock_name,
+                stock_type3: selectedObject3.stock_type,
                 unit_price3: selectedObject3.unit_price,
             });
         }
@@ -223,8 +239,6 @@ export default function Order() {
         const orderTotalRounded = Math.round(orderTotal*100)/100;
         setTotalOrderCost(orderTotalRounded);
     }
-
-
     const [openRows, setOpenRows] = React.useState([]);
       
     const toggleRow = (orderId) => {
@@ -234,50 +248,57 @@ export default function Order() {
             setOpenRows([...openRows, orderId]);
         }
     };
-    /*SUBMITTING NEW ORDER
+    //SUBMITTING NEW ORDER
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+        //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
+
         const order = {
-            status: PENDING,
+            status: "PENDING",
             orderDate: new Date().toISOString().split('T')[0],
             deliveryDate: deliveryDateValue,
             orderItems: [
                 {
                     stock: {
-                        stockId: selectedItem.stockId, // or however you access selected item's stockId
-                        stock_type: "equipment" // or however you access selected item's stock type
-                    },
-                    quantity: {totalProdCost}//whateverYouUseToSetQuantity, 
+                        stockId: objectDetails.stockId, 
+                        supplierName: objectDetails.supplierName,
+                        stock_name: objectDetails.stock_name ,
+                        unit_price: objectDetails.unit_price,
+                        stock_type: objectDetails.stock_type,
+                        quantity: (totalProdCost/objectDetails.unit_price),
+                    }, 
                 },
                 {
                     stock: {
-                        stockId: selectedItem.stockId, // or however you access selected item's stockId
-                        stock_type: "equipment" // or however you access selected item's stock type
-                    },
-                    quantity: {totalProdCost2}//whateverYouUseToSetQuantity, 
+                        stockId: objectDetails2.stockId2, 
+                        supplierName: objectDetails2.supplierName2,
+                        stock_name: objectDetails2.stock_name2,
+                        unit_price: objectDetails2.unit_price2,
+                        stock_type: objectDetails2.stock_type2,
+                        quantity: (totalProdCost2/objectDetails2.unit_price2),
+                    }, 
                 },
                 {
                     stock: {
-                        stockId: selectedItem.stockId, // or however you access selected item's stockId
-                        stock_type: "equipment" // or however you access selected item's stock type
-                    },
-                    quantity: {totalProdCost3}//whateverYouUseToSetQuantity, 
+                        stockId: objectDetails3.stockId3, 
+                        supplierName: objectDetails3.supplierName3,
+                        stock_name: objectDetails3.stock_name3 ,
+                        unit_price: objectDetails3.unit_price3,
+                        stock_type: objectDetails3.stocj_type3,
+                        quantity: (totalProdCost3/objectDetails3.unit_price3),
+                    },  
                 },
-                // add other orderItems similarly
             ],
-            supplier: { id: someSupplierId }, // can get supplier info by name here http://localhost:8080/api/supplier/name/SupplierA or from the Supplier ID in the componant 
-            warehouse: { id: 1 }, // just leave 1 hardcoded
         };
-    
+        //Currently, new orders aren't submitting. Need to work out why
         try {
             const response = await axios.post('http://localhost:8080/api/order', order);
             console.log('Order submitted successfully', response.data);
         } catch (error) {
             console.error('There was an error submitting the order!', error);
+            console.log(order);
         }
     };
-    */
    
     return (
         <>
@@ -434,13 +455,19 @@ export default function Order() {
                                 </table>
                             </div>
                             <br/>
-                            <button className='calculateButton' onClick={calculateButtonClick}>Calculate Cost</button>
-                            <input className='newOrderSubmit' type="submit"></input>
+                            <div className="popupButtons">
+                                <button className='calculateButton' onClick={calculateButtonClick}>Calculate Cost</button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button className='calculateButton' onClick={handleSubmit}>Submit Order</button>
+                            </div>
                         </form>
                     </Popup>
                 </div>
+                <div className="tableHeader">
+                    <h1>Orders Filters</h1>
+                </div>
                 <div className="content">
-                    <div>
+                    <div>                        
                         <form action="">
                             <table>
                                 <tr>
