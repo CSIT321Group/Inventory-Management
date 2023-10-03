@@ -1,12 +1,17 @@
 import SearchBar from "./searchbar";
 import '../pageLayout.css';
-import * as FaIcons from 'react-icons/fa';
 import './order.css';
 import React, { useState, useEffect } from 'react';
 import Popup from './New_Order/new_order_popup';
 import axios from 'axios';
 
+import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
+
 export default function Order() {
+    
     const [buttonPopup, setButtonPopup] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [deliveryDateValue, setDeliveryDateValue] = useState("");
@@ -15,21 +20,26 @@ export default function Order() {
     const [orders, setOrders] = useState([]);
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
     const [objectDetails, setObjectDetails] = useState({
+        stockId: '',
         supplierName: '',
+        stock_name: '',
+        stock_type: '',
         unit_price: '',
     });
     const [objectDetails2, setObjectDetails2] = useState({
+        stockId2: '',
         supplierName2: '',
+        stock_name2: '',
+        stock_type2: '',
         unit_price2: '',
     });
     const [objectDetails3, setObjectDetails3] = useState({
+        stockId3: '',
         supplierName3: '',
+        stock_name3: '',
+        stock_type3: '',
         unit_price3: '',
     });
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    };
 
     // NEW: Fetching stock cache
     useEffect(() => {
@@ -151,7 +161,10 @@ export default function Order() {
 
         if (selectedObject) {
             setObjectDetails({
+                stockId: selectedObject.stockId,
                 supplierName: selectedObject.supplierName,
+                stock_name: selectedObject.stock_name,
+                stock_type: selectedObject.stock_type,
                 unit_price: selectedObject.unit_price,
             });
         }
@@ -165,7 +178,10 @@ export default function Order() {
 
         if (selectedObject2) {
             setObjectDetails2({
+                stockId2: selectedObject2.stockId,
                 supplierName2: selectedObject2.supplierName,
+                stock_name2: selectedObject2.stock_name,
+                stock_type2: selectedObject2.stock_type,
                 unit_price2: selectedObject2.unit_price,
             });
         }
@@ -179,7 +195,10 @@ export default function Order() {
 
         if (selectedObject3) {
             setObjectDetails3({
+                stockId3: selectedObject3.stockId,
                 supplierName3: selectedObject3.supplierName,
+                stock_name3: selectedObject3.stock_name,
+                stock_type3: selectedObject3.stock_type,
                 unit_price3: selectedObject3.unit_price,
             });
         }
@@ -220,9 +239,71 @@ export default function Order() {
         const orderTotalRounded = Math.round(orderTotal*100)/100;
         setTotalOrderCost(orderTotalRounded);
     }
+    const [openRows, setOpenRows] = React.useState([]);
+      
+    const toggleRow = (orderId) => {
+        if (openRows.includes(orderId)) {
+            setOpenRows(openRows.filter((id) => id !== orderId));
+        } else {
+            setOpenRows([...openRows, orderId]);
+        }
+    };
+    //SUBMITTING NEW ORDER
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
+
+        const order = {
+            status: "PENDING",
+            orderDate: new Date().toISOString().split('T')[0],
+            deliveryDate: deliveryDateValue,
+            orderItems: [
+                {
+                    stock: {
+                        stockId: objectDetails.stockId, 
+                        supplierName: objectDetails.supplierName,
+                        stock_name: objectDetails.stock_name ,
+                        unit_price: objectDetails.unit_price,
+                        stock_type: objectDetails.stock_type,
+                        quantity: (totalProdCost/objectDetails.unit_price),
+                    }, 
+                },
+                {
+                    stock: {
+                        stockId: objectDetails2.stockId2, 
+                        supplierName: objectDetails2.supplierName2,
+                        stock_name: objectDetails2.stock_name2,
+                        unit_price: objectDetails2.unit_price2,
+                        stock_type: objectDetails2.stock_type2,
+                        quantity: (totalProdCost2/objectDetails2.unit_price2),
+                    }, 
+                },
+                {
+                    stock: {
+                        stockId: objectDetails3.stockId3, 
+                        supplierName: objectDetails3.supplierName3,
+                        stock_name: objectDetails3.stock_name3 ,
+                        unit_price: objectDetails3.unit_price3,
+                        stock_type: objectDetails3.stocj_type3,
+                        quantity: (totalProdCost3/objectDetails3.unit_price3),
+                    },  
+                },
+            ],
+        };
+        //Currently, new orders aren't submitting. Need to work out why
+        try {
+            const response = await axios.post('http://localhost:8080/api/order', order);
+            console.log('Order submitted successfully', response.data);
+        } catch (error) {
+            console.error('There was an error submitting the order!', error);
+            console.log(order);
+        }
+    };
+   
     return (
         <>
             <div>
+                {/*this is the new order popup*/}
                 <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px"}}>
                     <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
                         NEW ORDER
@@ -374,13 +455,19 @@ export default function Order() {
                                 </table>
                             </div>
                             <br/>
-                            <button className='calculateButton' onClick={calculateButtonClick}>Calculate Cost</button>
-                            <input className='newOrderSubmit' type="submit"></input>
+                            <div className="popupButtons">
+                                <button className='calculateButton' onClick={calculateButtonClick}>Calculate Cost</button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button className='calculateButton' onClick={handleSubmit}>Submit Order</button>
+                            </div>
                         </form>
                     </Popup>
                 </div>
+                <div className="tableHeader">
+                    <h1>Orders Filters</h1>
+                </div>
                 <div className="content">
-                    <div>
+                    <div>                        
                         <form action="">
                             <table>
                                 <tr>
@@ -408,48 +495,81 @@ export default function Order() {
                     </div>
                 </div>
             </div>
-
-            return (
             <div>
                 <div className="header">
                     <h1>Orders Table</h1>
                 </div>
                 <div className="content">
-                    <table className="orderTable">
-                        <thead>
-                        <tr>
-                            <th>Order Num</th>
-                            <th>Delivery Date</th>
-                            <th>Product</th>
-                            <th>Supplier</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {orders.map(order =>
-                            order.orderItems.map(item => (
-                                <tr key={item.id}>
-                                    <td>{order.id}</td>
-                                    <td>{order.deliveryDate}</td>
-                                    <td>{item.stock.stock_name}</td>
-                                    <td>{item.stock.supplierName}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>{order.status}</td>
-                                </tr>
-                            ))
-                        )}
-                        </tbody>
-                    </table>
+                    <br/>
+                    <TableContainer component={Paper} style={{ overflowX: 'hidden'}}>
+                        <Table aria-label="collapsible table" className="orderTable" style={{ width: "97%"}}>
+                            <TableHead>
+                            <TableRow>
+                                <TableCell className="small-cell" />
+                                <TableCell>Order Num</TableCell>
+                                <TableCell>Ordered Date</TableCell>
+                                <TableCell>Delivery Date</TableCell>
+                                <TableCell>Status</TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {orders.map((order) => (
+                                <React.Fragment key={order.id}>
+                                <TableRow onClick={() => toggleRow(order.id)}>
+                                    <TableCell className="smaller-cell"> 
+                                    <IconButton size="small">
+                                        {openRows.includes(order.id) ? (
+                                        <KeyboardArrowUpIcon />
+                                        ) : (
+                                        <KeyboardArrowDownIcon />
+                                        )}
+                                    </IconButton>
+                                    </TableCell >
+                                    <TableCell>{order.id}</TableCell>
+                                    <TableCell>{order.orderDate}</TableCell>
+                                    <TableCell>{order.deliveryDate}</TableCell>
+                                    <TableCell>{order.status}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={5}>
+                                    <Collapse
+                                        in={openRows.includes(order.id)}
+                                        timeout="auto"
+                                        unmountOnExit
+                                    >
+                                        <Box sx={{ margin: 2 }}>
+                                        <Typography variant="h6" gutterBottom component="div">
+                                            Order Details
+                                        </Typography>
+                                        <Table size="normal" aria-label="purchases">
+                                            <TableHead>
+                                            <TableRow>
+                                                <TableCell>Product</TableCell>
+                                                <TableCell>Supplier</TableCell>
+                                                <TableCell>Quantity</TableCell>
+                                            </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                            {order.orderItems.map((item) => (
+                                                <TableRow key={item.id}>
+                                                <TableCell>{item.stock.stock_name}</TableCell>
+                                                <TableCell>{item.stock.supplierName}</TableCell>
+                                                <TableCell>{item.quantity}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                            </TableBody>
+                                        </Table>
+                                        </Box>
+                                    </Collapse>
+                                    </TableCell>
+                                </TableRow>
+                                </React.Fragment>
+                            ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </div>
             </div>
-
-
-
-
-
-
-
             {/*<div style={{
                     position:"absolute",
                     marginLeft:"220px",
@@ -499,7 +619,8 @@ export default function Order() {
                         <td>OPEN</td>
                     </tr>
                 </table>
-        </div> */}
+            </div> */
+            }
         </>
     );
 };

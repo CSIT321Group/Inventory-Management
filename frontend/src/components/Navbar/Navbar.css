@@ -69,3 +69,6 @@ span{
 .notifications:hover {
     background-color: #1a83ff;
 }
+.logoNavBar {
+    margin-top: 7px;
+}

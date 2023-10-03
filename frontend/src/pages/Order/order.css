@@ -6,7 +6,14 @@ input[type=text] {
 .searchInput {
     margin-top: 12px;
 }
-
+.tableHeader {
+    margin-top: -80px;
+    margin-left: 250px;
+    margin-right: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .filterOrder {
     display: inline-flex;
     border: none;
@@ -20,11 +27,14 @@ input[type=text] {
 }
 
 .orderTable {
-	margin: 20px;
 	width: 97%;
+    margin-left: 15px;
 	border-collapse: collapse;
+    margin-right: 300px;
+    border-radius: 10px ;
+    align-items:center;
+    display:flex;
 }
-
 .orderTable th, td {
     border: 1px solid;
     border-collapse: collapse;
@@ -96,10 +106,12 @@ input[type=text] {
     margin-left: 864px;
     width: 10%;
 }
+.popupButtons {
+    margin-left: 650px;
+}
 .calculateButton {
     padding: 15px;
-    margin-left: 864px;
-    width: 10%;
+    width: 45%;
     border: 1px solid #767676;
     color: black;
     background: #efefef;
@@ -123,3 +135,36 @@ input[type=text] {
 .accordian-row-order {
     width: 100%;
 }
+
+.small-table {
+    font-size: 5px; 
+   
+    margin-left:250px;
+    margin-right: 300px;
+    border-radius:2px ;
+    align-items:center;
+    display:flex;
+}
+  
+.small-table th,
+ .small-table td {
+    align-items:center;
+    border-radius: 2px;
+    width: 5px;
+}
+.small-table .MuiTableCell-root {
+    padding: 2px; 
+    border-radius: 2px; 
+} 
+.small-table .MuiTableHead-root th {
+    font-weight: normal  ;
+    background-color: #d7d7d7   ;
+}
+  
+.small-table .MuiTableRow-root:hover {
+    background-color:transparent; 
+}
+
+
+
+  
