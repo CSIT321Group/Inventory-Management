@@ -9,15 +9,27 @@ export default function Login() {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const axoisPrivate = useAxiosPrivate();
+    const axiosPrivate = useAxiosPrivate();
 
     function validateForm() {
         return username.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        navigate('/');
+        try {
+            const response = await axiosPrivate.post('http://localhost:8080/api/test/login', {
+                userName: username,
+                password: password
+            });
+
+            if(response.data.token){
+                localStorage.setItem('userToken', response.data.token);
+                navigate('/');
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -25,7 +37,6 @@ export default function Login() {
             <div className="sub-main">
                 <div>
                     <h1>Welcome</h1>
-                    <div>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group size="lg" className="form" controlId="username">
                             <Form.Control
@@ -54,7 +65,6 @@ export default function Login() {
                             Login
                         </Button>
                     </Form>
-                    </div>
                 </div>
             </div>
         </div>

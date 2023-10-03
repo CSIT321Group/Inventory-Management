@@ -1,5 +1,4 @@
-import React from 'react';
-// { createContext, useState}
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route }
@@ -15,25 +14,35 @@ import Help from './pages/help';
 import Settings from './pages/settings';
  
 function App() {
-    // const [loggedIn, setLoggedIn] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const isUserLoggedIn = localStorage.getItem('userToken');
+
+        if(isUserLoggedIn === 'true') {
+            setLoggedIn(true);
+        }
+    }, []);
+
     return (
-        // <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
-
-        // </LoginContext.Provider>
-
         <Router>
             <ShowNavBar>
                 <Navbar />
             </ShowNavBar>
             <Routes>
-                <Route path='/login' element={<Login />} />
-                <Route path='/' exact element={<Home />} />
-                <Route path='/order' element={<Order />} />
-                <Route path='/inventory' element={<Inventory />} />
-                <Route path='/employee' element={<Employee />} />
-                <Route path='/reporting' element={<Reporting />} />
-                <Route path='/help' element={<Help />} />
-                <Route path='/settings' element={<Settings />} />
+                {loggedIn ? (
+                    <>
+                        <Route path='/' exact element={<Home />} />
+                        <Route path='/order' element={<Order />} />
+                        <Route path='/inventory' element={<Inventory />} />
+                        <Route path='/employee' element={<Employee />} />
+                        <Route path='/reporting' element={<Reporting />} />
+                        <Route path='/help' element={<Help />} />
+                        <Route path='/settings' element={<Settings />} />
+                    </>
+                ): (
+                    <Route path='/login' element={<Login />} />
+                )}
             </Routes>
         </Router>
     );
