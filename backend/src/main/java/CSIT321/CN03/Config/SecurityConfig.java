@@ -21,13 +21,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-//@EnableGlobalMethodSecurity(prePostEnabled = true) //re-enable this when ready for authentication and security
+@EnableGlobalMethodSecurity(prePostEnabled = true) //re-enable this when ready for authentication and security
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter ;
 
     //Delete this bean when ready for authentication and security
-    @Bean
+   /* @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
@@ -36,10 +36,10 @@ public class SecurityConfig {
                 .headers().frameOptions().disable();
         return http.build();
     }
-
+*/
 
     //Uncomment this bean when ready for authentication and security
-   /* @Bean
+   @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-    */
+
 
 
     @Bean
