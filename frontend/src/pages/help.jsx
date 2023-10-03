@@ -93,13 +93,11 @@ export default function Help(){
                             <div className="accordian-body">
                                 <h4>How to create an order:</h4>
                                     <p>
-                                    Lorem Ipsum is simply dummy text of the printing and type setting
-                                    industry. Lorem Ipsum has been the industry's ever since the 1500s,
-                                    when an unknown printer took a galley of type standard dummy text
-                                    and scrambled it to make a type specimen book.
+                                    To create an order, go to the order page. On the order page, there is a button called "new order".
+                                    Click on this button and it will open a new order popup page for you to fill out and submit.
                                     </p>
-                                <h4>How to delete an order:</h4>
-                                    <p>Blah blah blah</p>
+                                <h4>Can I order more items?</h4>
+                                    <p>Yes, you can order more than 3 items in one order. However, this can't be done online. You will need to contact your supplier.</p>
                                 <h4>Another order related issue</h4>
                                     <p>dsdsf dsfdsgfd sgfsgf sgfdagf</p>
                             </div>
@@ -131,17 +129,17 @@ export default function Help(){
                     <fieldset>
                     <br/>
                         <label htmlFor="name">Name: </label>
-                        <input className="helpInputs" type="text" id="name"/>
-                        <br/>
+                        <input style={{transform: "initial"}} className="helpInputs" type="text" id="name"/>
+                        <br/><br/>
                         <label htmlFor="email">Contact Email: </label>
-                        <input className="helpInputs" type="email" id="email"/>
-                        <br/>
+                        <input style={{transform: "initial"}} className="helpInputs" type="email" id="email"/>
+                        <br/><br/>
                         <label htmlFor="phone">Contact Phone Number: </label>
-                        <input className="helpInputs" type="tel" id="phone"/>
+                        <input style={{transform: "initial"}} className="helpInputs" type="tel" id="phone"/>
                         <br/><br/>
                         <label htmlFor="help">How can we help?</label>
                         <br/>
-                        <textarea className="helpInputs" id="help" rows="8" cols="35"/>
+                        <textarea style={{transform: "initial"}} className="helpInputs" id="help" rows="8" cols="35"/>
                         <br/><br/>
                         <input className="formButtons" type="submit"/>  
                         <span></span>

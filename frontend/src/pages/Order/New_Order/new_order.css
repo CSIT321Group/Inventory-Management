@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     z-index: 10000;
+    overflow-y: scroll;
 }
 
 .popup-inner {
@@ -22,7 +23,7 @@
 
 .popup-inner .close-btn {
     position: absolute;
-    top: 16px;
+    top: 30px;
     right: 16px;
     width: 80px;
 }

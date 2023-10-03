@@ -1,12 +1,17 @@
 import SearchBar from "./searchbar";
 import '../pageLayout.css';
-import * as FaIcons from 'react-icons/fa';
 import './order.css';
 import React, { useState, useEffect } from 'react';
 import Popup from './New_Order/new_order_popup';
 import axios from 'axios';
 
+import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
+
 export default function Order() {
+    
     const [buttonPopup, setButtonPopup] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [deliveryDateValue, setDeliveryDateValue] = useState("");
@@ -14,10 +19,27 @@ export default function Order() {
     const [statusValue, setStatusValue] = useState("");
     const [orders, setOrders] = useState([]);
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    };
+    const [objectDetails, setObjectDetails] = useState({
+        stockId: '',
+        supplierName: '',
+        stock_name: '',
+        stock_type: '',
+        unit_price: '',
+    });
+    const [objectDetails2, setObjectDetails2] = useState({
+        stockId2: '',
+        supplierName2: '',
+        stock_name2: '',
+        stock_type2: '',
+        unit_price2: '',
+    });
+    const [objectDetails3, setObjectDetails3] = useState({
+        stockId3: '',
+        supplierName3: '',
+        stock_name3: '',
+        stock_type3: '',
+        unit_price3: '',
+    });
 
     // NEW: Fetching stock cache
     useEffect(() => {
@@ -34,12 +56,18 @@ export default function Order() {
         fetchAllStockItems();
     }, []);
 
+    const [objectList, setObjectList] = useState([]);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/api/order');
                 const data = response.data;
-
+                // const allOrders = data.map(order2 => {
+                //        setObjectList(order2) 
+                //        console.log(order2);
+                                                           
+                // });
                 const modifiedOrders = data.map(order => {
                     // Deep cloning the order
                     const clonedOrder = { ...order };
@@ -57,7 +85,7 @@ export default function Order() {
 
                     return clonedOrder;
                 });
-
+                // setObjectList(response.data);
                 setOrders(modifiedOrders);
             } catch (error) {
                 console.error("Error fetching orders:", error);
@@ -98,11 +126,12 @@ export default function Order() {
                         totalValue: `$${item.unit_price * item.stock_quantity}`
                     };
                 });
+                setObjectList(updatedData) 
                 // Updating the state with the fetched data
                 setData(updatedData);
             } catch (error) {
                 // Logging any errors during the fetch process
-                console.error(`Error fetching data: ${error}`);
+                console.error(`Error fetching Inven data: ${error}`);
             }
         };
 
@@ -122,9 +151,159 @@ export default function Order() {
     const handleOpen3 = () => {
         setShow3(!show3); // Toggle accordion
     };
+
+    const [selectedValue, setSelectedValue] = useState('');
+    const handleChange = (event) => {
+        const newValue = event.target.value;
+        setSelectedValue(newValue);
+
+        const selectedObject = objectList.find((item1) => item1.stock_name === newValue);
+
+        if (selectedObject) {
+            setObjectDetails({
+                stockId: selectedObject.stockId,
+                supplierName: selectedObject.supplierName,
+                stock_name: selectedObject.stock_name,
+                stock_type: selectedObject.stock_type,
+                unit_price: selectedObject.unit_price,
+            });
+        }
+    };
+    const [selectedValue2, setSelectedValue2] = useState('');
+    const handleChange2 = (event) => {
+        const newValue2 = event.target.value;
+        setSelectedValue2(newValue2);
+
+        const selectedObject2 = objectList.find((item2) => item2.stock_name === newValue2);
+
+        if (selectedObject2) {
+            setObjectDetails2({
+                stockId2: selectedObject2.stockId,
+                supplierName2: selectedObject2.supplierName,
+                stock_name2: selectedObject2.stock_name,
+                stock_type2: selectedObject2.stock_type,
+                unit_price2: selectedObject2.unit_price,
+            });
+        }
+    };
+    const [selectedValue3, setSelectedValue3] = useState('');
+    const handleChange3 = (event) => {
+        const newValue3 = event.target.value;
+        setSelectedValue3(newValue3);
+
+        const selectedObject3 = objectList.find((item3) => item3.stock_name === newValue3);
+
+        if (selectedObject3) {
+            setObjectDetails3({
+                stockId3: selectedObject3.stockId,
+                supplierName3: selectedObject3.supplierName,
+                stock_name3: selectedObject3.stock_name,
+                stock_type3: selectedObject3.stock_type,
+                unit_price3: selectedObject3.unit_price,
+            });
+        }
+    };
+    //calculates the cost of the 1st item
+    const [totalProdCost, setTotalProdCost] = useState('');
+    const handleCost = (event) => {
+        const newQuantityValue = event.target.value;
+        const total = (newQuantityValue * objectDetails.unit_price);
+        const roundedTotal = Math.round(total*100)/100;
+        setTotalProdCost(roundedTotal);
+    }
+    //calculates the cost of the 2nd item
+    const [totalProdCost2, setTotalProdCost2] = useState('');
+    const handleCost2 = (event) => {
+        const newQuantityValue = event.target.value;
+        const total = (newQuantityValue * objectDetails2.unit_price2);
+        const roundedTotal = Math.round(total*100)/100;
+        setTotalProdCost2(roundedTotal);
+    }
+    //calculates the cost of the 3rd item
+    const [totalProdCost3, setTotalProdCost3] = useState('');
+    const handleCost3 = (event) => {
+        const newQuantityValue = event.target.value;
+        const total = (newQuantityValue * objectDetails3.unit_price3);
+        const roundedTotal = Math.round(total*100)/100;
+        setTotalProdCost3(roundedTotal);
+    }
+    const [totalProdSum, setTotalProdSum] = useState('');
+    const [totalOrderCost, setTotalOrderCost] = useState('');
+    const calculateButtonClick = (event) => {
+        //stops this button from submitting the order
+        event.preventDefault();
+        const prodTotal = totalProdCost + totalProdCost2 + totalProdCost3;
+        const roundedTotal = Math.round(prodTotal*100)/100;
+        setTotalProdSum(roundedTotal);
+        const orderTotal = prodTotal + 30;
+        const orderTotalRounded = Math.round(orderTotal*100)/100;
+        setTotalOrderCost(orderTotalRounded);
+    }
+    const [openRows, setOpenRows] = React.useState([]);
+      
+    const toggleRow = (orderId) => {
+        if (openRows.includes(orderId)) {
+            setOpenRows(openRows.filter((id) => id !== orderId));
+        } else {
+            setOpenRows([...openRows, orderId]);
+        }
+    };
+    //SUBMITTING NEW ORDER
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
+
+        const order = {
+            status: "PENDING",
+            orderDate: new Date().toISOString().split('T')[0],
+            deliveryDate: deliveryDateValue,
+            orderItems: [
+                {
+                    stock: {
+                        stockId: objectDetails.stockId, 
+                        supplierName: objectDetails.supplierName,
+                        stock_name: objectDetails.stock_name ,
+                        unit_price: objectDetails.unit_price,
+                        stock_type: objectDetails.stock_type,
+                        quantity: (totalProdCost/objectDetails.unit_price),
+                    }, 
+                },
+                {
+                    stock: {
+                        stockId: objectDetails2.stockId2, 
+                        supplierName: objectDetails2.supplierName2,
+                        stock_name: objectDetails2.stock_name2,
+                        unit_price: objectDetails2.unit_price2,
+                        stock_type: objectDetails2.stock_type2,
+                        quantity: (totalProdCost2/objectDetails2.unit_price2),
+                    }, 
+                },
+                {
+                    stock: {
+                        stockId: objectDetails3.stockId3, 
+                        supplierName: objectDetails3.supplierName3,
+                        stock_name: objectDetails3.stock_name3 ,
+                        unit_price: objectDetails3.unit_price3,
+                        stock_type: objectDetails3.stocj_type3,
+                        quantity: (totalProdCost3/objectDetails3.unit_price3),
+                    },  
+                },
+            ],
+        };
+        //Currently, new orders aren't submitting. Need to work out why
+        try {
+            const response = await axios.post('http://localhost:8080/api/order', order);
+            console.log('Order submitted successfully', response.data);
+        } catch (error) {
+            console.error('There was an error submitting the order!', error);
+            console.log(order);
+        }
+    };
+   
     return (
         <>
             <div>
+                {/*this is the new order popup*/}
                 <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px"}}>
                     <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
                         NEW ORDER
@@ -143,7 +322,7 @@ export default function Order() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select id="product" name="product" onChange={setSelectedItem}>
+                                            <select id="product" name="product" onChange={handleChange} value={selectedValue}>
                                                 {data.map((item) => (
                                                     <option value={item.stock_name}> {item.stock_name}</option> 
                                                 ))}
@@ -151,19 +330,17 @@ export default function Order() {
                                         </td>
                                         <td>
                                             <select id="supplier" name="supplier">
-                                                {data.map((item) => (
-                                                    <option value={item.supplierName}> {item.supplierName}</option> 
-                                                ))}
+                                                <option type="text" value={objectDetails.supplierName}>{objectDetails.supplierName}</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" name='quantity'></input>
+                                            <input type="number" name='quantity' onChange={handleCost} ></input>
                                         </td>
                                         <td>
-                                            <p>$$$/per unit</p>
+                                            <p>${objectDetails.unit_price}</p>
                                         </td>
                                         <td>
-                                            <p>$$$</p>
+                                            <p>${totalProdCost}</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -179,7 +356,7 @@ export default function Order() {
                                     <tr>
                                         {show && (
                                             <><td>
-                                                <select id="product" name="product2" onChange={setSelectedItem}>
+                                                <select id="product" name="product2" onChange={handleChange2} value={selectedValue2}>
                                                     {data.map((item) => (
                                                         <option value={item.stock_name}> {item.stock_name}</option>
                                                     ))}
@@ -187,19 +364,17 @@ export default function Order() {
                                             </td>
                                             <td>
                                                 <select id="supplier" name="supplier">
-                                                    {data.map((item) => (
-                                                        <option value={item.supplierName}> {item.supplierName}</option>
-                                                    ))}
+                                                    <option type="text" value={objectDetails2.supplierName2}>{objectDetails2.supplierName2}</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" name='quantity'></input>
+                                                <input type="number" name='quantity' onChange={handleCost2} ></input>
                                             </td>
                                             <td>
-                                                <p>$$$/per unit</p>
+                                                <p>${objectDetails2.unit_price2}</p>
                                             </td>
                                             <td>
-                                                <p>$$$</p>
+                                                <p>${totalProdCost2}</p>
                                             </td></>
                                         )}
                                     </tr>
@@ -216,7 +391,7 @@ export default function Order() {
                                     <tr>
                                         {show2 && (
                                             <><td>
-                                                <select id="product" name="product2" onChange={setSelectedItem}>
+                                                <select id="product" name="product2" onChange={handleChange3} value={selectedValue3}>
                                                     {data.map((item) => (
                                                         <option value={item.stock_name}> {item.stock_name}</option>
                                                     ))}
@@ -224,19 +399,17 @@ export default function Order() {
                                             </td>
                                             <td>
                                                 <select id="supplier" name="supplier">
-                                                    {data.map((item) => (
-                                                        <option value={item.supplierName}> {item.supplierName}</option>
-                                                    ))}
+                                                    <option type="text" value={objectDetails3.supplierName3}>{objectDetails3.supplierName3}</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" name='quantity'></input>
+                                                <input type="number" name='quantity' onChange={handleCost3} ></input>
                                             </td>
                                             <td>
-                                                <p>$$$/per unit</p>
+                                                <p>${objectDetails3.unit_price3}</p>
                                             </td>
                                             <td>
-                                                <p>$$$</p>
+                                                <p>${totalProdCost3}</p>
                                             </td></>
                                         )}
                                     </tr>                                            
@@ -251,43 +424,50 @@ export default function Order() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label htmlFor="accName">Account Name:</label>
-                                            <input type="text" name='accName'></input>
+                                            <label htmlFor="accName">Account Name: </label>
+                                            <input style={{transform: "none"}} type="text" name='accName' value="Stockor Ordering"></input>
                                         </td>
                                         <td>
                                             <label htmlFor="prodTotal">Product Total:</label>
-                                            <p>$$$</p>
+                                            <p>${totalProdSum}</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label htmlFor="accBSB">Account BSB:</label>
-                                            <input type="text" name='accBSB'></input>
+                                            <label htmlFor="accBSB">Account BSB: </label>
+                                            <input style={{transform: "none"}} type="text" name='accBSB' value='714-312'></input>
                                         </td>
                                         <td>
-                                            <label htmlFor="shipCost">Shipping Cost:</label>
-                                            <p>$$$</p>
+                                            <label htmlFor="shipCost">Shipping Cost: $</label>
+                                            <input style={{transform: "none"}} type="text" name='shipCost' value='30.00'></input>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label htmlFor="accNum">Account Number:</label>
-                                            <input type="text" name='accNum'></input>
+                                            <label htmlFor="accNum">Account Number: </label>
+                                            <input style={{transform: "none"}} type="text" name='accNum' value='721012'></input>
                                         </td>
                                         <td>
                                             <label htmlFor="totalOrder">Total Order Cost:</label>
-                                            <p>$$$</p>
+                                            <p>${totalOrderCost}</p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <br/>
-                            <input className='newOrderSubmit' type="submit"></input>
+                            <div className="popupButtons">
+                                <button className='calculateButton' onClick={calculateButtonClick}>Calculate Cost</button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button className='calculateButton' onClick={handleSubmit}>Submit Order</button>
+                            </div>
                         </form>
                     </Popup>
                 </div>
+                <div className="tableHeader">
+                    <h1>Orders Filters</h1>
+                </div>
                 <div className="content">
-                    <div>
+                    <div>                        
                         <form action="">
                             <table>
                                 <tr>
@@ -315,48 +495,81 @@ export default function Order() {
                     </div>
                 </div>
             </div>
-
-            return (
             <div>
                 <div className="header">
                     <h1>Orders Table</h1>
                 </div>
                 <div className="content">
-                    <table className="orderTable">
-                        <thead>
-                        <tr>
-                            <th>Order Num</th>
-                            <th>Delivery Date</th>
-                            <th>Product</th>
-                            <th>Supplier</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {orders.map(order =>
-                            order.orderItems.map(item => (
-                                <tr key={item.id}>
-                                    <td>{order.id}</td>
-                                    <td>{order.deliveryDate}</td>
-                                    <td>{item.stock.stock_name}</td>
-                                    <td>{item.stock.supplierName}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>{order.status}</td>
-                                </tr>
-                            ))
-                        )}
-                        </tbody>
-                    </table>
+                    <br/>
+                    <TableContainer component={Paper} style={{ overflowX: 'hidden'}}>
+                        <Table aria-label="collapsible table" className="orderTable" style={{ width: "97%"}}>
+                            <TableHead>
+                            <TableRow>
+                                <TableCell className="small-cell" />
+                                <TableCell>Order Num</TableCell>
+                                <TableCell>Ordered Date</TableCell>
+                                <TableCell>Delivery Date</TableCell>
+                                <TableCell>Status</TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {orders.map((order) => (
+                                <React.Fragment key={order.id}>
+                                <TableRow onClick={() => toggleRow(order.id)}>
+                                    <TableCell className="smaller-cell"> 
+                                    <IconButton size="small">
+                                        {openRows.includes(order.id) ? (
+                                        <KeyboardArrowUpIcon />
+                                        ) : (
+                                        <KeyboardArrowDownIcon />
+                                        )}
+                                    </IconButton>
+                                    </TableCell >
+                                    <TableCell>{order.id}</TableCell>
+                                    <TableCell>{order.orderDate}</TableCell>
+                                    <TableCell>{order.deliveryDate}</TableCell>
+                                    <TableCell>{order.status}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={5}>
+                                    <Collapse
+                                        in={openRows.includes(order.id)}
+                                        timeout="auto"
+                                        unmountOnExit
+                                    >
+                                        <Box sx={{ margin: 2 }}>
+                                        <Typography variant="h6" gutterBottom component="div">
+                                            Order Details
+                                        </Typography>
+                                        <Table size="normal" aria-label="purchases">
+                                            <TableHead>
+                                            <TableRow>
+                                                <TableCell>Product</TableCell>
+                                                <TableCell>Supplier</TableCell>
+                                                <TableCell>Quantity</TableCell>
+                                            </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                            {order.orderItems.map((item) => (
+                                                <TableRow key={item.id}>
+                                                <TableCell>{item.stock.stock_name}</TableCell>
+                                                <TableCell>{item.stock.supplierName}</TableCell>
+                                                <TableCell>{item.quantity}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                            </TableBody>
+                                        </Table>
+                                        </Box>
+                                    </Collapse>
+                                    </TableCell>
+                                </TableRow>
+                                </React.Fragment>
+                            ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </div>
             </div>
-
-
-
-
-
-
-
             {/*<div style={{
                     position:"absolute",
                     marginLeft:"220px",
@@ -406,7 +619,8 @@ export default function Order() {
                         <td>OPEN</td>
                     </tr>
                 </table>
-        </div> */}
+            </div> */
+            }
         </>
     );
 };
