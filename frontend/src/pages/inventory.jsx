@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import FilterButton from './button';
 import axios from 'axios';
 import './pageLayout.css';
 import './inventory.css';
@@ -93,7 +94,7 @@ const Inventory = () => {
                         </div>
                     </tr>
                     <tr className='rowButton'>
-                        <button className='applyFilterButton' onClick={handleFilterClick}>APPLY FILTERS</button>
+                        <FilterButton onPress={handleFilterClick} />
                     </tr>
                 </table>
             </div>
