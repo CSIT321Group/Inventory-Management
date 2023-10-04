@@ -45,7 +45,6 @@ export default function Login() {
             <div className="sub-main">
                 <div>
                     <h1>Welcome</h1>
-                    <div>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group size="lg" className="form" controlId="username">
                             <Form.Control
@@ -74,7 +73,6 @@ export default function Login() {
                             Login
                         </Button>
                     </Form>
-                    </div>
                 </div>
             </div>
         </div>
