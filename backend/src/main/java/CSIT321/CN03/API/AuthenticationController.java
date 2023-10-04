@@ -17,12 +17,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController  // Indicates that this class is a REST Controller
 @RequestMapping("/api/test")  // Maps this controller to the /api/test route
 @RequiredArgsConstructor  // Lombok annotation to generate a constructor with required fields
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager; // Used to authenticate users
@@ -39,16 +42,24 @@ public class AuthenticationController {
         return ResponseEntity.ok("Hello, mate! Your roles: " + roles);  // Respond with the roles of the authenticated user
     }
 
-    @PostMapping("/login")  // Maps HTTP POST requests onto this method for the /login endpoint
-    public ResponseEntity<String> authenticate(@RequestBody AuthRequest request, HttpServletResponse response) {  // Method to authenticate the user
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> authenticate(@RequestBody AuthRequest request, HttpServletResponse response) {
         System.out.println("Attempting authentication for user: " + request.getUserName());
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));  // Authenticate the user
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUserName());  // Load the user details
+
+        // Authenticate the user
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+
+        // Load the user details
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUserName());
+
         if (userDetails != null) {
+            // Convert the authorities to a list of role names
             List<String> authorities = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());  // Convert the authorities to a list of role names
-            String jwtToken = jwtUtil.generateToken(userDetails.getUsername(), authorities);  // Generate the JWT token
+                    .collect(Collectors.toList());
+
+            // Generate the JWT token
+            String jwtToken = jwtUtil.generateToken(userDetails.getUsername(), authorities);
 
             // Set the JWT token as an HttpOnly cookie in the response
             Cookie cookie = new Cookie("jwt", jwtToken);
@@ -56,9 +67,15 @@ public class AuthenticationController {
             cookie.setPath("/");
             response.addCookie(cookie);
 
-            return ResponseEntity.ok("Login successful");  // Respond with success message
+            // Create a map to store the response
+            Map<String, String> responseBody = new HashMap<>();
+            responseBody.put("message", "Login successful");
+            responseBody.put("token", jwtToken);
+            return ResponseEntity.ok(responseBody);
         }
-        return ResponseEntity.status(400).body("An error has occurred");  // Respond with an error if the user details could not be loaded
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("message", "An error has occurred");
+        return ResponseEntity.status(400).body(errorBody);  // Respond with an error if the user details could not be loaded
     }
 
     // The following endpoints can be accessed only by users with specific authorities

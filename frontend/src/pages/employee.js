@@ -9,17 +9,27 @@ export default function Employee() {
     const [employees, setEmployees] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
+    const getAuthHeaders = () => {
+        return {
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        };
+    };
+
     useEffect(() => {
         fetchAllEmployees(); // Fetch all employees on component mount
     }, []);
 
     const searchEmployees = async (searchText) => {
-        const result = await axios.get(`http://localhost:8080/api/staff/search/${searchText}`);
+        const result = await axios.get(`http://localhost:8080/api/staff/search/${searchText}`, {
+            headers: getAuthHeaders()
+        });
         setEmployees(result.data);
     }
 
     const fetchAllEmployees = async () => {
-        const result = await axios.get('http://localhost:8080/api/staff');
+        const result = await axios.get('http://localhost:8080/api/staff', {
+            headers: getAuthHeaders()
+        });
         setEmployees(result.data);
     }
 

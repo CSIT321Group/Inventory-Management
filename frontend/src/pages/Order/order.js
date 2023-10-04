@@ -61,7 +61,11 @@ export default function Order() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/order');
+                const response = await fetch(`http://localhost:8080/api/stock`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                });
                 const data = response.data;
                 // const allOrders = data.map(order2 => {
                 //        setObjectList(order2) 
@@ -116,7 +120,11 @@ export default function Order() {
 
             try {
                 // Making an asynchronous GET request to the endpoint
-                const response = await axios.get(endpoint);
+                const response = await axios.get(endpoint, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                });
                 // Mapping the response data to add/update some fields before setting the state
                 const updatedData = response.data.map(item => {
                     return {

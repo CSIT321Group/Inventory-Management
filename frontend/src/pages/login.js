@@ -3,21 +3,41 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../components/Hooks/useAxiosPrivate";
+import axios from "axios";
 
 export default function Login() {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const axoisPrivate = useAxiosPrivate();
 
     function validateForm() {
         return username.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        navigate('/');
+
+        // Create login payload
+        const loginDetails = {
+            userName: username,
+            password: password
+        };
+
+        try {
+            // Make POST request to login API
+            const response = await axios.post("http://localhost:8080/api/test/login", loginDetails);
+
+            // Check if the response status is 200 and if the JWT token is present in the response
+            if (response.status === 200 && response.data.token) {
+                localStorage.setItem('jwt', response.data.token);
+                navigate('/');
+            } else {
+                console.error("Login failed");
+            }
+        } catch (error) {
+            // Handle any errors that occur during the Axios request
+            console.error("An error occurred during login:", error);
+        }
     }
 
     return (

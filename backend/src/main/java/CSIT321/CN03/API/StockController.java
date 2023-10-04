@@ -5,6 +5,7 @@ import CSIT321.CN03.Service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,32 +19,38 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
+    @PreAuthorize("hasAnyRole('Order', 'ADMIN', 'Reporting', 'Inventory', 'EmployeeInfo', 'USER')")
     @GetMapping("/{id}")
     public Stock getStockById(@PathVariable Long id) {
         return stockService.getStockById(id);
     }
 
+    @PreAuthorize("hasAnyRole('Order', 'ADMIN', 'Reporting', 'Inventory', 'EmployeeInfo', 'USER')")
     @GetMapping
     public List<Stock> getAllStock() {
         return stockService.getAllStock();
     }
 
+    @PreAuthorize("hasAnyRole('Order', 'ADMIN', 'Reporting', 'Inventory', 'EmployeeInfo', 'USER')")
     @GetMapping("/search/{searchText}")
     public List<Stock> search(@PathVariable String searchText) {
         return stockService.search(searchText);
     }
 
+    @PreAuthorize("hasAnyRole('Order', 'ADMIN', 'Reporting', 'Inventory', 'EmployeeInfo', 'USER')")
     @PutMapping("/{stockId}/supplier/{supplierId}")
     public ResponseEntity<Stock> assignSupplierToStock(@PathVariable Long stockId, @PathVariable Long supplierId) {
         Stock stock = stockService.assignSupplierToStock(stockId, supplierId);
         return ResponseEntity.ok(stock);
     }
 
+    @PreAuthorize("hasAnyRole('Order', 'ADMIN', 'Reporting', 'Inventory', 'EmployeeInfo', 'USER')")
     @GetMapping("/lowest")
     public List<Stock> getTop10LowestStockedItems() {
         return stockService.getTop10LowestStockedItems();
     }
 
+    @PreAuthorize("hasAnyRole('Order', 'ADMIN', 'Reporting', 'Inventory', 'EmployeeInfo', 'USER')")
     @GetMapping("/random")
     public List<Stock> getRandomStockItems() {
         return stockService.getRandomStockItems();

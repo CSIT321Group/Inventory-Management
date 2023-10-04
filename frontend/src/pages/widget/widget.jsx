@@ -60,15 +60,21 @@ const Widget = ({ type }) => {
         }
 
         // Fetch data from the API
-        axios
-            .get(apiEndpoint)
-            .then((response) => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(apiEndpoint, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                });
                 // Set the tableData state with the fetched data
                 setTableData(response.data);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error(`Error fetching data for ${type}:`, error);
-            });
+            }
+        };
+
+        fetchData();
     }, [type]); // Run this effect whenever the type prop changes
 
     return expanded ? (

@@ -11,11 +11,14 @@ const Inventory = () => {
     const [skuSearch, setSkuSearch] = useState(''); // SKU search string
     const [nameSearch, setNameSearch] = useState(''); // Name search string
 
+
+
     // useEffect hook runs side-effects in functional components, similar to componentDidMount and componentDidUpdate combined in class components
     useEffect(() => {
         const fetchData = async () => {  // Defining an async function to fetch data from the API
             // Setting a default endpoint URL
             let endpoint = `http://localhost:8080/api/stock`;
+
 
             // If either skuSearch or nameSearch has a value, we modify the endpoint to search with that value
             if (skuSearch || nameSearch) {
@@ -25,7 +28,11 @@ const Inventory = () => {
 
             try {
                 // Making an asynchronous GET request to the endpoint
-                const response = await axios.get(endpoint);
+                const response = await axios.get(endpoint, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                });
                 // Mapping the response data to add/update some fields before setting the state
                 const updatedData = response.data.map(item => {
                     return {
