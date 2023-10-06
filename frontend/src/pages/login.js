@@ -69,7 +69,7 @@ export default function Login() {
                                 Forgot Password?
                             </Link>
                         </div>
-                        <Button block size="lg" type="submit" disabled={!validateForm()} onClick={handleSubmit}>
+                        <Button block size="lg" type="submit" disabled={!validateForm()}>
                             Login
                         </Button>
                     </Form>
