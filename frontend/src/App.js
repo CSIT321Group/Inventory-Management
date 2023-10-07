@@ -12,6 +12,7 @@ import Employee from './pages/employee';
 import Reporting from './pages/reporting';
 import Help from './pages/help';
 import Settings from './pages/settings';
+import Logout from "./pages/logout";
 
  
 function App() {
@@ -40,6 +41,7 @@ function App() {
                         <Route path='/reporting' element={<Reporting />} />
                         <Route path='/help' element={<Help />} />
                         <Route path='/settings' element={<Settings />} />
+                        <Route path='/logout' element={<Logout />} />
                     </>
                 ): (
                     <Route path='/login' element={<Login />} />

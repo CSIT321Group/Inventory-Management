@@ -30,7 +30,7 @@ export default function Login() {
             // Check if the response status is 200 and if the JWT token is present in the response
             if (response.status === 200 && response.data.token) {
                 localStorage.setItem('jwt', response.data.token);
-                navigate('/');
+                window.location.href = '/';
             } else {
                 console.error("Login failed");
             }
