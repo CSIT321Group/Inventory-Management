@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './pageLayout.css';
 import './reporting.css';
 import { Doughnut, Bar } from 'react-chartjs-2';
@@ -15,34 +15,72 @@ export default function Reporting() {
 		LinearScale
 		);
 
-	const [show, toggleShow] = useState(true);
 	const [itemCount, SetItemCount] = useState(1);
+	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 
-	const labels = ["In-stock", "Out-of-Stock", "Future Stock", "Predicted Loss", "Future Growth"];
+	useEffect (() => {
+		fetchData();
+	}, []);
 
-	const data = {
-		labels: labels,
-		datasets: [{
-			label: 'Test',
-			data: [10, 8, 13, 4, 20],
-			backgroundColor: [
-				'#007bff', // blue
-				'#FF0000', // red
-				'#FFD700', // yellow
-				'#28a745', // green
-				'#FF00FF', // voilet
-				'ff9900',  // orange
-				'00FFFF',  // aqua marine
-				'#d69ae5', // red violet
-				'#FF8F66', // orange red
-				'#00FF00'  // lime
-			],
-		}],
+	const fetchData = async () => {
+		try{
+			const result = await fetch('');
+			const doughnutData = await result.json();
+			setData(doughnutData);
+		} catch (error) {
+			console.error("Error fetching data: ", error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const options = {
-		
-	}
+		responsive: true,
+		maintainAspectRatio: false,
+		plugins: {
+			legend: {
+				position: 'top',
+			},
+			title: {
+				display: true,
+				text: 'Chart.js Doghnut Chart',
+			},
+		},
+	};
+
+	const chartData = {
+		labels: ["In-stock", "Out-of-Stock", "Future Stock", "Predicted Loss", "Future Growth"],
+		datasets: [
+			{
+				label: 'Stock',
+				data: data.colors,
+				backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+				borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+				borderWidth: 1,
+			},
+		],
+	};
+
+	// const options = {
+	// 	labels: labels,
+	// 	datasets: [{
+	// 		label: 'Test',
+	// 		data: [10, 8, 13, 4, 20],
+	// 		backgroundColor: [
+	// 			'#007bff', // blue
+	// 			'#FF0000', // red
+	// 			'#FFD700', // yellow
+	// 			'#28a745', // green
+	// 			'#FF00FF', // voilet
+	// 			'ff9900',  // orange
+	// 			'00FFFF',  // aqua marine
+	// 			'#d69ae5', // red violet
+	// 			'#FF8F66', // orange red
+	// 			'#00FF00'  // lime
+	// 		],
+	// 	}],
+	// };
 
 	const AnotherItem = () => {
 
@@ -55,7 +93,7 @@ export default function Reporting() {
 			<br/><br/>
 			<div className='header'>
 				<h1>Report Filters</h1>
-				<button onClick= {() => toggleShow(!show)} className='button'> GENERATE REPORT</button>
+				<button onClick= {generateData} className='button'> GENERATE REPORT</button>
 			</div>
 			<div className='content'>
 				<table>
@@ -134,41 +172,26 @@ export default function Reporting() {
 				</Accordion>
 			</div>
 			
-
-
-
-
-
-
-
-
-
-
-
 			<div className='header'>
 					<h1>Report Statistics</h1>
 					<button className='button'>EXPORT AS PDF</button>
 			</div>
-				{show ?
-					<div className='content'>
-						<table className='reportingTable'>
-							<tr>
-								<td>
-									<Doughnut data={data} options={{maintainAspectRatio:false}} />
-								</td>
-								<td>
-									<Bar style= {{padding: '20px'}} data = {data} options = {options}/>
-								</td>
-							</tr>
-						</table>
-					</div>
-					:
-					<div className='report-statistics-noshow'>
-						<div>
-							<h2 style={{textAlign:"center", alignContent:"center", marginTop:"250px"}}>GENERATE A REPORT ABOVE</h2>
-						</div>
-					</div>
-				}
+			{loading ? (
+				<div>GENERATE REPORT ABOVE</div>
+			): (
+				<div className='content'>
+					<table className='reportingTable'>
+						<tr>
+							<td>
+								<Doughnut data={doughnutData} options={options} />
+							</td>
+							<td>
+								<Bar style= {{padding: '20px'}} data = {data} options = {options}/>
+							</td>
+						</tr>
+					</table>
+				</div>
+			)}
 		</>
   	)
 }
