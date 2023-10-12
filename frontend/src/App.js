@@ -12,6 +12,7 @@ import Employee from './pages/employee';
 import Reporting from './pages/reporting';
 import Help from './pages/help';
 import Settings from './pages/settings';
+import Logout from "./pages/logout";
 
 const roleRestrictedRoutes = {
     'ROLE_ADMIN': [
@@ -34,21 +35,9 @@ function App() {
     const [userRole, setUserRole] = useState('');
 
     useEffect(() => {
-        const jwt = require('jsonwebtoken');
-        const decoded = jwt.decoded(token);
+        const isUserLoggedIn = localStorage.getItem('userToken');
 
-        const roles = decoded.roles;
-
-        const filterRoles = roles.filter(role => {
-            if (role === "ROLE_ADMIN") {
-
-            }
-        })
-
-        const isUserLoggedIn = localStorage.getItem('token');
-        const userRole = localStorage.getItem('role');
-
-        if(isUserLoggedIn === 'true') {
+        if(isUserLoggedIn) {
             setLoggedIn(true);
             setUserRole(userRole);
         }
@@ -97,6 +86,7 @@ function App() {
                             )} />
                         <Route path='/help' element={<Help />} />
                         <Route path='/settings' element={<Settings />} />
+                        <Route path='/logout' element={<Logout />} />
                     </>
                 ): (
                     <Route path='/login' element={<Login />} />

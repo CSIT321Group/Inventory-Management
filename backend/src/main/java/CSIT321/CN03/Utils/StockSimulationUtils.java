@@ -5,6 +5,8 @@ import java.util.List;
 
 public class StockSimulationUtils {
 
+
+    /*
     // Consumables
     public static final List<String> CONSUMABLES_FIRST_WORD = Arrays.asList(
             "Adhesive", "Cleaning", "Sealing", "Waterproofing", "Binding",
@@ -64,4 +66,128 @@ public class StockSimulationUtils {
             "Vat", "Module", "Chamber", "Engine", "Press",
             "Filter", "Generator", "Mixer", "Cooler", "Reactor"
     );
+//*/
+
+     // Consumables (Items commonly consumed during computer repair and assembly)
+    public static final List<String> CONSUMABLES_FIRST_WORD = Arrays.asList(
+            "Thermal", "Cleaning", "Conductive", "Protective", "Adhesive",
+            "Lubricating", "Anti-static", "Sealing", "Cooling", "Isopropyl",
+            "Degreasing", "Corrosion-resistant", "Organic", "Dielectric", "Binding",
+            "Screen", "Surge", "Flux", "Insulating", "Buffered"
+    );
+
+    public static final List<String> CONSUMABLES_SECOND_WORD = Arrays.asList(
+            "Paste", "Wipe", "Gel", "Tape", "Spray",
+            "Solution", "Brush", "Compound", "Foam", "Alcohol",
+            "Fluid", "Shield", "Strip", "Band", "Pad",
+            "Sheet", "Cable", "Clip", "Wrap", "Guard"
+    );
+
+    // Raw Materials (Basic building materials for computer components)
+    public static final List<String> RAW_MATERIALS_FIRST_WORD = Arrays.asList(
+            "Silicon", "Gold", "Copper", "Plastic", "Graphene",
+            "Aluminum", "Ceramic", "Glass", "Tin", "Carbon",
+            "Rubber", "Solder", "Nickel", "Magnetic", "Lead",
+            "Ferrite", "Zinc", "Phosphor", "Palladium", "Silver"
+    );
+
+    public static final List<String> RAW_MATERIALS_SECOND_WORD = Arrays.asList(
+            "Wafer", "Wire", "Sheet", "Pellet", "Rod",
+            "Foil", "Compound", "Bead", "Strand", "Mesh",
+            "Disk", "Coil", "Block", "Plate", "Ribbon",
+            "Ring", "Sphere", "Chip", "Grid", "Cube"
+    );
+
+    // Equipment (Tools and devices used for computer repairs and diagnostics)
+    public static final List<String> EQUIPMENT_FIRST_WORD = Arrays.asList(
+            "Digital", "Handheld", "Precision", "Multi-purpose", "Static-free",
+            "Magnetic", "Cordless", "Adjustable", "Laser", "Mechanical",
+            "Wireless", "Calibrating", "Testing", "Insulating", "Soldering",
+            "Anti-static", "Flexible", "USB", "Micro", "Optical"
+    );
+
+    public static final List<String> EQUIPMENT_SECOND_WORD = Arrays.asList(
+            "Toolset", "Meter", "Probe", "Wrench", "Screwdriver",
+            "Tester", "Clip", "Tweezer", "Magnifier", "Spudger",
+            "Kit", "Station", "Pen", "Scope", "Light",
+            "Platform", "Gun", "Pad", "Stand", "Bracket"
+    );
+
+    // Machinery (Larger devices and machines used in the computer production and repair industry)
+    public static final List<String> MACHINERY_FIRST_WORD = Arrays.asList(
+            "Soldering", "Testing", "Circuit", "3D", "Reflow",
+            "Printing", "CNC", "Assembly", "Routing", "Extruding",
+            "Injection", "Laminating", "Etching", "Vacuum", "BGA",
+            "Mounting", "Cutting", "Punching", "Screen", "UV"
+    );
+
+    public static final List<String> MACHINERY_SECOND_WORD = Arrays.asList(
+            "Station", "Machine", "Board", "Printer", "Oven",
+            "Mill", "Assembler", "Router", "Extruder", "Molder",
+            "Press", "Laminator", "Bench", "Chamber", "Caster",
+            "Laser", "Cutter", "Table", "Cleaner", "Curer"
+    );
+
+
+    /*
+    // Consumables (Items regularly consumed during car repair and maintenance)
+    public static final List<String> CONSUMABLES_FIRST_WORD = Arrays.asList(
+            "Engine", "Brake", "Transmission", "Radiator", "Windshield",
+            "Lubricating", "Cleaning", "Cooling", "Hydraulic", "Diesel",
+            "Gasoline", "Air", "Fuel", "Power-steering", "Wiper",
+            "Battery", "Protective", "Degreasing", "Sealing", "Polishing"
+    );
+
+    public static final List<String> CONSUMABLES_SECOND_WORD = Arrays.asList(
+            "Oil", "Fluid", "Cleaner", "Coolant", "Washer",
+            "Grease", "Additive", "Filter", "Pad", "Gel",
+            "Wax", "Spray", "Sealant", "Tape", "Wrap",
+            "Strip", "Guard", "Paste", "Compound", "Foam"
+    );
+
+    // Raw Materials (Materials used in the production of car parts)
+    public static final List<String> RAW_MATERIALS_FIRST_WORD = Arrays.asList(
+            "Steel", "Aluminum", "Rubber", "Copper", "Plastic",
+            "Carbon", "Ceramic", "Leather", "Glass", "Zinc",
+            "Magnesium", "Fiberglass", "Brass", "Nickel", "Titanium",
+            "Silicone", "Foam", "PVC", "Polycarbonate", "Polypropylene"
+    );
+
+    public static final List<String> RAW_MATERIALS_SECOND_WORD = Arrays.asList(
+            "Sheet", "Bolt", "Gasket", "Tube", "Wire",
+            "Belt", "Rod", "Strip", "Plate", "Seal",
+            "Disc", "Coil", "Mesh", "Ring", "Pad",
+            "Bracket", "Cover", "Shield", "Hose", "Clip"
+    );
+
+    // Equipment (Tools and devices used for car repairs and diagnostics)
+    public static final List<String> EQUIPMENT_FIRST_WORD = Arrays.asList(
+            "Hydraulic", "Diagnostic", "Electric", "Pneumatic", "Digital",
+            "Handheld", "Lifting", "Pressure", "Torque", "Alignment",
+            "Calibrating", "Battery", "Ignition", "Tire", "Brake",
+            "Exhaust", "Fuel", "Oil", "Transmission", "Cooling"
+    );
+
+    public static final List<String> EQUIPMENT_SECOND_WORD = Arrays.asList(
+            "Jack", "Tester", "Wrench", "Scanner", "Gauge",
+            "Pump", "Charger", "Balancer", "Toolset", "Machine",
+            "Meter", "Kit", "Stand", "Gun", "Drill",
+            "Light", "Compressor", "Vacuum", "Hose", "Probe"
+    );
+
+    // Machinery (Larger devices and machines used in the car repair industry)
+    public static final List<String> MACHINERY_FIRST_WORD = Arrays.asList(
+            "Alignment", "Paint", "Lifting", "Tire", "Welding",
+            "Diagnostic", "Brake", "Transmission", "Exhaust", "Battery",
+            "Spray", "Air", "Hydraulic", "Cooling", "Engine",
+            "Fuel", "Dent", "Electrical", "Pneumatic", "Polishing"
+    );
+
+    public static final List<String> MACHINERY_SECOND_WORD = Arrays.asList(
+            "Machine", "Booth", "Lift", "Changer", "Machine",
+            "Tester", "Lathe", "Press", "Hood", "Charger",
+            "Gun", "Compressor", "Bench", "Station", "Analyzer",
+            "Pump", "Removal", "Table", "Cleaner", "Grinder"
+    );
+     */
 }
