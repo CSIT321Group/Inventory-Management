@@ -63,7 +63,7 @@ function App() {
                         <Route 
                             path='/inventory'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRoles.includes("Inventory") ? (
+                                userRole.includes("ROLE_ADMIN") || userRole.includes("Inventory") ? (
                                     <Inventory/>
                                 ) : (
                                     <div>You do not have access to this page</div>
