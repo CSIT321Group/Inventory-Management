@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RestController  // Indicates that this class is a REST Controller
 @RequestMapping("/api/test")  // Maps this controller to the /api/test route
 @RequiredArgsConstructor  // Lombok annotation to generate a constructor with required fields
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager; // Used to authenticate users
@@ -114,4 +114,20 @@ public class AuthenticationController {
     public ResponseEntity<?> empInfo() {
         return ResponseEntity.ok("You have access to employeeInfo");
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+
+        // Create a cookie with the same name as the JWT cookie, set its max age to 0 to delete it
+        Cookie cookie = new Cookie("jwt", "");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);  // Set cookie's age to 0 to remove it
+        cookie.setPath("/");
+
+        // Add the cookie to the response
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("Logged out successfully");
+    }
+
 }

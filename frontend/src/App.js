@@ -26,6 +26,10 @@ function App() {
         }
     }, []);
 
+    function handleLogout() {
+        setLoggedIn(false);
+    }
+
     return (
         <Router>
             <ShowNavBar>
@@ -41,7 +45,8 @@ function App() {
                         <Route path='/reporting' element={<Reporting />} />
                         <Route path='/help' element={<Help />} />
                         <Route path='/settings' element={<Settings />} />
-                        <Route path='/logout' element={<Logout />} />
+                        <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
+
                     </>
                 ): (
                     <Route path='/login' element={<Login />} />
