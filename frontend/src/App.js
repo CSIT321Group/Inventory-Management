@@ -29,29 +29,37 @@ const roleRestrictedRoutes = {
         {path: '/inventory', component: Inventory}
     ],
 }
- 
+
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userRole, setUserRole] = useState('');
+    const [userRole, setUserRoles] = useState([]);
 
     useEffect(() => {
+
+        const jwt = localStorage.getItem('jwt');
+        if (!jwt) {
+            setLoggedIn(false);
+            console.log('JWT not found in local storage.');
+            return; // Exit useEffect if JWT is not found
+        }
         // Directly fetch roles from the server since JWT is stored in an HttpOnly cookie
         fetch("/current-user-roles", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
         })
             .then(response => {
                 if (response.status === 200) {
-                    return response.json();
+                    return response.json();  // This will return a promise that resolves with the parsed JSON data.
                 } else {
                     throw new Error("Failed to fetch roles or user isn't authenticated");
                 }
             })
-            .then(data => {
+            .then(data => {  // 'data' here will be the parsed JSON data, not the Response object.
                 if (data && Array.isArray(data) && data.length > 0) {
-                    setUserRole(data);
+                    setUserRoles(data);
                     setLoggedIn(true);
                 } else {
                     setLoggedIn(false);
@@ -76,7 +84,7 @@ function App() {
                 {loggedIn ? (
                     <>
                         <Route path='/' exact element={<Home />} />
-                        <Route 
+                        <Route
                             path='/order'
                             element={
                                 userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Order") ?(
@@ -84,7 +92,7 @@ function App() {
                                 ) : (
                                     <div>You do not have access to this page.</div>
                                 )} />
-                        <Route 
+                        <Route
                             path='/inventory'
                             element={
                                 userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
@@ -92,15 +100,15 @@ function App() {
                                 ) : (
                                     <div>You do not have access to this page</div>
                                 )} />
-                        <Route 
-                            path='/employee' 
+                        <Route
+                            path='/employee'
                             element={
                             userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
                             )} />
-                        <Route 
+                        <Route
                             path='/reporting'
                             element={
                             userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Reporting") ? (
@@ -120,5 +128,5 @@ function App() {
         </Router>
     );
 }
- 
+
 export default App;
