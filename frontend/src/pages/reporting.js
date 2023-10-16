@@ -89,7 +89,7 @@ export default function Reporting() {
 	}
 
 	return (
-		<>
+		<div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<br/><br/>
 			<div className='header'>
 				<h1>Report Filters</h1>
@@ -192,6 +192,6 @@ export default function Reporting() {
 					</table>
 				</div>
 			)}
-		</>
+		</div>
   	)
 }

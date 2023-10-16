@@ -2,38 +2,40 @@ import React from 'react';
 import './settings.css';
 
 export default function Settings() {
-  const size = 16;
+
 
   function decreaseFontSize() {
-    const root = document.documentElement;
-    const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size'));
-    const newSize = currentSize - 2; // Adjust the decrement as needed
-    root.style.setProperty('--base-font-size', newSize + 'px');
-    console.log(newSize);
-    localStorage.setItem(newSize,size);
+    if(JSON.parse(localStorage.getItem('newSize')) === "NaN"){
+      localStorage.setItem("newSize",16);
+      const currentSize = JSON.parse(localStorage.getItem('newSize'));
+      const newSize = currentSize - 2; // Adjust the decrement as needed
+      console.log(newSize);
+      localStorage.setItem("newSize",newSize);
+    }
+    else {
+      const currentSize = JSON.parse(localStorage.getItem('newSize'));
+      const newSize = currentSize - 2; // Adjust the decrement as needed
+      console.log(newSize);
+      localStorage.setItem("newSize",newSize);
+    }
   }
 
   function defaultFontSize() {
     // eslint-disable-next-line no-undef
-    const root = document.documentElement;
-    const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size'));
     const newSize = 16; // Adjust the increment as needed
-    root.style.setProperty('--base-font-size', newSize + 'px');
     console.log(newSize);
-    localStorage.setItem(newSize,size);
+    localStorage.setItem("newSize",newSize);
   }
 
   function increaseFontSize() {
-    const root = document.documentElement;
-    const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size'));
+    const currentSize = JSON.parse(localStorage.getItem('newSize'));
     const newSize = currentSize + 2; // Adjust the increment as needed
-    root.style.setProperty('--base-font-size', newSize + 'px');
     console.log(newSize);
-    localStorage.setItem(newSize,size);
+    localStorage.setItem("newSize",newSize);
   }
 
   return (
-    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('size'))}}>
+    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
       <h1>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header">General</h2>
@@ -74,10 +76,12 @@ export default function Settings() {
         <h2 className="settings-content-header">Accessibility</h2>
         <div className="settings-content-info">
           <fieldset className="settings-fieldset">
+            <form>
             <label htmlFor="font-size">Font Size </label>
               <button className="font-buttons" onClick={decreaseFontSize}>Decrease Size</button>
               <button className="font-buttons" onClick={defaultFontSize}>Default</button>
               <button className="font-buttons" onClick={increaseFontSize}>Increase Size</button>
+            </form>
             <br/>
             <br/>
             <label htmlFor="contrast">Contrast </label>

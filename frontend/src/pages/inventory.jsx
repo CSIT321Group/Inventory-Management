@@ -66,7 +66,7 @@ const Inventory = () => {
 
     // JSX to render the component
     return (
-        <>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
             <div className='header'>
                 <h1>Inventory Filters</h1>
             </div>
@@ -142,7 +142,7 @@ const Inventory = () => {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 };
 

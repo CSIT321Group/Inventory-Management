@@ -81,17 +81,17 @@ function App() {
                 <Navbar />
             </ShowNavBar>
             <Routes>
-                {loggedIn ? (
+                {/*{loggedIn ? ( */}
                     <>
                         <Route path='/' exact element={<Home />} />
-                        <Route
+                        <Route path='/order' element={<Order />} />{/*
                             path='/order'
                             element={
                                 userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Order") ?(
                                     <Order />
                                 ) : (
                                     <div>You do not have access to this page.</div>
-                                )} />
+                                )} />*/}
                         <Route
                             path='/inventory'
                             element={
@@ -121,9 +121,9 @@ function App() {
                         <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
                         <Route path="*" element={<div>404 - Not Found</div>} />
                     </>
-                ): (
+                {/*)*/}: (
                     <Route path='/login' element={<Login />} />
-                )}
+                ){/* )} */}
             </Routes>
         </Router>
     );

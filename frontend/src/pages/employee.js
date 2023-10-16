@@ -63,7 +63,7 @@ export default function Employee() {
 
 
     return (
-        <>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
             <br/><br/>
             <div className='header'>
                 <h1>Table Filter</h1>
@@ -139,6 +139,6 @@ export default function Employee() {
                     </div>
                 </div>
             </IconContext.Provider>
-        </>
+        </div>
     );
 }
