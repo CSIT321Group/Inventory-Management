@@ -16,17 +16,17 @@ import Logout from "./pages/logout";
 
 const roleRestrictedRoutes = {
     'ROLE_ADMIN': [
-        {path: '/', exact: true, componenent: Home},
-        {path: '/order', componenent: Order},
-        {path: '/inventory', componenent: Inventory},
-        {path: '/employee', componenent: Employee},
-        {path: '/reporting', componenent: Reporting},
-        {path: '/help', componenent: Help},
-        {path: '/settings', componenent: Settings},
+        {path: '/', exact: true, component: Home},
+        {path: '/order', component: Order},
+        {path: '/inventory', component: Inventory},
+        {path: '/employee', component: Employee},
+        {path: '/reporting', component: Reporting},
+        {path: '/help', component: Help},
+        {path: '/settings', component: Settings},
     ],
     'ROLE_EMPLOYEE': [
-        {path: '/order', componenent: Order},
-        {path: '/inventory', componenent: Inventory}
+        {path: '/order', component: Order},
+        {path: '/inventory', component: Inventory}
     ],
 }
  
@@ -35,12 +35,32 @@ function App() {
     const [userRole, setUserRole] = useState('');
 
     useEffect(() => {
-        const isUserLoggedIn = localStorage.getItem('userToken');
-
-        if(isUserLoggedIn) {
-            setLoggedIn(true);
-            setUserRole(userRole);
-        }
+        // Directly fetch roles from the server since JWT is stored in an HttpOnly cookie
+        fetch("/current-user-roles", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    throw new Error("Failed to fetch roles or user isn't authenticated");
+                }
+            })
+            .then(data => {
+                if (data && Array.isArray(data) && data.length > 0) {
+                    setUserRole(data);
+                    setLoggedIn(true);
+                } else {
+                    setLoggedIn(false);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                setLoggedIn(false);
+            });
     }, []);
 
     function handleLogout() {
@@ -59,7 +79,7 @@ function App() {
                         <Route 
                             path='/order'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("Order") ?(
+                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Order") ?(
                                     <Order />
                                 ) : (
                                     <div>You do not have access to this page.</div>
@@ -67,7 +87,7 @@ function App() {
                         <Route 
                             path='/inventory'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("Inventory") ? (
+                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
                                     <Inventory/>
                                 ) : (
                                     <div>You do not have access to this page</div>
@@ -75,7 +95,7 @@ function App() {
                         <Route 
                             path='/employee' 
                             element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("EmployeeInfo") ? (
+                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
@@ -83,7 +103,7 @@ function App() {
                         <Route 
                             path='/reporting'
                             element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("Reporting") ? ( 
+                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Reporting") ? (
                                 <Reporting />
                             ) : (
                                 <div>You do not have access to this page.</div>
@@ -91,7 +111,7 @@ function App() {
                         <Route path='/help' element={<Help />} />
                         <Route path='/settings' element={<Settings />} />
                         <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
-
+                        <Route path="*" element={<div>404 - Not Found</div>} />
                     </>
                 ): (
                     <Route path='/login' element={<Login />} />

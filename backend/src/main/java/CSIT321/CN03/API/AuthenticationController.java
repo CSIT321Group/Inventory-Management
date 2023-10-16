@@ -16,10 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController  // Indicates that this class is a REST Controller
@@ -128,6 +125,21 @@ public class AuthenticationController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok("Logged out successfully");
+    }
+
+    @GetMapping("/current-user-roles")
+    public ResponseEntity<List<String>> currentUserRoles() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            List<String> roles = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(roles);
+        }
+
+        return ResponseEntity.status(403).body(Collections.emptyList());
     }
 
 }
