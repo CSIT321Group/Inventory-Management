@@ -93,7 +93,7 @@ export default function Reporting() {
 			<br/><br/>
 			<div className='header'>
 				<h1>Report Filters</h1>
-				<button onClick= {generateData} className='button'> GENERATE REPORT</button>
+				<button /*onClick= {generateData}*/ className='button'> GENERATE REPORT</button>
 			</div>
 			<div className='content'>
 				<table>
@@ -183,7 +183,7 @@ export default function Reporting() {
 					<table className='reportingTable'>
 						<tr>
 							<td>
-								<Doughnut data={doughnutData} options={options} />
+								{/*<Doughnut data={doughnutData} options={options} />*/}
 							</td>
 							<td>
 								<Bar style= {{padding: '20px'}} data = {data} options = {options}/>

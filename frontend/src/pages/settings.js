@@ -15,7 +15,6 @@ export default function Settings() {
 
   function defaultFontSize() {
     // eslint-disable-next-line no-undef
-    preventDefault();
     const root = document.documentElement;
     const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size'));
     const newSize = 16; // Adjust the increment as needed
@@ -34,12 +33,11 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings-div">
+    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('size'))}}>
       <h1>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header">General</h2>
         <div className="settings-content-info">
-          <form>
           <fieldset className="settings-fieldset">
             <label htmlFor="Lang">Preferred Language </label>
             <select name="Lang" id="">
@@ -69,14 +67,12 @@ export default function Settings() {
               <option value="12hr">12-hr</option>
             </select>
           </fieldset>
-          </form>
         </div>
       </div>
       <br/><br/>
       <div className="settings-content">
         <h2 className="settings-content-header">Accessibility</h2>
         <div className="settings-content-info">
-          <form action="">
           <fieldset className="settings-fieldset">
             <label htmlFor="font-size">Font Size </label>
               <button className="font-buttons" onClick={decreaseFontSize}>Decrease Size</button>
@@ -90,7 +86,6 @@ export default function Settings() {
               <button className="font-buttons">Dark</button>
               <button className="font-buttons">Light</button>
           </fieldset>
-          </form>
         </div>
       </div>
     </div>
