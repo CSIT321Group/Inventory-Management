@@ -6,7 +6,7 @@ import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
 import { ExpandMoreOutlined } from '@mui/icons-material';
-import {Accordion, AccordionDetails, AccordionSummary,Typography }from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
 export default function Reporting() {
 	Chart.register(
 		ArcElement,
@@ -15,23 +15,45 @@ export default function Reporting() {
 		LinearScale
 		);
 
-	const [itemCount, SetItemCount] = useState(1);
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [showAnotherItem, setShowAnotherItem] = useState(false);
+	const [additionalItemsCount, setAdditionalItemsCount] = useState(1);
+	const [showCharts, setShowCharts] = useState(false);
+
+	const toggleAnotherItem = () => {
+		if(additionalItemsCount < 5) {
+			setShowAnotherItem(true);
+			setAdditionalItemsCount((count) => count++);
+		}
+	};
+
+	const removeAdditionalItem = () => {
+		if (additionalItemsCount > 1){ 
+			setAdditionalItemsCount((count) => count--);
+		} else {
+			setShowAnotherItem(false);
+		}
+	}
 
 	useEffect (() => {
 		fetchData();
 	}, []);
 
 	const fetchData = async () => {
-		try{
-			const result = await fetch('');
-			const doughnutData = await result.json();
-			setData(doughnutData);
-		} catch (error) {
-			console.error("Error fetching data: ", error);
-		} finally {
-			setLoading(false);
+		if (data.length === 0) {
+			try {
+			  const result = await fetch('');
+			  const doughnutData = await result.json();
+			  setData(doughnutData);
+			} catch (error) {
+			  console.error("Error fetching data: ", error);
+			} finally {
+			  setLoading(false);
+			  setShowCharts(true);
+			}
+		} else {
+			setShowCharts(!showCharts);
 		}
 	};
 
@@ -62,6 +84,14 @@ export default function Reporting() {
 		],
 	};
 
+	function generateData() {
+
+	}
+
+	function doughnutData() {
+
+	}
+
 	// const options = {
 	// 	labels: labels,
 	// 	datasets: [{
@@ -82,18 +112,12 @@ export default function Reporting() {
 	// 	}],
 	// };
 
-	const AnotherItem = () => {
-
-
-		SetItemCount((prev) => prev + 1);
-	}
-
 	return (
 		<div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<br/><br/>
 			<div className='header'>
 				<h1>Report Filters</h1>
-				<button /*onClick= {generateData}*/ className='button'> GENERATE REPORT</button>
+				<button onClick= {fetchData} className='button'> GENERATE REPORT</button>
 			</div>
 			<div className='content'>
 				<table>
@@ -128,70 +152,79 @@ export default function Reporting() {
 				</table>
 			</div>
 			<div>
-				<Accordion className="anotherItemButton">
-					<AccordionSummary id="panel1-header"
-					aria-controls='panel1-content'
-					expand ={<ExpandMoreOutlined/>}> <Typography>Add items</Typography>
-					</AccordionSummary>
+			<Accordion className="anotherItemButton">
+        		<AccordionSummary
+          			id="panel1-header"
+          			aria-controls="panel1-content"
+          			onClick={toggleAnotherItem}
+        		>
+          			<Typography>Add items</Typography>
+        		</AccordionSummary>
+				{showAnotherItem && (
 					<AccordionDetails className="anotherItemDetails">
-					<br/>	<div className='content'>
-				<table>
-					<tr>
-						<td className='filterData'>
-							<h3>Report Type</h3>
-							<DropDown/>
-						</td>
-						<td className='filterData'>
-							<h3>Report Name</h3>
-							<input type='text' placeholder='General Report...'/>
-						</td>
-					</tr>
 					<br/>
-					<tr className='filterRows'>
-						<h3>SKU: &ensp;</h3>
-						<input type='text'/>
-						<h3>Category: &ensp;</h3>
-						<input type='text'/>
-						<h3>Supplier: &ensp;</h3>
-						<input type='text'/>
-					</tr>
-					<tr className='filterRows'>
-						<h3>Name: &ensp;</h3>
-						<input type='text'/>
-						<h3>Order ID: &ensp;</h3>
-						<input type='text'/>
-						<h3>Location: &ensp;</h3>
-						<input type='text'/>
-						<span className='checkBox'><input type='checkbox' />&ensp;Include zero qty</span>
-					</tr>
-				</table>
-			</div>
+					<div className='content'>
+						<table>
+							<tr>
+								<td className='filterData'>
+									<h3>Report Type</h3>
+									<DropDown/>
+								</td>
+								<td className='filterData'>
+									<h3>Report Name</h3>
+									<input type='text' placeholder='General Report...'/>
+								</td>
+							</tr>
+							<br/>
+							<tr className='filterRows'>
+								<h3>SKU: &ensp;</h3>
+								<input type='text'/>
+								<h3>Category: &ensp;</h3>
+								<input type='text'/>
+								<h3>Supplier: &ensp;</h3>
+								<input type='text'/>
+							</tr>
+							<tr className='filterRows'>
+								<h3>Name: &ensp;</h3>
+								<input type='text'/>
+								<h3>Order ID: &ensp;</h3>
+								<input type='text'/>
+								<h3>Location: &ensp;</h3>
+								<input type='text'/>
+								<span className='checkBox'><input type='checkbox' />&ensp;Include zero qty</span>
+							</tr>
+						</table>
+					</div>
+					{additionalItemsCount > 1 && (
+						<button onClick={removeAdditionalItem}>Remove Item-</button>
+					)}
 					</AccordionDetails>
-
-
+				)}
 				</Accordion>
 			</div>
 			
-			<div className='header'>
-					<h1>Report Statistics</h1>
-					<button className='button'>EXPORT AS PDF</button>
+			<div className="header">
+				<h1>Report Filters</h1>
+				<button onClick={fetchData} className="button">
+					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
+				</button>
 			</div>
-			{loading ? (
-				<div>GENERATE REPORT ABOVE</div>
-			): (
-				<div className='content'>
-					<table className='reportingTable'>
-						<tr>
-							<td>
-								{/*<Doughnut data={doughnutData} options={options} />*/}
-							</td>
-							<td>
-								<Bar style= {{padding: '20px'}} data = {data} options = {options}/>
-							</td>
-						</tr>
-					</table>
-				</div>
-			)}
+			<div className="content">
+				{showCharts && !loading ? (
+				<table className="reportingTable">
+					<tr>
+						<td>
+							<Doughnut data={chartData} options={options} />
+						</td>
+						<td>
+							<Bar style={{ padding: '20px' }} data={chartData} options={options} />
+						</td>
+					</tr>
+				</table>
+				) : data.length === 0 ? (
+					<div>Click "GENERATE REPORT" to load the charts.</div>
+				) : null}
+			</div>
 		</div>
   	)
 }

@@ -32,7 +32,7 @@ const roleRestrictedRoutes = {
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userRole, setUserRoles] = useState([]);
+    const [userRoles, setUserRoles] = useState([]);
 
     useEffect(() => {
 
@@ -43,7 +43,7 @@ function App() {
             return; // Exit useEffect if JWT is not found
         }
         // Directly fetch roles from the server since JWT is stored in an HttpOnly cookie
-        fetch("/current-user-roles", {
+        fetch("http://localhost:8080/api/test/current-user-roles", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -51,6 +51,7 @@ function App() {
             },
         })
             .then(response => {
+                console.log(response);
                 if (response.status === 200) {
                     return response.json();  // This will return a promise that resolves with the parsed JSON data.
                 } else {
@@ -61,6 +62,7 @@ function App() {
                 if (data && Array.isArray(data) && data.length > 0) {
                     setUserRoles(data);
                     setLoggedIn(true);
+                    console.log(userRoles);
                 } else {
                     setLoggedIn(false);
                 }
@@ -69,10 +71,14 @@ function App() {
                 console.error(error);
                 setLoggedIn(false);
             });
-    }, []);
+    }, [loggedIn]);
 
     function handleLogout() {
         setLoggedIn(false);
+    }
+
+    function handleLogin() {
+        setLoggedIn(true);
     }
 
     return (
@@ -85,14 +91,14 @@ function App() {
                 {/*{loggedIn ? ( */}
                     <>
                         <Route path='/' exact element={<Home />} />
-                        <Route path='/order' element={<Order />} />{/*
+                        <Route
                             path='/order'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Order") ?(
+                                userRoles.some(role => role === "ROLE_ADMIN" || role === "ROLE_Order") ?(
                                     <Order />
                                 ) : (
                                     <div>You do not have access to this page.</div>
-                                )} />*/}
+                                )} />
                         <Route
                             path='/inventory'
                             element={
@@ -117,14 +123,15 @@ function App() {
                             ) : (
                                 <div>You do not have access to this page.</div>
                             )} />
-                        <Route path='/help' element={<Help />} />
-                        <Route path='/settings' element={<Settings />} />
-                        <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
-                        <Route path="*" element={<div>404 - Not Found</div>} />
-                    </>
+                    <Route path='/help' element={<Help />} />
+                    <Route path='/settings' element={<Settings />} />
+                    <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
+                    <Route path="*" element={<div>404 - Not Found</div>} />
+                </>
                 {/*)*/}: (
-                    <Route path='/login' element={<Login />} />
+                <Route path='/login' element={<Login onLogin={handleLogin} />} />
                 ){/* )} */}
+                <Route path="*" element={<div>404 - Not Found</div>} />
             </Routes>
         </Router>
         </div>
