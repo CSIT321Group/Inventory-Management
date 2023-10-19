@@ -36,26 +36,25 @@ export default function Reporting() {
 	}
 
 	useEffect (() => {
-		const fetchData = async () => {
-			if (data.length === 0) {
-				try {
-				  const result = await fetch('');
-				  const doughnutData = await result.json();
-				  setData(doughnutData);
-				} catch (error) {
-				  console.error("Error fetching data: ", error);
-				} finally {
-				  setLoading(false);
-				  setShowCharts(true);
-				}
-			} else {
-				setShowCharts(!showCharts);
-			}
-		};
 		fetchData();
 	}, []);
 
-	
+	const fetchData = async () => {
+		if (data.length === 0) {
+			try {
+			  const result = await fetch('');
+			  const doughnutData = await result.json();
+			  setData(doughnutData);
+			} catch (error) {
+			  console.error("Error fetching data: ", error);
+			} finally {
+			  setLoading(false);
+			  setShowCharts(true);
+			}
+		} else {
+			setShowCharts(!showCharts);
+		}
+	};
 
 	const options = {
 		responsive: true,
