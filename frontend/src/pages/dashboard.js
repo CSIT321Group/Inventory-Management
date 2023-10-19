@@ -8,7 +8,7 @@ import "../pages/dashboard.scss"
  
 const Dashboard = () => {
     return (
-        <>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<div className='header'>
 				<h1>Quick View</h1>
 			</div>
@@ -31,8 +31,7 @@ const Dashboard = () => {
 			<div className='content'>
 				<Table/>
 			</div>
-       </>
-       
+       	</div>
     );
 };
  

@@ -18,7 +18,7 @@ export default function Help(){
         setShow3(!show3); // Toggle accordion
     };
     return (
-        <div className="helpPageLayout">
+        <div className="helpPageLayout" style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
             <h1>Having trouble??? This page might help you!</h1>
             <div className="helpContent">
                 <h2 className="contentHeaders">Frequently Asked Questions (FAQs)</h2>

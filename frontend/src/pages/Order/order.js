@@ -310,9 +310,9 @@ export default function Order() {
    
     return (
         <>
-            <div>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
                 {/*this is the new order popup*/}
-                <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px"}}>
+                <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px", }}>
                     <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
                         NEW ORDER
                     </button>
@@ -503,7 +503,7 @@ export default function Order() {
                     </div>
                 </div>
             </div>
-            <div>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
                 <div className="header">
                     <h1>Orders Table</h1>
                 </div>
@@ -578,57 +578,6 @@ export default function Order() {
                     </TableContainer>
                 </div>
             </div>
-            {/*<div style={{
-                    position:"absolute",
-                    marginLeft:"220px",
-                    marginRight:"100px",
-                    width: "80%",
-                    height: "250px",
-                    borderRadius: "30px",
-                    boxShadow: "0 4px 8px 8px rgba(0, 0, 0, 0.2)"
-                }}>
-                <div style={{display:"inline-flex"}}>
-                    <SearchBar></SearchBar>
-                    <h3 style={{marginLeft:"20px"}}>Delivery Date:</h3>
-                    <input style={{width:"150px", height:"30px", marginTop:"10px"}}/>
-                    <h3 style={{marginLeft:"20px"}}>Product:</h3>
-                    <input style={{width:"150px", height:"30px", marginTop:"10px"}}/>
-                    <h3 style={{marginLeft:"20px"}}>Status:</h3>
-                    <input style={{width:"150px", height:"30px", marginTop:"10px"}}/>
-                </div>
-                <button className="apply-filters-btn" style={{display:"flex", textAlign:"center", width:"140px", height:"40px", position:"relative", right:"10px", bottom:"10px", top:"auto", left:"auto"}
-            }>APPLY FILTER</button>
-            </div>
-                <h1>Orders Table</h1>
-            <div style={{display:"flex", marginLeft:"200px", marginTop:"100px", border:"1px solid"}}>
-                <table className="orderTable">
-                    <tr>
-                        <th>Order Num</th>
-                        <th>Delivery Date</th>
-                        <th>Product</th>
-                        <th>Supplier</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>123456789</td>
-                        <td>DD/MM/YYYY</td>
-                        <td>XXXXXXXX</td>
-                        <td>XXXXXXXX</td>
-                        <td>16</td>
-                        <td>OPEN</td>
-                    </tr>
-                    <tr>
-                        <td>4004008</td>
-                        <td>DD/MM/YYYY</td>
-                        <td>XXXXXXXX</td>
-                        <td>XXXXXXXX</td>
-                        <td>32</td>
-                        <td>OPEN</td>
-                    </tr>
-                </table>
-            </div> */
-            }
         </>
     );
 };

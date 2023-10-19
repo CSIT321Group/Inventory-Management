@@ -16,16 +16,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController  // Indicates that this class is a REST Controller
 @RequestMapping("/api/test")  // Maps this controller to the /api/test route
 @RequiredArgsConstructor  // Lombok annotation to generate a constructor with required fields
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager; // Used to authenticate users
@@ -114,4 +111,35 @@ public class AuthenticationController {
     public ResponseEntity<?> empInfo() {
         return ResponseEntity.ok("You have access to employeeInfo");
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+
+        // Create a cookie with the same name as the JWT cookie, set its max age to 0 to delete it
+        Cookie cookie = new Cookie("jwt", "");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);  // Set cookie's age to 0 to remove it
+        cookie.setPath("/");
+
+        // Add the cookie to the response
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("Logged out successfully");
+    }
+
+    @GetMapping("/current-user-roles")
+    public ResponseEntity<List<String>> currentUserRoles() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            List<String> roles = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(roles);
+        }
+
+        return ResponseEntity.status(403).body(Collections.emptyList());
+    }
+
 }
