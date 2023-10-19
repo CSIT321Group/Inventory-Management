@@ -45,7 +45,11 @@ export default function Order() {
     useEffect(() => {
         const fetchAllStockItems = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/stock`);
+                const response = await fetch(`http://localhost:8080/api/stock`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+            });
                 const data = await response.json();
                 setStockCache(data);
             } catch (error) {
@@ -172,7 +176,7 @@ export default function Order() {
                 stockId: selectedObject.stockId,
                 supplierName: selectedObject.supplierName,
                 stock_name: selectedObject.stock_name,
-                stock_type: selectedObject.stock_type,
+                stock_type: "raw_material",
                 unit_price: selectedObject.unit_price,
             });
         }
@@ -189,7 +193,7 @@ export default function Order() {
                 stockId2: selectedObject2.stockId,
                 supplierName2: selectedObject2.supplierName,
                 stock_name2: selectedObject2.stock_name,
-                stock_type2: selectedObject2.stock_type,
+                stock_type2: "raw_material",
                 unit_price2: selectedObject2.unit_price,
             });
         }
@@ -206,7 +210,7 @@ export default function Order() {
                 stockId3: selectedObject3.stockId,
                 supplierName3: selectedObject3.supplierName,
                 stock_name3: selectedObject3.stock_name,
-                stock_type3: selectedObject3.stock_type,
+                stock_type3: "raw_material",
                 unit_price3: selectedObject3.unit_price,
             });
         }
@@ -268,47 +272,52 @@ export default function Order() {
             orderItems: [
                 {
                     stock: {
-                        stockId: objectDetails.stockId, 
+                        stockId: objectDetails.stockId,
                         supplierName: objectDetails.supplierName,
-                        stock_name: objectDetails.stock_name ,
+                        stock_name: objectDetails.stock_name,
                         unit_price: objectDetails.unit_price,
                         stock_type: objectDetails.stock_type,
-                        quantity: (totalProdCost/objectDetails.unit_price),
-                    }, 
+                        quantity: (totalProdCost / objectDetails.unit_price),
+                    },
                 },
                 {
                     stock: {
-                        stockId: objectDetails2.stockId2, 
+                        stockId: objectDetails2.stockId2,
                         supplierName: objectDetails2.supplierName2,
                         stock_name: objectDetails2.stock_name2,
                         unit_price: objectDetails2.unit_price2,
                         stock_type: objectDetails2.stock_type2,
-                        quantity: (totalProdCost2/objectDetails2.unit_price2),
-                    }, 
+                        quantity: (totalProdCost2 / objectDetails2.unit_price2),
+                    },
                 },
                 {
                     stock: {
-                        stockId: objectDetails3.stockId3, 
+                        stockId: objectDetails3.stockId3,
                         supplierName: objectDetails3.supplierName3,
-                        stock_name: objectDetails3.stock_name3 ,
+                        stock_name: objectDetails3.stock_name3,
                         unit_price: objectDetails3.unit_price3,
-                        stock_type: objectDetails3.stocj_type3,
-                        quantity: (totalProdCost3/objectDetails3.unit_price3),
-                    },  
+                        stock_type: objectDetails3.stock_type3,
+                        quantity: (totalProdCost3 / objectDetails3.unit_price3),
+                    },
                 },
             ],
         };
         //Currently, new orders aren't submitting. Need to work out why
         try {
-            const response = await axios.post('http://localhost:8080/api/order', order);
+            const token = localStorage.getItem('jwt');
+            const response = await axios.post('http://localhost:8080/api/order', order, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             console.log('Order submitted successfully', response.data);
         } catch (error) {
             console.error('There was an error submitting the order!', error);
             console.log(order);
         }
-    };
-   
-    return (
+    }
+
+        return (
         <>
             <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
                 {/*this is the new order popup*/}

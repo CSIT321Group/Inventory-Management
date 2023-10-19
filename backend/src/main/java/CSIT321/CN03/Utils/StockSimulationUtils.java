@@ -190,4 +190,32 @@ public class StockSimulationUtils {
             "Pump", "Removal", "Table", "Cleaner", "Grinder"
     );
      */
+
+    public static final List<String> COMMON_FIRST_NAMES = Arrays.asList(
+            "John", "Mary", "Robert", "Jennifer", "William",
+            "Linda", "David", "Elizabeth", "James", "Susan",
+            "Michael", "Patricia", "Richard", "Jessica", "Joseph",
+            "Karen", "Thomas", "Nancy", "Charles", "Sarah"
+    );
+
+    public static final List<String> COMMON_LAST_NAMES = Arrays.asList(
+            "Smith", "Johnson", "Brown", "Davis", "Miller",
+            "Wilson", "Moore", "Taylor", "Anderson", "Thomas",
+            "Jackson", "White", "Harris", "Martin", "Thompson",
+            "Garcia", "Martinez", "Jones", "Williams", "Lee"
+    );
+
+    public static final List<String> SUPPLIER_FIRST_NAME = Arrays.asList(
+            "Global", "Prime", "Elite", "Superior", "First",
+            "Mega", "Ultra", "Alpha", "Peak", "Best",
+            "Choice", "Select", "Premium", "Main", "Prime",
+            "Top", "Frontier", "Central", "Grand", "Major"
+    );
+
+    public static final List<String> SUPPLIER_SECOND_NAME = Arrays.asList(
+            "Goods", "Resources", "Supplies", "Products", "Merchants",
+            "Trade", "Exports", "Imports", "Deals", "Materials",
+            "Marts", "Distribution", "Sourcing", "Retail", "Wholesale",
+            "Commodities", "Ware", "Stock", "Assets", "Inventory"
+    );
 }

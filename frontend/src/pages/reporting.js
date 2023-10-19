@@ -62,6 +62,14 @@ export default function Reporting() {
 		],
 	};
 
+	function generateData() {
+
+	}
+
+	function doughnutData() {
+
+	}
+
 	// const options = {
 	// 	labels: labels,
 	// 	datasets: [{

@@ -14,11 +14,11 @@ const Inventory = () => {
 
 
     // useEffect hook runs side-effects in functional components, similar to componentDidMount and componentDidUpdate combined in class components
+    // useEffect hook runs side-effects in functional components, similar to componentDidMount and componentDidUpdate combined in class components
     useEffect(() => {
         const fetchData = async () => {  // Defining an async function to fetch data from the API
             // Setting a default endpoint URL
             let endpoint = `http://localhost:8080/api/stock`;
-
 
             // If either skuSearch or nameSearch has a value, we modify the endpoint to search with that value
             if (skuSearch || nameSearch) {

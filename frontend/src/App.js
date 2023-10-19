@@ -43,7 +43,7 @@ function App() {
             return; // Exit useEffect if JWT is not found
         }
         // Directly fetch roles from the server since JWT is stored in an HttpOnly cookie
-        fetch("/current-user-roles", {
+        fetch("http://localhost:8080/api/test/current-user-roles", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -51,6 +51,7 @@ function App() {
             },
         })
             .then(response => {
+                console.log(response);
                 if (response.status === 200) {
                     return response.json();  // This will return a promise that resolves with the parsed JSON data.
                 } else {
@@ -69,10 +70,14 @@ function App() {
                 console.error(error);
                 setLoggedIn(false);
             });
-    }, []);
+    }, [loggedIn]);
 
     function handleLogout() {
         setLoggedIn(false);
+    }
+
+    function handleLogin() {
+        setLoggedIn(true);
     }
 
     return (
@@ -82,9 +87,9 @@ function App() {
             </ShowNavBar>
             <Routes>
                 {/*{loggedIn ? ( */}
-                    <>
-                        <Route path='/' exact element={<Home />} />
-                        <Route path='/order' element={<Order />} />{/*
+                <>
+                    <Route path='/' exact element={<Home />} />
+                    <Route path='/order' element={<Order />} />{/*
                             path='/order'
                             element={
                                 userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Order") ?(
@@ -92,37 +97,37 @@ function App() {
                                 ) : (
                                     <div>You do not have access to this page.</div>
                                 )} />*/}
-                        <Route
-                            path='/inventory'
-                            element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
-                                    <Inventory/>
-                                ) : (
-                                    <div>You do not have access to this page</div>
-                                )} />
-                        <Route
-                            path='/employee'
-                            element={
+                    <Route
+                        path='/inventory'
+                        element={
+                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
+                                <Inventory/>
+                            ) : (
+                                <div>You do not have access to this page</div>
+                            )} />
+                    <Route
+                        path='/employee'
+                        element={
                             userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
                             )} />
-                        <Route
-                            path='/reporting'
-                            element={
+                    <Route
+                        path='/reporting'
+                        element={
                             userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Reporting") ? (
                                 <Reporting />
                             ) : (
                                 <div>You do not have access to this page.</div>
                             )} />
-                        <Route path='/help' element={<Help />} />
-                        <Route path='/settings' element={<Settings />} />
-                        <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
-                        <Route path="*" element={<div>404 - Not Found</div>} />
-                    </>
+                    <Route path='/help' element={<Help />} />
+                    <Route path='/settings' element={<Settings />} />
+                    <Route path='/logout' element={<Logout onLogout={handleLogout} />} />
+                    <Route path="*" element={<div>404 - Not Found</div>} />
+                </>
                 {/*)*/}: (
-                    <Route path='/login' element={<Login />} />
+                <Route path='/login' element={<Login onLogin={handleLogin} />} />
                 ){/* )} */}
             </Routes>
         </Router>
