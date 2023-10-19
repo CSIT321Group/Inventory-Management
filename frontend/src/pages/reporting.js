@@ -5,7 +5,6 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
-import { ExpandMoreOutlined } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
 export default function Reporting() {
 	Chart.register(
@@ -37,25 +36,26 @@ export default function Reporting() {
 	}
 
 	useEffect (() => {
+		const fetchData = async () => {
+			if (data.length === 0) {
+				try {
+				  const result = await fetch('');
+				  const doughnutData = await result.json();
+				  setData(doughnutData);
+				} catch (error) {
+				  console.error("Error fetching data: ", error);
+				} finally {
+				  setLoading(false);
+				  setShowCharts(true);
+				}
+			} else {
+				setShowCharts(!showCharts);
+			}
+		};
 		fetchData();
 	}, []);
 
-	const fetchData = async () => {
-		if (data.length === 0) {
-			try {
-			  const result = await fetch('');
-			  const doughnutData = await result.json();
-			  setData(doughnutData);
-			} catch (error) {
-			  console.error("Error fetching data: ", error);
-			} finally {
-			  setLoading(false);
-			  setShowCharts(true);
-			}
-		} else {
-			setShowCharts(!showCharts);
-		}
-	};
+	
 
 	const options = {
 		responsive: true,
@@ -83,14 +83,6 @@ export default function Reporting() {
 			},
 		],
 	};
-
-	function generateData() {
-
-	}
-
-	function doughnutData() {
-
-	}
 
 	// const options = {
 	// 	labels: labels,

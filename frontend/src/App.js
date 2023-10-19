@@ -14,22 +14,6 @@ import Help from './pages/help';
 import Settings from './pages/settings';
 import Logout from "./pages/logout";
 
-const roleRestrictedRoutes = {
-    'ROLE_ADMIN': [
-        {path: '/', exact: true, component: Home},
-        {path: '/order', component: Order},
-        {path: '/inventory', component: Inventory},
-        {path: '/employee', component: Employee},
-        {path: '/reporting', component: Reporting},
-        {path: '/help', component: Help},
-        {path: '/settings', component: Settings},
-    ],
-    'ROLE_EMPLOYEE': [
-        {path: '/order', component: Order},
-        {path: '/inventory', component: Inventory}
-    ],
-}
-
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [userRoles, setUserRoles] = useState([]);
@@ -101,7 +85,7 @@ function App() {
                         <Route
                             path='/inventory'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
+                                userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_Inventory") ? (
                                     <Inventory/>
                                 ) : (
                                     <div>You do not have access to this page</div>
@@ -109,7 +93,7 @@ function App() {
                         <Route
                             path='/employee'
                             element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_EmployeeInfo") ? (
+                            userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
@@ -117,7 +101,7 @@ function App() {
                         <Route
                             path='/reporting'
                             element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Reporting") ? (
+                            userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_Reporting") ? (
                                 <Reporting />
                             ) : (
                                 <div>You do not have access to this page.</div>
