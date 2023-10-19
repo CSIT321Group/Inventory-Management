@@ -102,7 +102,7 @@ function App() {
                         <Route
                             path='/inventory'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
+                                userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_Inventory") ? (
                                     <Inventory/>
                                 ) : (
                                     <div>You do not have access to this page</div>
@@ -110,7 +110,7 @@ function App() {
                         <Route
                             path='/employee'
                             element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_EmployeeInfo") ? (
+                                userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
@@ -118,7 +118,7 @@ function App() {
                         <Route
                             path='/reporting'
                             element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Reporting") ? (
+                                userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_Reporting") ? (
                                 <Reporting />
                             ) : (
                                 <div>You do not have access to this page.</div>

@@ -38,7 +38,7 @@ export default function Settings() {
   }
   
   function darkColour() {
-    const backgroundColour = "black";
+    const backgroundColour = "rgb(70 68 72)";
     const fontColour = "white";
     localStorage.setItem("backgroundColour",backgroundColour);
     localStorage.setItem("fontColour",fontColour);
@@ -46,9 +46,9 @@ export default function Settings() {
 
   return (
     <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
-      <h1>Settings</h1>
+      <h1 style={{color: localStorage.getItem('fontColour')}}>Settings</h1>
       <div className="settings-content">
-        <h2 className="settings-content-header">General</h2>
+        <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>General</h2>
         <div className="settings-content-info">
           <fieldset className="settings-fieldset">
             <label htmlFor="Lang">Preferred Language </label>
@@ -83,7 +83,7 @@ export default function Settings() {
       </div>
       <br/><br/>
       <div className="settings-content">
-        <h2 className="settings-content-header">Accessibility</h2>
+        <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>Accessibility</h2>
         <div className="settings-content-info">
           <fieldset className="settings-fieldset">
             <form>

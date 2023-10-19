@@ -25,7 +25,7 @@ export default function Help(){
                 <div className="content-info">
                     <div className="app">
                       <div className="accordian">
-                        <div className="accordian-header" onClick={handleOpen}>
+                        <div className="accordian-header" onClick={handleOpen} style={{backgroundColor: localStorage.getItem('backgroundColour')}}>
                             <div>General Use Issues</div>
                             <div className="sign">{show ? '-' : '+'}</div>
                         </div>
@@ -55,7 +55,7 @@ export default function Help(){
                             </div>
                         )}
                         <br/>
-                        <div className="accordian-header" onClick={handleOpen2}>
+                        <div className="accordian-header" onClick={handleOpen2} style={{backgroundColor: localStorage.getItem('backgroundColour')}}>
                             <div>Inventory Issues</div>
                             <div className="sign">{show2 ? '-' : '+'}</div>
                         </div>
@@ -85,7 +85,7 @@ export default function Help(){
                             </div>
                         )}
                         <br/>
-                        <div className="accordian-header" onClick={handleOpen3}>
+                        <div className="accordian-header" onClick={handleOpen3} style={{backgroundColor: localStorage.getItem('backgroundColour')}}>
                             <div>Order Issues</div>
                             <div className="sign">{show3 ? '-' : '+'}</div>
                         </div>
@@ -98,8 +98,10 @@ export default function Help(){
                                     </p>
                                 <h4>Can I order more items?</h4>
                                     <p>Yes, you can order more than 3 items in one order. However, this can't be done online. You will need to contact your supplier.</p>
-                                <h4>Another order related issue</h4>
-                                    <p>dsdsf dsfdsgfd sgfsgf sgfdagf</p>
+                                <h4>How do I cancel an order?</h4>
+                                    <p>To cancel an order, you will need to get in contact with the supplier directly. This is in place to ensure that both parties can discuss and communicate about why this order is being
+                                        cancelled as well as work out the refund so both parties are receivng fair treatment.
+                                    </p>
                             </div>
                         )}
                       </div>
