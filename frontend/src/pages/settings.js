@@ -9,13 +9,11 @@ export default function Settings() {
       localStorage.setItem("newSize",16);
       const currentSize = JSON.parse(localStorage.getItem('newSize'));
       const newSize = currentSize - 2; // Adjust the decrement as needed
-      console.log(newSize);
       localStorage.setItem("newSize",newSize);
     }
     else {
       const currentSize = JSON.parse(localStorage.getItem('newSize'));
       const newSize = currentSize - 2; // Adjust the decrement as needed
-      console.log(newSize);
       localStorage.setItem("newSize",newSize);
     }
   }
@@ -23,19 +21,31 @@ export default function Settings() {
   function defaultFontSize() {
     // eslint-disable-next-line no-undef
     const newSize = 16; // Adjust the increment as needed
-    console.log(newSize);
     localStorage.setItem("newSize",newSize);
   }
 
   function increaseFontSize() {
     const currentSize = JSON.parse(localStorage.getItem('newSize'));
     const newSize = currentSize + 2; // Adjust the increment as needed
-    console.log(newSize);
     localStorage.setItem("newSize",newSize);
   }
 
+  function defaultColour() {
+    const backgroundColour = "";
+    const fontColour = "";
+    localStorage.setItem("backgroundColour",backgroundColour);
+    localStorage.setItem("fontColour",fontColour);
+  }
+  
+  function darkColour() {
+    const backgroundColour = "black";
+    const fontColour = "white";
+    localStorage.setItem("backgroundColour",backgroundColour);
+    localStorage.setItem("fontColour",fontColour);
+  }
+
   return (
-    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
       <h1>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header">General</h2>
@@ -84,11 +94,13 @@ export default function Settings() {
             </form>
             <br/>
             <br/>
-            <label htmlFor="contrast">Contrast </label>
-              <button className="font-buttons" >Default</button>
-              <button className="font-buttons">Invert</button>
-              <button className="font-buttons">Dark</button>
-              <button className="font-buttons">Light</button>
+            <form>
+              <label htmlFor="contrast">Contrast </label>
+                <button className="font-buttons" onClick={defaultColour}>Default</button>
+                <button className="font-buttons">Invert</button>
+                <button className="font-buttons" onClick={darkColour}>Dark</button>
+                <button className="font-buttons">Light</button>
+            </form>
           </fieldset>
         </div>
       </div>

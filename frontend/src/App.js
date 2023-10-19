@@ -76,6 +76,7 @@ function App() {
     }
 
     return (
+        <div style={{height: "1000", fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
         <Router>
             <ShowNavBar>
                 <Navbar />
@@ -126,6 +127,7 @@ function App() {
                 ){/* )} */}
             </Routes>
         </Router>
+        </div>
     );
 }
 
