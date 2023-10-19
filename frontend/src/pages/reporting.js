@@ -195,26 +195,28 @@ export default function Reporting() {
 				</Accordion>
 			</div>
 			
-			<div className='header'>
-					<h1>Report Statistics</h1>
-					<button className='button'>EXPORT AS PDF</button>
+			<div className="header">
+				<h1>Report Filters</h1>
+				<button onClick={generateData} className="button">
+					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
+				</button>
 			</div>
-			{loading ? (
-				<div>GENERATE REPORT ABOVE</div>
-			): (
-				<div className='content'>
-					<table className='reportingTable'>
-						<tr>
-							<td>
-								<Doughnut data={doughnutData} options={options} />
-							</td>
-							<td>
-								<Bar style= {{padding: '20px'}} data = {data} options = {options}/>
-							</td>
-						</tr>
-					</table>
-				</div>
-			)}
-		</>
+			<div className="content">
+				{showCharts && !loading ? (
+				<table className="reportingTable">
+					<tr>
+						<td>
+							<Doughnut data={chartData} options={options} />
+						</td>
+						<td>
+							<Bar style={{ padding: '20px' }} data={chartData} options={options} />
+						</td>
+					</tr>
+				</table>
+				) : data.length === 0 ? (
+					<div>Click "GENERATE REPORT" to load the charts.</div>
+				) : null}
+			</div>
+		</div>
   	)
 }
