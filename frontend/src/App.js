@@ -97,7 +97,7 @@ function App() {
                                     <Order />
                                 ) : (
                                     <div>You do not have access to this page.</div>
-                                )} />}
+                                )} />
                         <Route
                             path='/inventory'
                             element={
