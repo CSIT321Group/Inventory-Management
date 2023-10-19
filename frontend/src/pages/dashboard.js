@@ -10,7 +10,7 @@ const Dashboard = () => {
     return (
         <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<div className='header'>
-				<h1>Quick View</h1>
+				<h1 style={{color: localStorage.getItem('fontColour')}}>Quick View</h1>
 			</div>
 			<div className="widgets">
 				<div className="bestSeller"> <Widget type="BestSeller" /></div>
@@ -19,14 +19,14 @@ const Dashboard = () => {
 				<div className="outOrder"><Widget type="out"/></div>
 			</div>
 			<div className="header">
-				<h1> Sales<t>&nbsp;</t>Insight </h1>
+				<h1 style={{color: localStorage.getItem('fontColour')}}> Sales<t>&nbsp;</t>Insight </h1>
 			</div>
 			<div className="charts">
 				<Featured/>
 				<Chart/>
 			</div>
 			<div className='header'>
-				<h1>Daily Inventory Actions</h1>
+				<h1 style={{color: localStorage.getItem('fontColour')}}>Daily Inventory Actions</h1>
 			</div>
 			<div className='content'>
 				<Table/>
