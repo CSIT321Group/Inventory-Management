@@ -197,7 +197,7 @@ export default function Reporting() {
 			
 			<div className="header">
 				<h1>Report Filters</h1>
-				<button onClick={generateData} className="button">
+				<button onClick={fetchData} className="button">
 					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
 				</button>
 			</div>
