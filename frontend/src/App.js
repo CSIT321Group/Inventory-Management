@@ -32,7 +32,7 @@ const roleRestrictedRoutes = {
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userRole, setUserRoles] = useState([]);
+    const [userRoles, setUserRoles] = useState([]);
 
     useEffect(() => {
 
@@ -62,6 +62,7 @@ function App() {
                 if (data && Array.isArray(data) && data.length > 0) {
                     setUserRoles(data);
                     setLoggedIn(true);
+                    console.log(userRoles);
                 } else {
                     setLoggedIn(false);
                 }
@@ -87,35 +88,35 @@ function App() {
             </ShowNavBar>
             <Routes>
                 {/*{loggedIn ? ( */}
-                <>
-                    <Route path='/' exact element={<Home />} />
-                    <Route path='/order' element={<Order />} />{/*
+                    <>
+                        <Route path='/' exact element={<Home />} />
+                        <Route
                             path='/order'
                             element={
-                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Order") ?(
+                                userRoles.some(role => role === "ROLE_ADMIN" || role === "ROLE_Order") ?(
                                     <Order />
                                 ) : (
                                     <div>You do not have access to this page.</div>
-                                )} />*/}
-                    <Route
-                        path='/inventory'
-                        element={
-                            userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
-                                <Inventory/>
-                            ) : (
-                                <div>You do not have access to this page</div>
-                            )} />
-                    <Route
-                        path='/employee'
-                        element={
+                                )} />
+                        <Route
+                            path='/inventory'
+                            element={
+                                userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Inventory") ? (
+                                    <Inventory/>
+                                ) : (
+                                    <div>You do not have access to this page</div>
+                                )} />
+                        <Route
+                            path='/employee'
+                            element={
                             userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
                             )} />
-                    <Route
-                        path='/reporting'
-                        element={
+                        <Route
+                            path='/reporting'
+                            element={
                             userRole.includes("ROLE_ADMIN") || userRole.includes("ROLE_Reporting") ? (
                                 <Reporting />
                             ) : (
@@ -129,6 +130,7 @@ function App() {
                 {/*)*/}: (
                 <Route path='/login' element={<Login onLogin={handleLogin} />} />
                 ){/* )} */}
+                <Route path="*" element={<div>404 - Not Found</div>} />
             </Routes>
         </Router>
     );
