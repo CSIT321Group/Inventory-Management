@@ -5,7 +5,7 @@ import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Login() {
+export default function Login({ onLogin }) {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -30,6 +30,9 @@ export default function Login() {
             // Check if the response status is 200 and if the JWT token is present in the response
             if (response.status === 200 && response.data.token) {
                 localStorage.setItem('jwt', response.data.token);
+                if (onLogin) {  // invoke the callback
+                    onLogin();
+                }
                 navigate('/');
             } else {
                 console.error("Login failed");

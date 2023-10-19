@@ -2,9 +2,7 @@ package CSIT321.CN03.Model.Stock;
 
 import CSIT321.CN03.Model.StockRoom.*;
 import CSIT321.CN03.Model.Supplier;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +18,13 @@ import static CSIT321.CN03.Utils.WarehouseUtils.*;
 @DiscriminatorColumn(name = "stock_type")
 @Table(name = "stock")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "stockId")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "stock_type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RawMaterial.class, name = "raw_material"),
+        @JsonSubTypes.Type(value = Machinery.class, name = "machinery"),
+        @JsonSubTypes.Type(value = Equipment.class, name = "equipment"),
+        @JsonSubTypes.Type(value = Consumables.class, name = "consumables")
+})
 public abstract class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Stock_SEQ")
