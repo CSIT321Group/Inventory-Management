@@ -65,12 +65,12 @@ export default function Order() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/stock`, {
+                const response = await fetch(`http://localhost:8080/api/order`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
                     }
                 });
-                const data = response.data;
+                const data = await response.json();
                 // const allOrders = data.map(order2 => {
                 //        setObjectList(order2) 
                 //        console.log(order2);
@@ -319,7 +319,7 @@ export default function Order() {
 
         return (
         <>
-            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
                 {/*this is the new order popup*/}
                 <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px", }}>
                     <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
@@ -327,7 +327,7 @@ export default function Order() {
                     </button>
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                         <form>
-                            <h1>Order Items</h1>
+                            <h1 style={{color: localStorage.getItem('fontColour')}}>Order Items</h1>
                             <div className='new-order-card'>
                                 <table id="newOrderItemsTable" className='newOrderItemsTable'>
                                     <tr>
@@ -432,7 +432,7 @@ export default function Order() {
                                     </tr>                                            
                                 </table>
                             </div>
-                            <h1>Payment</h1>
+                            <h1 style={{color: localStorage.getItem('fontColour')}}>Payment</h1>
                             <div className='new-order-card'>
                                 <table className='newOrderPaymentTable'>
                                     <tr>
@@ -481,7 +481,7 @@ export default function Order() {
                     </Popup>
                 </div>
                 <div className="tableHeader">
-                    <h1>Orders Filters</h1>
+                    <h1 style={{color: localStorage.getItem('fontColour')}}>Orders Filters</h1>
                 </div>
                 <div className="content">
                     <div>                        
@@ -512,29 +512,29 @@ export default function Order() {
                     </div>
                 </div>
             </div>
-            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
                 <div className="header">
-                    <h1>Orders Table</h1>
+                    <h1 style={{color: localStorage.getItem('fontColour')}}>Orders Table</h1>
                 </div>
                 <div className="content">
                     <br/>
-                    <TableContainer component={Paper} style={{ overflowX: 'hidden'}}>
-                        <Table aria-label="collapsible table" className="orderTable" style={{ width: "97%"}}>
+                    <TableContainer component={Paper} style={{ overflowX: 'hidden', fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+                        <Table aria-label="collapsible table" className="orderTable" style={{ width: "97%", fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
                             <TableHead>
                             <TableRow>
-                                <TableCell className="small-cell" />
-                                <TableCell>Order Num</TableCell>
-                                <TableCell>Ordered Date</TableCell>
-                                <TableCell>Delivery Date</TableCell>
-                                <TableCell>Status</TableCell>
+                                <TableCell className="small-cell" style={{color: localStorage.getItem('fontColour')}}/>
+                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Order Num</TableCell>
+                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Ordered Date</TableCell>
+                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Delivery Date</TableCell>
+                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Status</TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
                             {orders.map((order) => (
                                 <React.Fragment key={order.id}>
                                 <TableRow onClick={() => toggleRow(order.id)}>
-                                    <TableCell className="smaller-cell"> 
-                                    <IconButton size="small">
+                                    <TableCell style={{color: localStorage.getItem('fontColour')}} className="smaller-cell"> 
+                                    <IconButton size="small" style={{color: localStorage.getItem('fontColour')}}>
                                         {openRows.includes(order.id) ? (
                                         <KeyboardArrowUpIcon />
                                         ) : (
@@ -542,10 +542,10 @@ export default function Order() {
                                         )}
                                     </IconButton>
                                     </TableCell >
-                                    <TableCell>{order.id}</TableCell>
-                                    <TableCell>{order.orderDate}</TableCell>
-                                    <TableCell>{order.deliveryDate}</TableCell>
-                                    <TableCell>{order.status}</TableCell>
+                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.id}</TableCell>
+                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.orderDate}</TableCell>
+                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.deliveryDate}</TableCell>
+                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.status}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell colSpan={5}>
@@ -555,23 +555,23 @@ export default function Order() {
                                         unmountOnExit
                                     >
                                         <Box sx={{ margin: 2 }}>
-                                        <Typography variant="h6" gutterBottom component="div">
+                                        <Typography variant="h6" gutterBottom component="div" style={{color: localStorage.getItem('fontColour')}}>
                                             Order Details
                                         </Typography>
                                         <Table size="normal" aria-label="purchases">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell>Product</TableCell>
-                                                <TableCell>Supplier</TableCell>
-                                                <TableCell>Quantity</TableCell>
+                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Product</TableCell>
+                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Supplier</TableCell>
+                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Quantity</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
                                             {order.orderItems.map((item) => (
                                                 <TableRow key={item.id}>
-                                                <TableCell>{item.stock.stock_name}</TableCell>
-                                                <TableCell>{item.stock.supplierName}</TableCell>
-                                                <TableCell>{item.quantity}</TableCell>
+                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>{item.stock.stock_name}</TableCell>
+                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>{item.stock.supplierName}</TableCell>
+                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>{item.quantity}</TableCell>
                                                 </TableRow>
                                             ))}
                                             </TableBody>

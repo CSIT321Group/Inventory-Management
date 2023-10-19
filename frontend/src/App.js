@@ -66,6 +66,7 @@ function App() {
     }
 
     return (
+        <div style={{height: "1000", fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
         <Router>
             <ShowNavBar>
                 <Navbar />
@@ -93,7 +94,7 @@ function App() {
                         <Route
                             path='/employee'
                             element={
-                            userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_EmployeeInfo") ? (
+                                userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_EmployeeInfo") ? (
                                 <Employee />
                             ) : (
                                 <div>You do not have access to this page</div>
@@ -101,7 +102,7 @@ function App() {
                         <Route
                             path='/reporting'
                             element={
-                            userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_Reporting") ? (
+                                userRoles.includes("ROLE_ADMIN") || userRoles.includes("ROLE_Reporting") ? (
                                 <Reporting />
                             ) : (
                                 <div>You do not have access to this page.</div>
@@ -117,6 +118,7 @@ function App() {
                 <Route path="*" element={<div>404 - Not Found</div>} />
             </Routes>
         </Router>
+        </div>
     );
 }
 
