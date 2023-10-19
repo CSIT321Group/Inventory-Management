@@ -70,7 +70,7 @@ export default function Order() {
                         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
                     }
                 });
-                const data = response.data;
+                const data = await response.json();
                 // const allOrders = data.map(order2 => {
                 //        setObjectList(order2) 
                 //        console.log(order2);
