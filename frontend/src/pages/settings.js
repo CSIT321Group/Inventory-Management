@@ -47,16 +47,45 @@ export default function Settings() {
     localStorage.setItem("fontColour",fontColour);
   }
   
+  function contrastColour() {
+    const backgroundColour = "#7a849b";
+    const fontColour = "#black";
+    localStorage.setItem("backgroundColour",backgroundColour);
+    localStorage.setItem("fontColour",fontColour);
+  }
+  
   function darkColour() {
-    const backgroundColour = "rgb(70 68 72)";
+    const backgroundColour = "rgb(31 31 31)";
     const fontColour = "white";
     localStorage.setItem("backgroundColour",backgroundColour);
     localStorage.setItem("fontColour",fontColour);
   }
 
+  function vibrantColour() {
+    const backgroundColour = "#26126a";
+    const fontColour = "white";
+    localStorage.setItem("backgroundColour",backgroundColour);
+    localStorage.setItem("fontColour",fontColour);
+  }
+
+  function zoomDefault() {
+    const zoom = "0";
+    localStorage.setItem("zoom",zoom);
+  }
+
+  function zoomEnabled() {
+    const zoom = "1.5";
+    localStorage.setItem("zoom",zoom);
+  }
+
+  function zoomOut() {
+    const zoom = "0.85";
+    localStorage.setItem("zoom",zoom);
+  }
+
   return (
-    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
-      <h1 style={{color: localStorage.getItem('fontColour')}}>Settings</h1>
+    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+      <h1 style={{color: localStorage.getItem('fontColour'), padding: "10px"}}>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>General</h2>
         <div className="settings-content-info">
@@ -110,11 +139,18 @@ export default function Settings() {
             </form>
             <br/>
             <form>
-              <label htmlFor="contrast">Contrast </label>&ensp;
+              <label htmlFor="font-size">Zoom </label>&ensp;
+                <button className="font-buttons" onClick={zoomDefault}>Default Zoom</button>&ensp;
+                <button className="font-buttons" onClick={zoomEnabled}>Zoomed In </button>&ensp;
+                <button className="font-buttons" onClick={zoomOut}>Zoomed Out </button>&ensp;
+            </form>
+            <br/>
+            <form>
+              <label htmlFor="contrast">Colour Display </label>&ensp;
                 <button className="font-buttons" onClick={defaultColour}>Default</button>&ensp;
-                <button className="font-buttons">Invert</button>&ensp;
+                <button className="font-buttons" onClick={contrastColour}>Contrast</button>&ensp;
                 <button className="font-buttons" onClick={darkColour}>Dark</button>&ensp;
-                <button className="font-buttons">Light</button>&ensp;
+                <button className="font-buttons" onClick={vibrantColour}>Vibrant</button>&ensp;
             </form>
           </fieldset>
         </div>

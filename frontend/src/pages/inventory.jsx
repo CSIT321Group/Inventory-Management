@@ -66,7 +66,7 @@ const Inventory = () => {
 
     // JSX to render the component
     return (
-        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom'))}}>
             <div className='header'>
                 <h1 style={{color: localStorage.getItem('fontColour')}}>Inventory Filters</h1>
             </div>
@@ -118,7 +118,6 @@ const Inventory = () => {
                                 <th>Category</th>
                                 <th>Supplier</th>
                                 <th>Location</th>
-                                <th>Last Update</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total Value</th>
@@ -132,7 +131,6 @@ const Inventory = () => {
                                     <td>{formatStockType(item.stock_type)}</td>
                                     <td>{item.supplierName}</td>
                                     <td>{item.location}</td>
-                                    <td>"Placeholder"</td>
                                     <td>{item.stock_quantity}</td>
                                     <td>{`$${item.unit_price.toFixed(2)}`}</td>
                                     <td>{`$${(item.unit_price * item.stock_quantity).toFixed(2)}`}</td>

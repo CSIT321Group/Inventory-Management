@@ -102,9 +102,9 @@ export default function Reporting() {
 	// 		],
 	// 	}],
 	// };
-
+	<></>
 	return (
-		<div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+		<div style={{zoom: JSON.parse(localStorage.getItem('zoom')),fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<br/><br/>
 			<div className='header'>
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>

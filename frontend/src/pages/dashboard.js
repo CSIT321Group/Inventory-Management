@@ -8,7 +8,7 @@ import "../pages/dashboard.scss"
  
 const Dashboard = () => {
     return (
-        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom'))}}>
 			<div className='header'>
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Quick View</h1>
 			</div>

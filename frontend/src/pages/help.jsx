@@ -18,8 +18,8 @@ export default function Help(){
         setShow3(!show3); // Toggle accordion
     };
     return (
-        <div className="helpPageLayout" style={{fontWeight: localStorage.getItem('boldFont'), fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
-            <h1>Having trouble??? This page might help you!</h1>
+        <div className="helpPageLayout" style={{fontWeight: localStorage.getItem('boldFont'), zoom: JSON.parse(localStorage.getItem('zoom')), fontSize: JSON.parse(localStorage.getItem('newSize')), backgroundColor: localStorage.getItem('backgroundColour')}}>
+            <h1 style={{color: localStorage.getItem('fontColour')}}>Having trouble??? This page might help you!</h1>
             <div className="helpContent">
                 <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Frequently Asked Questions (FAQs)</h2>
                 <div className="content-info">
@@ -100,7 +100,7 @@ export default function Help(){
                                     <p>Yes, you can order more than 3 items in one order. However, this can't be done online. You will need to contact your supplier.</p>
                                 <h4>How do I cancel an order?</h4>
                                     <p>To cancel an order, you will need to get in contact with the supplier directly. This is in place to ensure that both parties can discuss and communicate about why this order is being
-                                        cancelled as well as work out the refund so both parties are receivng fair treatment.
+                                        cancelled as well as work out the refund so both parties are receiving fair treatment.
                                     </p>
                             </div>
                         )}

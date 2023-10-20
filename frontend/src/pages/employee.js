@@ -63,7 +63,7 @@ export default function Employee() {
 
 
     return (
-        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), fontWeight: localStorage.getItem('boldFont')}}>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont')}}>
             <br/><br/>
             <div className='header'>
                 <h1 style={{color: localStorage.getItem('fontColour')}}>Table Filter</h1>

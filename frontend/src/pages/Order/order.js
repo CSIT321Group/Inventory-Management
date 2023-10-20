@@ -19,6 +19,11 @@ export default function Order() {
     const [statusValue, setStatusValue] = useState("");
     const [orders, setOrders] = useState([]);
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
+    // Using the useState hook to create and manage state for the component
+    const [data, setData] = useState([]); // To store fetched data
+    const [selectedItem, setSelectedItem] = useState([]);
+    const [skuSearch, setSkuSearch] = useState(''); // SKU search string
+    const [nameSearch, setNameSearch] = useState(''); // Name search string
     const [objectDetails, setObjectDetails] = useState({
         stockId: '',
         supplierName: '',
@@ -79,7 +84,7 @@ export default function Order() {
                 const modifiedOrders = data.map(order => {
                     // Deep cloning the order
                     const clonedOrder = { ...order };
-
+                    
                     clonedOrder.orderItems = clonedOrder.orderItems.map(item => {
                         const cachedItem = stockCache.find(stock => stock.stockId === item.stock.stockId);
 
@@ -93,8 +98,8 @@ export default function Order() {
 
                     return clonedOrder;
                 });
-                // setObjectList(response.data);
                 setOrders(modifiedOrders);
+                console.log(modifiedOrders)
             } catch (error) {
                 console.error("Error fetching orders:", error);
             }
@@ -104,13 +109,7 @@ export default function Order() {
             fetchData();
         }
     }, [stockCache]);
-    // Using the useState hook to create and manage state for the component
-    const [data, setData] = useState([]); // To store fetched data
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [skuSearch, setSkuSearch] = useState(''); // SKU search string
-    const [nameSearch, setNameSearch] = useState(''); // Name search string
 
-    // useEffect hook runs side-effects in functional components, similar to componentDidMount and componentDidUpdate combined in class components
     useEffect(() => {
         const fetchData = async () => {  // Defining an async function to fetch data from the API
             // Setting a default endpoint URL
@@ -148,8 +147,8 @@ export default function Order() {
         };
 
         fetchData(); // Calling the fetchData function to initiate the fetch process
-    }, [skuSearch, nameSearch]);  // useEffect's dependency array, ensures this useEffect runs whenever skuSearch or nameSearch values change
-    
+    }, [skuSearch, nameSearch]);
+
     // Used for adding another new item to a new order State to show/hide accordion
     const [show, setShow] = useState(false);
     const handleOpen = () => {
@@ -263,7 +262,6 @@ export default function Order() {
     //SUBMITTING NEW ORDER
     const handleSubmit = async (event) => {
         //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
-
         const order = {
             status: "PENDING",
             orderDate: new Date().toISOString().split('T')[0],
@@ -318,9 +316,9 @@ export default function Order() {
 
         return (
         <>
-            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
                 {/*this is the new order popup*/}
-                <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px", }}>
+                <div style={{display:"flex", marginLeft:"200px", marginTop:"50px", padding:"10px", }}>
                     <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
                         NEW ORDER
                     </button>
@@ -488,7 +486,7 @@ export default function Order() {
                             <table>
                                 <tr>
                                     <td className="filterOrder">
-                                        <input style={{borderRadius:30}} type="text" placeholder="Search"/>
+                                        <input style={{borderRadius:30}} type="text" placeholder="Search" value={skuSearch} onChange={(e) => setSkuSearch(e.target.value)}/>
                                     </td>
                                     <td className="filterOrder">
                                         <h3 style={{color: localStorage.getItem('fontColour')}}>Delivery Date: &ensp;</h3>
@@ -511,7 +509,7 @@ export default function Order() {
                     </div>
                 </div>
             </div>
-            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
                 <div className="header">
                     <h1 style={{color: localStorage.getItem('fontColour')}}>Orders Table</h1>
                 </div>
@@ -541,7 +539,7 @@ export default function Order() {
                                         )}
                                     </IconButton>
                                     </TableCell >
-                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.id}</TableCell>
+                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.id || "Placeholder"}</TableCell>
                                     <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.orderDate}</TableCell>
                                     <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.deliveryDate}</TableCell>
                                     <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.status}</TableCell>
@@ -563,6 +561,7 @@ export default function Order() {
                                                 <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Product</TableCell>
                                                 <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Supplier</TableCell>
                                                 <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Quantity</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Total Cost</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -571,6 +570,7 @@ export default function Order() {
                                                 <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{item.stock.stock_name}</TableCell>
                                                 <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{item.stock.supplierName}</TableCell>
                                                 <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{item.quantity}</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{`$${(item.unitPrice * item.quantity).toFixed(2)}`}</TableCell>
                                                 </TableRow>
                                             ))}
                                             </TableBody>
