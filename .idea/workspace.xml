@@ -4,44 +4,558 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85e3e16e-1354-4f7b-8549-9d78c3822d0b" name="Changes" comment="" />
+    <list default="true" id="724661c7-d079-4d57-b62b-85c214401813" name="Changes" comment="Fixed Orders not rendering when manually injecting an Order using postman so it now appears correctly on screen. POST order create on the frontend still doesnt work">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/StaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/StaffController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/CSIT321/CN03/API/StockController.java" afterDir="false" />
+    </list>
+    <list id="7edcc5b1-7905-4c85-aab9-f49a28e33367" name="MavenFiles" comment="MavenFiles">
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="com.haulmont.jpb.JpaRepository" />
+        <option value="Class" />
+        <option value="com.haulmont.jpb.NewClass" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="recovery" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2T5ZElc9dQ0R5m1EQXNgpn2loVd" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2SEqwt2haMQeZ78OJ2xTGolH1f3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/brend/IdeaProjects/Inventory-Management/backend/src/main/resources/static&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;22267be9292732756b51a514ecf88678&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="CSIT321.CN03.Model.DTO" />
+      <recent name="CSIT321.CN03.Service.DataInitialisation" />
+      <recent name="CSIT321.CN03.Service" />
+      <recent name="CSIT321.CN03.Config" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\brend\IdeaProjects\Inventory-Management\backend\src\main\resources\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\brend\IdeaProjects\Inventory-Management\frontend\src\components\Navbar" />
+    </key>
+    <key name="ImportMappingsDialog.RecentPackages">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="PrototypeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="CN03" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT321.CN03.PrototypeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Added the intelliJ .idea folder to the .gitignore">
+      <created>1688613928825</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688613928825</updated>
+    </task>
     <task active="true" id="Default" summary="Default task">
-      <changelist id="85e3e16e-1354-4f7b-8549-9d78c3822d0b" name="Changes" comment="" />
-      <created>1690334795947</created>
+      <changelist id="724661c7-d079-4d57-b62b-85c214401813" name="Changes" comment="Added the intelliJ .idea folder to the .gitignore" />
+      <created>1688722348205</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1690334795947</updated>
-      <workItem from="1690334797028" duration="10000" />
+      <updated>1688722348205</updated>
+      <workItem from="1688722355225" duration="12000" />
+      <workItem from="1688959606810" duration="6590000" />
+      <workItem from="1689120619650" duration="9118000" />
+      <workItem from="1689131996143" duration="3000" />
+      <workItem from="1689293461616" duration="23480000" />
+      <workItem from="1689317063933" duration="791000" />
+      <workItem from="1689318447534" duration="140000" />
+      <workItem from="1689467385753" duration="179000" />
+      <workItem from="1689467592640" duration="95000" />
+      <workItem from="1689467728524" duration="200000" />
+      <workItem from="1689467953296" duration="50000" />
+      <workItem from="1689468026771" duration="144000" />
+      <workItem from="1689468202884" duration="258000" />
+      <workItem from="1689468577615" duration="272000" />
+      <workItem from="1689468885619" duration="51000" />
+      <workItem from="1689468962618" duration="680000" />
+      <workItem from="1689553549339" duration="412000" />
+      <workItem from="1689553986247" duration="391000" />
+      <workItem from="1689554402295" duration="61000" />
+      <workItem from="1689554493815" duration="3281000" />
+      <workItem from="1689571596818" duration="2074000" />
+      <workItem from="1689654551905" duration="5228000" />
+      <workItem from="1689735685782" duration="3000" />
+      <workItem from="1690346684399" duration="646000" />
+      <workItem from="1690349124334" duration="568000" />
+      <workItem from="1690420299465" duration="284000" />
+      <workItem from="1690430166656" duration="4128000" />
+      <workItem from="1690434419822" duration="355000" />
+      <workItem from="1690842645563" duration="40000" />
+      <workItem from="1690855006551" duration="640000" />
+      <workItem from="1690857729675" duration="14668000" />
+      <workItem from="1690882069967" duration="656000" />
+      <workItem from="1690931711633" duration="377000" />
+      <workItem from="1690934267015" duration="1239000" />
+      <workItem from="1690946370965" duration="4912000" />
+      <workItem from="1691014966152" duration="315000" />
+      <workItem from="1691043476676" duration="714000" />
+      <workItem from="1691101351601" duration="1554000" />
+      <workItem from="1691104713081" duration="25000" />
+      <workItem from="1691107107784" duration="1261000" />
+      <workItem from="1691124126279" duration="1808000" />
+      <workItem from="1691190218536" duration="4000" />
+      <workItem from="1691539525930" duration="12614000" />
+      <workItem from="1691575599164" duration="6000" />
+      <workItem from="1691705560915" duration="3148000" />
+      <workItem from="1691816622993" duration="1896000" />
+      <workItem from="1691893567689" duration="13158000" />
+      <workItem from="1691914709664" duration="7000" />
+      <workItem from="1691970246435" duration="16945000" />
+      <workItem from="1692067892456" duration="8000" />
+      <workItem from="1692237643869" duration="3843000" />
+      <workItem from="1692315158848" duration="122000" />
+      <workItem from="1692582854465" duration="11988000" />
+      <workItem from="1692601712433" duration="59000" />
+      <workItem from="1692748764695" duration="3580000" />
+      <workItem from="1692757823770" duration="7060000" />
+      <workItem from="1692772337433" duration="509000" />
+      <workItem from="1692922121585" duration="4957000" />
+      <workItem from="1693439712464" duration="13655000" />
+      <workItem from="1693457970091" duration="1084000" />
+      <workItem from="1693791649299" duration="1157000" />
+      <workItem from="1693793993771" duration="2430000" />
+      <workItem from="1693964594044" duration="10000" />
+      <workItem from="1694045804789" duration="10397000" />
+      <workItem from="1694076239114" duration="1695000" />
+      <workItem from="1694126687395" duration="10119000" />
+      <workItem from="1694149560144" duration="15000" />
+      <workItem from="1694150788804" duration="5930000" />
+      <workItem from="1694220056573" duration="4000" />
+      <workItem from="1694651638041" duration="1929000" />
+      <workItem from="1694913679221" duration="7000" />
+      <workItem from="1695248259011" duration="754000" />
+      <workItem from="1695338258941" duration="6414000" />
+      <workItem from="1695784131536" duration="9000" />
+      <workItem from="1696304305808" duration="1358000" />
+      <workItem from="1696369042807" duration="12617000" />
+      <workItem from="1696547515162" duration="2737000" />
+      <workItem from="1696550933459" duration="1095000" />
+      <workItem from="1696562756787" duration="601000" />
+      <workItem from="1696633549687" duration="3813000" />
+      <workItem from="1696807103833" duration="781000" />
+      <workItem from="1697342195996" duration="890000" />
+      <workItem from="1697408685700" duration="8493000" />
+      <workItem from="1697418592973" duration="5366000" />
+      <workItem from="1697494593918" duration="547000" />
+      <workItem from="1697603960846" duration="980000" />
+      <workItem from="1697664500919" duration="12835000" />
+      <workItem from="1697689981910" duration="3197000" />
+      <workItem from="1697750979251" duration="3867000" />
+      <workItem from="1697835328921" duration="5359000" />
     </task>
+    <task id="LOCAL-00002" summary="Added supporting code for Authentication and Role/Permissions based API endpoint access">
+      <created>1689314103354</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689314103354</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added comments to the security/authentication classes to better explain whats happening on the backend.">
+      <created>1689315587942</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1689315587942</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Disabled security globally for the prototype phase all endpoints are unrestricted. Code for security has been commented out but is ready to go once the team is ready for security implementation.">
+      <created>1689316646010</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1689316646010</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added/Tested GET stock and employee endpoints.">
+      <created>1690434208041</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1690434208041</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added &quot;Filter&quot; functionality to Staffmembers.&#10;&#10;The filter functionality will search for a partial/full match for employees based on their Username/Firstname/Lastname/ID.">
+      <created>1690862280209</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1690862280209</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fix filter on full/partial first and last name">
+      <created>1690862714607</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1690862714607</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added Filter for Stock based on partial/full ID and product name">
+      <created>1690934368299</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1690934368299</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added basic axios requests for inventory.js">
+      <created>1690934516098</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1690934516098</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Bug fixes for axios requests&#10;&#10;employee.js bug fixes">
+      <created>1690935382851</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1690935382851</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added Supplier functionality&#10;&#10;Including the ability to  assign stock to a supplier.">
+      <created>1690950307260</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1690950307260</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixed Json circular references. Changed inventory.js to display the new supplier details in the table">
+      <created>1690951278061</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1690951278061</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added deeper stockroom changes, as discussed in the sponsor meetings.&#10;Warehouse/Stockrooms/Stock/Employees/Supplier data initaliser methods&#10;Orders added but untested">
+      <created>1692241614929</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1692241614929</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added location to stock entity.&#10;Returns location in this format &quot;location&quot;: &quot;SR1|A1|R2|3|2&quot; where SR# = Stockroom#|A# = Aisle# | R# = Rack# | # = Shelf level | # Position (1 = Left 2 = Right)">
+      <created>1692584321269</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1692584321269</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Refactored classes in Model and Repository packages into their own context based packages within model and repository.">
+      <created>1692585127832</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1692585127832</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Set stock to retroactively generate the location identifier when a stock item is placed into a position.">
+      <created>1692585915151</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1692585915151</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added orders for generated data as well as a order statistics service to log the stats of the suppliers.">
+      <created>1692592708253</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1692592708253</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Removed excess logging in the OrderInitializationService">
+      <created>1692592809271</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692592809271</updated>
+    </task>
+    <task id="LOCAL-00019" summary="First two rules of the stock placement algorithm implemented&#10;&#10;1. A position can not currently be holding a stock item&#10;2. Stock should be placed in close proximity of the same stock type.">
+      <created>1692761481218</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1692761481218</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added word banks for each stocktype to give real(ish) names to stock in a water treatment context&#10;&#10;StockInitializationService can now support generating these names, as well as a random ratio of stock type items (still in the bounds of 196 items). The &quot;distance&quot; is pretty good although there is some spill over between stockrooms of the same stock types. No point fixing this as the next rule to be implemented is to place stock that get frequently picked in the same orders together.">
+      <created>1692764305595</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1692764305595</updated>
+    </task>
+    <task id="LOCAL-00021" summary="- Added orders functionality to the data initialisation&#10;- Fixed relationships between stockrooms + lower hierarchy to improve data retrieving speed.&#10;- General improvement of the speed of the program as well as the data initialisation">
+      <created>1693792432562</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1693792432562</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added fix for failing tests (the database was being initialised twice once during build and again during testing causing multiple results being returned when there should only be one)">
+      <created>1693795822711</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1693795822711</updated>
+    </task>
+    <task id="LOCAL-00023" summary="-Changed unit/total price to 2 decimal places&#10;-Added fetching orders to the frontend (bug where some suppliers or stock_names don't get assigned)">
+      <created>1694057230771</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1694057230771</updated>
+    </task>
+    <task id="LOCAL-00024" summary="-Added the correct fonts&#10;-Added the correct colour to the H1-H6&#10;-Changed dashboard colours to less loud colours.">
+      <created>1694128785848</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1694128785848</updated>
+    </task>
+    <task id="LOCAL-00025" summary="-Added the correct logo">
+      <created>1694130179070</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1694130179070</updated>
+    </task>
+    <task id="LOCAL-00026" summary="-Increased size of text and logos in sidebar">
+      <created>1694131659038</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1694131659038</updated>
+    </task>
+    <task id="LOCAL-00027" summary="-Updated permission values to the correct labels">
+      <created>1694132460023</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1694132460023</updated>
+    </task>
+    <task id="LOCAL-00028" summary="-Changed the colour of the text in the quick views to white">
+      <created>1694132848156</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1694132848156</updated>
+    </task>
+    <task id="LOCAL-00029" summary="-Changed the format of the stock type in inventory to look nicer&#10;-Changed the format of the Position and permissions in employee">
+      <created>1694133816016</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1694133816016</updated>
+    </task>
+    <task id="LOCAL-00030" summary="-Added Top 10 Best selling items endpoint&#10;-Added Lowest 10 stocked items endpoint&#10;-Added Get 10 Random Items endpoint">
+      <created>1694153474900</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1694153474900</updated>
+    </task>
+    <task id="LOCAL-00031" summary="-Added more info returned from top 10 selling items.">
+      <created>1694154068058</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1694154068058</updated>
+    </task>
+    <task id="LOCAL-00032" summary="-Enabled JWT on the backend for development on the frontend.">
+      <created>1696305724542</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1696305724542</updated>
+    </task>
+    <task id="LOCAL-00033" summary="-Fixed CORS errors&#10;-Added Auth header to axios request for stock widgets, Order, Login, Employee (although Employee isn't working, backend verifies its a valid auth token)">
+      <created>1696380845856</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1696380845857</updated>
+    </task>
+    <task id="LOCAL-00034" summary="-Fixed jwt naming error&#10;-Fixed a logic error in the logged in function in app.js&#10;-Added name banks in order to generate stock in a different context.">
+      <created>1696633748398</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1696633748398</updated>
+    </task>
+    <task id="LOCAL-00035" summary="-Fixed pages not rendering after login">
+      <created>1696637358412</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1696637358412</updated>
+    </task>
+    <task id="LOCAL-00036" summary="-Fixed pages not rendering after login for real this time.">
+      <created>1697415043515</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1697415043515</updated>
+    </task>
+    <task id="LOCAL-00037" summary="-Added A logout endpoint which will invalidate the jwt cookie&#10;-Added an endpoint to get a list of ROLEs from authenticated users&#10;-Fixed a typo in the word component in the App.js&#10;-Changed the permissions in app.js to use the ROLE_ prefix">
+      <created>1697417504401</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1697417504401</updated>
+    </task>
+    <task id="LOCAL-00038" summary="-Changed login.js to use navigate instead of reloading the whole window&#10;-Added localstorage for JWT and added a check in app.js to see if this is not found the set loggedIn to false">
+      <created>1697423969943</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1697423969945</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Fixed things">
+      <created>1697684617538</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1697684617538</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fixed a small bug with json in orders.">
+      <created>1697685947808</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1697685947808</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Fixed Orders not rendering when manually injecting an Order using postman so it now appears correctly on screen. POST order create on the frontend still doesnt work">
+      <created>1697839636845</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1697839636845</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added orders for generated data as well as a order statistics service to log the stats of the suppliers." />
+    <MESSAGE value="Removed excess logging in the OrderInitializationService" />
+    <MESSAGE value="First two rules of the stock placement algorithm implemented&#10;&#10;1. A position can not currently be holding a stock item&#10;2. Stock should be placed in close proximity of the same stock type." />
+    <MESSAGE value="Added word banks for each stocktype to give real(ish) names to stock in a water treatment context&#10;&#10;StockInitializationService can now support generating these names, as well as a random ratio of stock type items (still in the bounds of 196 items). The &quot;distance&quot; is pretty good although there is some spill over between stockrooms of the same stock types. No point fixing this as the next rule to be implemented is to place stock that get frequently picked in the same orders together." />
+    <MESSAGE value="- Added orders functionality to the data initialisation&#10;- Fixed relationships between stockrooms + lower hierarchy to improve data retrieving speed.&#10;- General improvement of the speed of the program as well as the data initialisation" />
+    <MESSAGE value="Added fix for failing tests (the database was being initialised twice once during build and again during testing causing multiple results being returned when there should only be one)" />
+    <MESSAGE value="-Changed unit/total price to 2 decimal places&#10;-Added fetching orders to the frontend (bug where some suppliers or stock_names don't get assigned)" />
+    <MESSAGE value="-Added the correct fonts&#10;-Added the correct colour to the H1-H6&#10;-Changed dashboard colours to less loud colours." />
+    <MESSAGE value="-Added the correct logo" />
+    <MESSAGE value="-Increased size of text and logos in sidebar" />
+    <MESSAGE value="-Updated permission values to the correct labels" />
+    <MESSAGE value="-Changed the colour of the text in the quick views to white" />
+    <MESSAGE value="-Changed the format of the stock type in inventory to look nicer&#10;-Changed the format of the Position and permissions in employee" />
+    <MESSAGE value="-Added Top 10 Best selling items endpoint&#10;-Added Lowest 10 stocked items endpoint&#10;-Added Get 10 Random Items endpoint" />
+    <MESSAGE value="-Added more info returned from top 10 selling items." />
+    <MESSAGE value="-Enabled JWT on the backend for development on the frontend." />
+    <MESSAGE value="-Fixed CORS errors&#10;-Added Auth header to axios request for stock widgets, Order, Login, Employee (although Employee isn't working, backend verifies its a valid auth token)" />
+    <MESSAGE value="-Fixed jwt naming error&#10;-Fixed a logic error in the logged in function in app.js&#10;-Added name banks in order to generate stock in a different context." />
+    <MESSAGE value="-Fixed pages not rendering after login" />
+    <MESSAGE value="-Fixed pages not rendering after login for real this time." />
+    <MESSAGE value="-Added A logout endpoint which will invalidate the jwt cookie&#10;-Added an endpoint to get a list of ROLEs from authenticated users&#10;-Fixed a typo in the word component in the App.js&#10;-Changed the permissions in app.js to use the ROLE_ prefix" />
+    <MESSAGE value="-Changed login.js to use navigate instead of reloading the whole window&#10;-Added localstorage for JWT and added a check in app.js to see if this is not found the set loggedIn to false" />
+    <MESSAGE value="Fixed things" />
+    <MESSAGE value="Fixed a small bug with json in orders." />
+    <MESSAGE value="Fixed Orders not rendering when manually injecting an Order using postman so it now appears correctly on screen. POST order create on the frontend still doesnt work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Orders not rendering when manually injecting an Order using postman so it now appears correctly on screen. POST order create on the frontend still doesnt work" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/file$PrototypeApplication.ic" NAME="PrototypeApplication Coverage Results" MODIFIED="1692759492967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
