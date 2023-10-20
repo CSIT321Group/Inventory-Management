@@ -14,22 +14,6 @@ import Help from './pages/help';
 import Settings from './pages/settings';
 import Logout from "./pages/logout";
 
-const roleRestrictedRoutes = {
-    'ROLE_ADMIN': [
-        {path: '/', exact: true, component: Home},
-        {path: '/order', component: Order},
-        {path: '/inventory', component: Inventory},
-        {path: '/employee', component: Employee},
-        {path: '/reporting', component: Reporting},
-        {path: '/help', component: Help},
-        {path: '/settings', component: Settings},
-    ],
-    'ROLE_EMPLOYEE': [
-        {path: '/order', component: Order},
-        {path: '/inventory', component: Inventory}
-    ],
-}
-
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [userRoles, setUserRoles] = useState([]);
