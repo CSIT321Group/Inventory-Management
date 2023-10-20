@@ -18,10 +18,10 @@ export default function Help(){
         setShow3(!show3); // Toggle accordion
     };
     return (
-        <div className="helpPageLayout" style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+        <div className="helpPageLayout" style={{fontWeight: localStorage.getItem('boldFont'), fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
             <h1>Having trouble??? This page might help you!</h1>
             <div className="helpContent">
-                <h2 className="contentHeaders">Frequently Asked Questions (FAQs)</h2>
+                <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Frequently Asked Questions (FAQs)</h2>
                 <div className="content-info">
                     <div className="app">
                       <div className="accordian">
@@ -110,24 +110,24 @@ export default function Help(){
             </div>
             <br/><br/>
             <div className="helpContent">
-                <h2 className="contentHeaders">Helpful Documentation</h2>
+                <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Helpful Documentation</h2>
                 <div className="content-info">
-                    <a href="./Help_Documentation/Operation_Manual.docx" download>Operation Manual</a>&emsp;&emsp;
-                    <a href="./Help_Documentation/Operation_Manual.docx" download>Help Documentation</a>&emsp;&emsp;
-                    <a href="./Help_Documentation/Operation_Manual.docx" download>Help Documentation</a>
+                    <a style={{color: localStorage.getItem('fontColour')}} href="./Help_Documentation/Operation_Manual.docx" download>Operation Manual</a>&emsp;&emsp;
+                    <a style={{color: localStorage.getItem('fontColour')}} href="./Help_Documentation/Operation_Manual.docx" download>Help Documentation</a>&emsp;&emsp;
+                    <a style={{color: localStorage.getItem('fontColour')}} href="./Help_Documentation/Operation_Manual.docx" download>Help Documentation</a>
                 </div>
             </div>
             <br/><br/>
             <div className="helpContent">                
-                <h2 className="contentHeaders">Contact Us</h2>
+                <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Contact Us</h2>
                 <div className="content-info">
                     <p>If you still haven't been able to find something to help you, 
                     please contact us using the following platforms or fill in the help form below.</p>
-                    <p>Email: <a href="mailto:email@sample.com? subject=help ticket"> email@sample.com </a></p>
-                    <p>Phone: <a href="tel:1300 003 324">1300 003 324</a><br/><span><i>&emsp;Our support team is available Monday to Friday, 9:00 AM to 6:00 PM (AEST).</i></span></p>
-                    <h4>Got a question or need help, submit a help form below and our team will get back to you ASAP</h4>
+                    <p>Email: <a style={{color: localStorage.getItem('fontColour')}} href="mailto:email@sample.com? subject=help ticket"> email@sample.com </a></p>
+                    <p>Phone: <a style={{color: localStorage.getItem('fontColour')}} href="tel:1300 003 324">1300 003 324</a><br/><span><i>&emsp;Our support team is available Monday to Friday, 9:00 AM to 6:00 PM (AEST).</i></span></p>
+                    <h4 style={{color: localStorage.getItem('fontColour')}}>Got a question or need help, submit a help form below and our team will get back to you ASAP</h4>
                     <form action="" method="" enctype="text/plain">
-                    <h4>Help Form</h4>
+                    <h4 style={{color: localStorage.getItem('fontColour')}}>Help Form</h4>
                     <fieldset>
                     <br/>
                         <label htmlFor="name">Name: </label>

@@ -30,6 +30,16 @@ export default function Settings() {
     localStorage.setItem("newSize",newSize);
   }
 
+  function boldFont() {
+    const fontWeight = "bold";
+    localStorage.setItem("boldFont",fontWeight);
+  }
+
+  function defaultFont() {
+    const fontWeight = "";
+    localStorage.setItem("boldFont",fontWeight);
+  }
+
   function defaultColour() {
     const backgroundColour = "";
     const fontColour = "";
@@ -45,7 +55,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
       <h1 style={{color: localStorage.getItem('fontColour')}}>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>General</h2>
@@ -87,19 +97,24 @@ export default function Settings() {
         <div className="settings-content-info">
           <fieldset className="settings-fieldset">
             <form>
-            <label htmlFor="font-size">Font Size </label>
-              <button className="font-buttons" onClick={decreaseFontSize}>Decrease Size</button>
-              <button className="font-buttons" onClick={defaultFontSize}>Default</button>
-              <button className="font-buttons" onClick={increaseFontSize}>Increase Size</button>
+            <label htmlFor="font-size">Font Size </label>&ensp;
+              <button className="font-buttons" onClick={decreaseFontSize}>Decrease Size </button>&ensp;
+              <button className="font-buttons" onClick={defaultFontSize}>Default Size </button>&ensp;
+              <button className="font-buttons" onClick={increaseFontSize}>Increase Size </button>&ensp;
             </form>
             <br/>
+            <form>
+              <label htmlFor="font-size">Bold Font </label>&ensp;
+                <button className="font-buttons" onClick={boldFont}>Yes </button>&ensp;
+                <button className="font-buttons" onClick={defaultFont}>No </button>&ensp;
+            </form>
             <br/>
             <form>
-              <label htmlFor="contrast">Contrast </label>
-                <button className="font-buttons" onClick={defaultColour}>Default</button>
-                <button className="font-buttons">Invert</button>
-                <button className="font-buttons" onClick={darkColour}>Dark</button>
-                <button className="font-buttons">Light</button>
+              <label htmlFor="contrast">Contrast </label>&ensp;
+                <button className="font-buttons" onClick={defaultColour}>Default</button>&ensp;
+                <button className="font-buttons">Invert</button>&ensp;
+                <button className="font-buttons" onClick={darkColour}>Dark</button>&ensp;
+                <button className="font-buttons">Light</button>&ensp;
             </form>
           </fieldset>
         </div>

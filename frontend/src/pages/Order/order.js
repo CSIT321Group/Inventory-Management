@@ -262,7 +262,6 @@ export default function Order() {
     };
     //SUBMITTING NEW ORDER
     const handleSubmit = async (event) => {
-        event.preventDefault();
         //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
 
         const order = {
@@ -319,7 +318,7 @@ export default function Order() {
 
         return (
         <>
-            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+            <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
                 {/*this is the new order popup*/}
                 <div style={{display:"flex", marginLeft:"200px", marginTop:"80px", padding:"10px", }}>
                     <button style={{marginLeft:"auto", marginRight:"50px", width:"200px", borderRadius:"30px", color:"black"}} onClick={() => setButtonPopup(true)}>
@@ -492,15 +491,15 @@ export default function Order() {
                                         <input style={{borderRadius:30}} type="text" placeholder="Search"/>
                                     </td>
                                     <td className="filterOrder">
-                                        <h3>Delivery Date: &ensp;</h3>
+                                        <h3 style={{color: localStorage.getItem('fontColour')}}>Delivery Date: &ensp;</h3>
                                         <input className="searchInput" type="text"/>
                                     </td>
                                     <td className="filterOrder">
-                                        <h3>Product: &ensp;</h3>
+                                        <h3 style={{color: localStorage.getItem('fontColour')}}>Product: &ensp;</h3>
                                         <input className="searchInput" type="text"/>
                                     </td>
                                     <td className="filterOrder">
-                                        <h3>Status: &ensp;</h3>
+                                        <h3 style={{color: localStorage.getItem('fontColour')}}>Status: &ensp;</h3>
                                         <input className="searchInput" type="text"/>
                                     </td>
                                 </tr>
@@ -523,17 +522,17 @@ export default function Order() {
                             <TableHead>
                             <TableRow>
                                 <TableCell className="small-cell" style={{color: localStorage.getItem('fontColour')}}/>
-                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Order Num</TableCell>
-                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Ordered Date</TableCell>
-                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Delivery Date</TableCell>
-                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Status</TableCell>
+                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Order Num</TableCell>
+                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Ordered Date</TableCell>
+                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Delivery Date</TableCell>
+                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Status</TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
                             {orders.map((order) => (
                                 <React.Fragment key={order.id}>
                                 <TableRow onClick={() => toggleRow(order.id)}>
-                                    <TableCell style={{color: localStorage.getItem('fontColour')}} className="smaller-cell"> 
+                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}} className="smaller-cell"> 
                                     <IconButton size="small" style={{color: localStorage.getItem('fontColour')}}>
                                         {openRows.includes(order.id) ? (
                                         <KeyboardArrowUpIcon />
@@ -542,10 +541,10 @@ export default function Order() {
                                         )}
                                     </IconButton>
                                     </TableCell >
-                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.id}</TableCell>
-                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.orderDate}</TableCell>
-                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.deliveryDate}</TableCell>
-                                    <TableCell style={{color: localStorage.getItem('fontColour')}}>{order.status}</TableCell>
+                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.id}</TableCell>
+                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.orderDate}</TableCell>
+                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.deliveryDate}</TableCell>
+                                    <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{order.status}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell colSpan={5}>
@@ -561,17 +560,17 @@ export default function Order() {
                                         <Table size="normal" aria-label="purchases">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Product</TableCell>
-                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Supplier</TableCell>
-                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>Quantity</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Product</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Supplier</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>Quantity</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
                                             {order.orderItems.map((item) => (
                                                 <TableRow key={item.id}>
-                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>{item.stock.stock_name}</TableCell>
-                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>{item.stock.supplierName}</TableCell>
-                                                <TableCell style={{color: localStorage.getItem('fontColour')}}>{item.quantity}</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{item.stock.stock_name}</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{item.stock.supplierName}</TableCell>
+                                                <TableCell style={{fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour')}}>{item.quantity}</TableCell>
                                                 </TableRow>
                                             ))}
                                             </TableBody>

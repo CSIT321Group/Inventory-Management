@@ -21,7 +21,7 @@ const Dashboard = () => {
 			<div className="header">
 				<h1 style={{color: localStorage.getItem('fontColour')}}> Sales<t>&nbsp;</t>Insight </h1>
 			</div>
-			<div className="charts">
+			<div className="charts" style={{color: "black", backgroundColor: "white"}}>
 				<Featured/>
 				<Chart/>
 			</div>

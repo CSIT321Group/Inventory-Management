@@ -15,7 +15,7 @@ const Featured =() => {
     // ]
 
     return(
-        <div className="featured" style={{color: localStorage.getItem('fontColour')}}> 
+        <div className="featured" style={{color: "", backgroundColor: ""}}> 
             <div className="top">
                 <h1 className="title">Total Sales</h1>
                 {/*<MoreVert fontSize="small"/>*/}
