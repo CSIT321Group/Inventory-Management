@@ -6,6 +6,9 @@ import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
+import { alignPropType } from 'react-bootstrap/esm/types';
+import { AlignHorizontalCenterSharp } from '@mui/icons-material';
+import axios from 'axios';
 export default function Reporting() {
 	Chart.register(
 		ArcElement,
@@ -14,11 +17,19 @@ export default function Reporting() {
 		LinearScale
 		);
 
+	const [reportName, setReportName] = useState('');
+	const [skuSearch, setSkuSearch] = useState('');
+	const [nameSearch, setNameSearch] = useState('');
+	const [chartDetails, setChartDetails] = useState([]);
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [showAnotherItem, setShowAnotherItem] = useState(false);
 	const [additionalItemsCount, setAdditionalItemsCount] = useState(1);
 	const [showCharts, setShowCharts] = useState(false);
+
+	const handleInputChange = (e) => {
+		setReportName(e.target.value);
+	}
 
 	const toggleAnotherItem = () => {
 		if(additionalItemsCount < 5) {
@@ -35,26 +46,41 @@ export default function Reporting() {
 		}
 	}
 
-	useEffect (() => {
-		fetchData();
-	}, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			let endpoint = `http://localhost:8080/api/stock`;
 
-	const fetchData = async () => {
-		if (data.length === 0) {
-			try {
-			  const result = await fetch('');
-			  const doughnutData = await result.json();
-			  setData(doughnutData);
-			} catch (error) {
-			  console.error("Error fetching data: ", error);
-			} finally {
-			  setLoading(false);
-			  setShowCharts(true);
+			if (skuSearch || nameSearch) {
+				const search = `${skuSearch}${nameSearch}`;
+				endpoint = `http://localhost:8080/api/stock/search/${search}`;
 			}
-		} else {
-			setShowCharts(!showCharts);
+			
+			try {
+				const response = await axios.get(endpoint, {
+					headers: {
+						'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+					}
+				});
+
+				const updateData = response.data.map(item => {
+					return {
+						...item,
+						stockRoom: item.stockRoom || "Placeholder",
+						supplier: item.supplierName || "Placeholder",
+						totalValue: `$${item.unit_price * item.stock_quantity}`
+					};
+				});
+				setData(updateData);
+			} catch (error) {
+				console.error();
+			}
 		}
-	};
+		fetchData();
+	}, [skuSearch, nameSearch]);
+
+	const handleFilterClick = () => {
+		setData([]);
+	}
 
 	const options = {
 		responsive: true,
@@ -83,32 +109,12 @@ export default function Reporting() {
 		],
 	};
 
-	// const options = {
-	// 	labels: labels,
-	// 	datasets: [{
-	// 		label: 'Test',
-	// 		data: [10, 8, 13, 4, 20],
-	// 		backgroundColor: [
-	// 			'#007bff', // blue
-	// 			'#FF0000', // red
-	// 			'#FFD700', // yellow
-	// 			'#28a745', // green
-	// 			'#FF00FF', // voilet
-	// 			'ff9900',  // orange
-	// 			'00FFFF',  // aqua marine
-	// 			'#d69ae5', // red violet
-	// 			'#FF8F66', // orange red
-	// 			'#00FF00'  // lime
-	// 		],
-	// 	}],
-	// };
-	<></>
 	return (
 		<div style={{zoom: JSON.parse(localStorage.getItem('zoom')),fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<br/><br/>
 			<div className='header'>
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
-				<button onClick= {fetchData} className='button'> GENERATE REPORT</button>
+				<button onClick= {handleFilterClick} className='button'> GENERATE REPORT</button>
 			</div>
 			<div className='content'>
 				<table>
@@ -119,13 +125,13 @@ export default function Reporting() {
 						</td>
 						<td className='filterData'>
 							<h3 style={{color: localStorage.getItem('fontColour')}}>Report Name</h3>
-							<input type='text' placeholder='General Report...'/>
+							<input type='text' placeholder='General Report...' value={reportName} onChange={(e) => setReportName(e.target.value)}/>
 						</td>
 					</tr>
 					<br/>
 					<tr className='filterRows'>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>SKU: &ensp;</h3>
-						<input type='text'/>
+						<input type='text' value={skuSearch} onChange={(e) => setSkuSearch(e.target.value)}/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Category: &ensp;</h3>
 						<input type='text'/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Supplier: &ensp;</h3>
@@ -133,7 +139,7 @@ export default function Reporting() {
 					</tr>
 					<tr className='filterRows'>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Name: &ensp;</h3>
-						<input type='text'/>
+						<input type='text' value={nameSearch} onChange={(e) => setNameSearch(e.target.value)}/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Order ID: &ensp;</h3>
 						<input type='text'/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Location: &ensp;</h3>
@@ -142,15 +148,15 @@ export default function Reporting() {
 					</tr>
 				</table>
 			</div>
-			<div>
-			<Accordion className="anotherItemButton">
-        		<AccordionSummary
-          			id="panel1-header"
-          			aria-controls="panel1-content"
-          			onClick={toggleAnotherItem}
-        		>
+			{/* <div>
+				<Accordion className="anotherItemButton">
+        			<AccordionSummary
+          				id="panel1-header"
+          				aria-controls="panel1-content"
+          				onClick={toggleAnotherItem}
+        			>
           			<Typography>Add items</Typography>
-        		</AccordionSummary>
+        			</AccordionSummary>
 				{showAnotherItem && (
 					<AccordionDetails className="anotherItemDetails">
 					<br/>
@@ -192,17 +198,19 @@ export default function Reporting() {
 					</AccordionDetails>
 				)}
 				</Accordion>
-			</div>
+			</div> */}
 			
 			<div className="header">
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
-				<button onClick={fetchData} className="button">
-					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
-				</button>
 			</div>
 			<div className="content">
 				{showCharts && !loading ? (
 				<table className="reportingTable">
+					<tr>
+						<td>
+							<h1>{reportName}</h1>
+						</td>
+					</tr>
 					<tr>
 						<td>
 							<Doughnut data={chartData} options={options} />
