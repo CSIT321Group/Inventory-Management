@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import SearchBar from "./searchbar";
 import '../pageLayout.css';
 import './order.css';
@@ -13,40 +14,37 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 export default function Order() {
     
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [searchValue, setSearchValue] = useState("");
-    const [deliveryDateValue, setDeliveryDateValue] = useState("");
-    const [productValue, setProductValue] = useState("");
-    const [statusValue, setStatusValue] = useState("");
     const [orders, setOrders] = useState([]);
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
     // Using the useState hook to create and manage state for the component
     const [data, setData] = useState([]); // To store fetched data
-    const [selectedItem, setSelectedItem] = useState([]);
     const [skuSearch, setSkuSearch] = useState(''); // SKU search string
     const [nameSearch, setNameSearch] = useState(''); // Name search string
     const [objectDetails, setObjectDetails] = useState({
-        stockId: '',
-        supplierName: '',
-        stock_name: '',
-        stock_type: '',
-        unit_price: '',
+        stockId: 0,
+        supplierName: "",
+        stock_name: "",
+        stock_type: "",
+        stockType: "",
+        unit_price: 0.0,
     });
     const [objectDetails2, setObjectDetails2] = useState({
-        stockId2: '',
-        supplierName2: '',
-        stock_name2: '',
-        stock_type2: '',
-        unit_price2: '',
+        stockId2: 0,
+        supplierName2: "",
+        stock_name2: "",
+        stock_type2: "",
+        stockType2: "",
+        unit_price2: 0.0,
     });
     const [objectDetails3, setObjectDetails3] = useState({
-        stockId3: '',
-        supplierName3: '',
-        stock_name3: '',
-        stock_type3: '',
-        unit_price3: '',
+        stockId3: 0,
+        supplierName3: "",
+        stock_name3: "",
+        stock_type3: "",
+        stockType3: "",
+        unit_price3: 0.0,
     });
 
-    // NEW: Fetching stock cache
     useEffect(() => {
         const fetchAllStockItems = async () => {
             try {
@@ -76,11 +74,7 @@ export default function Order() {
                     }
                 });
                 const data = await response.json();
-                // const allOrders = data.map(order2 => {
-                //        setObjectList(order2) 
-                //        console.log(order2);
-                                                           
-                // });
+
                 const modifiedOrders = data.map(order => {
                     // Deep cloning the order
                     const clonedOrder = { ...order };
@@ -99,7 +93,6 @@ export default function Order() {
                     return clonedOrder;
                 });
                 setOrders(modifiedOrders);
-                console.log(modifiedOrders)
             } catch (error) {
                 console.error("Error fetching orders:", error);
             }
@@ -116,10 +109,10 @@ export default function Order() {
             let endpoint = `http://localhost:8080/api/stock`;
 
             // If either skuSearch or nameSearch has a value, we modify the endpoint to search with that value
-            if (skuSearch || nameSearch) {
-                const search = `${skuSearch}${nameSearch}`;
-                endpoint = `http://localhost:8080/api/stock/search/${search}`;
-            }
+            // if (skuSearch || nameSearch) {
+            //     const search = `${skuSearch}${nameSearch}`;
+            //     endpoint = `http://localhost:8080/api/stock/search/${search}`;
+            // }
 
             try {
                 // Making an asynchronous GET request to the endpoint
@@ -132,9 +125,12 @@ export default function Order() {
                 const updatedData = response.data.map(item => {
                     return {
                         ...item,
-                        stockRoom: item.stockRoom || "Placeholder",
-                        supplier: item.supplierName || "Placeholder",
-                        totalValue: `$${item.unit_price * item.stock_quantity}`
+                        stockId: item.stockId,
+                        supplierName: item.supplierName,
+                        stock_name: item.stock_name,
+                        stock_type: item.stock_type,
+                        stockType: item.stockType,
+                        unit_price: item.unit_price
                     };
                 });
                 setObjectList(updatedData) 
@@ -166,6 +162,7 @@ export default function Order() {
     const [selectedValue, setSelectedValue] = useState('');
     const handleChange = (event) => {
         const newValue = event.target.value;
+        console.log(newValue);
         setSelectedValue(newValue);
 
         const selectedObject = objectList.find((item1) => item1.stock_name === newValue);
@@ -175,8 +172,9 @@ export default function Order() {
                 stockId: selectedObject.stockId,
                 supplierName: selectedObject.supplierName,
                 stock_name: selectedObject.stock_name,
-                stock_type: "raw_material",
-                unit_price: selectedObject.unit_price,
+                stock_type: selectedObject.stock_type,
+                stockType: selectedObject.stockType,
+                unit_price: selectedObject.unit_price
             });
         }
     };
@@ -185,15 +183,16 @@ export default function Order() {
         const newValue2 = event.target.value;
         setSelectedValue2(newValue2);
 
-        const selectedObject2 = objectList.find((item2) => item2.stock_name === newValue2);
+        const selectedObject2 = objectList.find((item2) => item2.stock_name == newValue2);
 
         if (selectedObject2) {
             setObjectDetails2({
                 stockId2: selectedObject2.stockId,
                 supplierName2: selectedObject2.supplierName,
                 stock_name2: selectedObject2.stock_name,
-                stock_type2: "raw_material",
-                unit_price2: selectedObject2.unit_price,
+                stock_type2: selectedObject2.stock_type,
+                stockType2: selectedObject2.stockType,
+                unit_price2: selectedObject2.unit_price
             });
         }
     };
@@ -202,15 +201,16 @@ export default function Order() {
         const newValue3 = event.target.value;
         setSelectedValue3(newValue3);
 
-        const selectedObject3 = objectList.find((item3) => item3.stock_name === newValue3);
+        const selectedObject3 = objectList.find((item3) => item3.stock_name == newValue3);
 
         if (selectedObject3) {
             setObjectDetails3({
                 stockId3: selectedObject3.stockId,
                 supplierName3: selectedObject3.supplierName,
                 stock_name3: selectedObject3.stock_name,
-                stock_type3: "raw_material",
-                unit_price3: selectedObject3.unit_price,
+                stock_type3: selectedObject3.stock_type,
+                stockType3: selectedObject3.stockType,
+                unit_price3: selectedObject3.unit_price
             });
         }
     };
@@ -259,47 +259,58 @@ export default function Order() {
             setOpenRows([...openRows, orderId]);
         }
     };
+    let deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + 7);
+    deliveryDate = deliveryDate.toISOString().split('T')[0];
+    
     //SUBMITTING NEW ORDER
     const handleSubmit = async (event) => {
+        const quantity1 = Math.round(totalProdCost / objectDetails.unit_price);
+        const quantity2 = Math.round(totalProdCost2 / objectDetails2.unit_price2);
+        const quantity3 = Math.round(totalProdCost3 / objectDetails3.unit_price3);
         //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
+        console.log(objectDetails.stockType, objectDetails2.stockType2, objectDetails3.stockType3)
         const order = {
             status: "PENDING",
-            orderDate: new Date().toISOString().split('T')[0],
-            deliveryDate: deliveryDateValue,
+            deliveryDate: deliveryDate,
+            internalOrder: false,
+            orderDate: new Date().toISOString().split('T')[0],            
             orderItems: [
-                {
+                {                  
+                    quantity: quantity1,
                     stock: {
                         stockId: objectDetails.stockId,
-                        supplierName: objectDetails.supplierName,
                         stock_name: objectDetails.stock_name,
-                        unit_price: objectDetails.unit_price,
+                        supplierName: objectDetails.supplierName,
                         stock_type: objectDetails.stock_type,
-                        quantity: (totalProdCost / objectDetails.unit_price),
+                        stockType: objectDetails.stockType,
                     },
+                    unitPrice: objectDetails.unit_price,
                 },
                 {
+                    quantity: quantity2,           
                     stock: {
                         stockId: objectDetails2.stockId2,
-                        supplierName: objectDetails2.supplierName2,
                         stock_name: objectDetails2.stock_name2,
-                        unit_price: objectDetails2.unit_price2,
+                        supplierName: objectDetails2.supplierName2,
                         stock_type: objectDetails2.stock_type2,
-                        quantity: (totalProdCost2 / objectDetails2.unit_price2),
+                        stockType: objectDetails2.stockType2,
                     },
+                    unitPrice: objectDetails2.unit_price2,
                 },
                 {
+                    quantity: quantity3,                
                     stock: {
                         stockId: objectDetails3.stockId3,
-                        supplierName: objectDetails3.supplierName3,
                         stock_name: objectDetails3.stock_name3,
-                        unit_price: objectDetails3.unit_price3,
+                        supplierName: objectDetails3.supplierName3,
                         stock_type: objectDetails3.stock_type3,
-                        quantity: (totalProdCost3 / objectDetails3.unit_price3),
+                        stockType: objectDetails3.stockType3,
                     },
+                    unitPrice: objectDetails3.unit_price3,
                 },
             ],
         };
-        //Currently, new orders aren't submitting. Need to work out why
         try {
             const token = localStorage.getItem('jwt');
             const response = await axios.post('http://localhost:8080/api/order', order, {
@@ -308,9 +319,11 @@ export default function Order() {
                 }
             });
             console.log('Order submitted successfully', response.data);
+            window.alert("Your order was submitted successfully!" + order);
         } catch (error) {
             console.error('There was an error submitting the order!', error);
             console.log(order);
+            window.alert("There was an error in submitting your order, please try again or contact your system admin" + error)
         }
     }
 
@@ -328,6 +341,7 @@ export default function Order() {
                             <div className='new-order-card'>
                                 <table id="newOrderItemsTable" className='newOrderItemsTable'>
                                     <tr>
+                                        <th>Stock ID</th>
                                         <th>Product</th>
                                         <th>Supplier</th>
                                         <th>Quantity</th>
@@ -336,15 +350,20 @@ export default function Order() {
                                     </tr>
                                     <tr>
                                         <td>
+                                            <select>
+                                                <option type="number">{objectDetails.stockId}</option>
+                                            </select>
+                                        </td>
+                                        <td>
                                             <select id="product" name="product" onChange={handleChange} value={selectedValue}>
                                                 {data.map((item) => (
-                                                    <option value={item.stock_name}> {item.stock_name}</option> 
+                                                    <option>{item.stock_name}</option> 
                                                 ))}
                                             </select>
                                         </td>
                                         <td>
                                             <select id="supplier" name="supplier">
-                                                <option type="text" value={objectDetails.supplierName}>{objectDetails.supplierName}</option>
+                                                <option type="text">{objectDetails.supplierName}</option>
                                             </select>
                                         </td>
                                         <td>
@@ -369,16 +388,22 @@ export default function Order() {
                                     </tr>
                                     <tr>
                                         {show && (
-                                            <><td>
+                                            <>
+                                            <td>
+                                                <select>
+                                                    <option type="number">{objectDetails2.stockId2}</option>
+                                                </select>
+                                            </td>
+                                            <td>
                                                 <select id="product" name="product2" onChange={handleChange2} value={selectedValue2}>
                                                     {data.map((item) => (
-                                                        <option value={item.stock_name}> {item.stock_name}</option>
+                                                        <option>{item.stock_name}</option>
                                                     ))}
                                                 </select>
                                             </td>
                                             <td>
                                                 <select id="supplier" name="supplier">
-                                                    <option type="text" value={objectDetails2.supplierName2}>{objectDetails2.supplierName2}</option>
+                                                    <option type="text">{objectDetails2.supplierName2}</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -404,16 +429,22 @@ export default function Order() {
                                     </tr>
                                     <tr>
                                         {show2 && (
-                                            <><td>
+                                            <>
+                                            <td>
+                                                <select>
+                                                    <option type="number">{objectDetails3.stockId3}</option>
+                                                </select>
+                                            </td>
+                                            <td>
                                                 <select id="product" name="product2" onChange={handleChange3} value={selectedValue3}>
                                                     {data.map((item) => (
-                                                        <option value={item.stock_name}> {item.stock_name}</option>
+                                                        <option>{item.stock_name}</option>
                                                     ))}
                                                 </select>
                                             </td>
                                             <td>
                                                 <select id="supplier" name="supplier">
-                                                    <option type="text" value={objectDetails3.supplierName3}>{objectDetails3.supplierName3}</option>
+                                                    <option type="text">{objectDetails3.supplierName3}</option>
                                                 </select>
                                             </td>
                                             <td>
