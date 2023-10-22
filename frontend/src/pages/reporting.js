@@ -9,7 +9,7 @@ import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart
 // import { alignPropType } from 'react-bootstrap/esm/types';
 // import { AlignHorizontalCenterSharp } from '@mui/icons-material';
 import axios from 'axios';
-export default function Reporting() {
+const Reporting = () => {
 	Chart.register(
 		ArcElement,
 		BarElement,
@@ -58,8 +58,9 @@ export default function Reporting() {
 				});
 		
 				const formattedData = response.data.map(item => ({
-				  label: item.Name || item.SKU,
-				  quantity: item.Quantity
+					...item,
+				  	label: item.stock_name,
+				  	quantity: item.stock_quantity
 				}));
 		
 				setData(formattedData);
@@ -90,13 +91,23 @@ export default function Reporting() {
 				text: 'Chart.js Doghnut Chart',
 			},
 		},
+		layout: {
+			padding: {
+				left: 0,
+				right: 0,
+				top: 30,
+			},
+		},
+		aspectRatio: 1,
+		maxWidth: 800,
+		maxHeight: 400,
 	};
 
 	const doughnutChartData = {
-		labels: data.map(item => item.label),
+		labels: data.map(item => item.stock_name),
 		datasets: [{
 		label: 'Quantity',
-		data: data.map(item => item.quantity),
+		data: data.map(item => item.stock_quantity),
 		backgroundColor: [
 			'rgba(255, 99, 132, 0.2)',
 			'rgba(54, 162, 235, 0.2)',
@@ -116,10 +127,10 @@ export default function Reporting() {
 	};
 
 	const barChartData = {
-		labels: data.map(item => item.label),
+		labels: data.map(item => item.stock_name),
 		datasets: [{
 			label: 'Quantity',
-			data: data.map(item => item.quantity),
+			data: data.map(item => item.stock_quantity),
 			backgroundColor: 'rgba(75, 192, 192, 0.2)',
 			borderColor: 'rgba(75, 192, 192, 1)',
 			borderWidth: 1,
@@ -225,7 +236,7 @@ export default function Reporting() {
 				<table className="reportingTable">
 					<tr>
 						<td>
-							{reportName}
+							<h1>{reportName}</h1>
 						</td>
 					</tr>
 					<tr>
@@ -243,4 +254,6 @@ export default function Reporting() {
 			</div>
 		</div>
   	)
-}
+};
+
+export default Reporting;
