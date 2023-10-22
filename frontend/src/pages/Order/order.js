@@ -18,7 +18,6 @@ export default function Order() {
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
     // Using the useState hook to create and manage state for the component
     const [data, setData] = useState([]); // To store fetched data
-    const [selectedItem, setSelectedItem] = useState([]);
     const [skuSearch, setSkuSearch] = useState(''); // SKU search string
     const [nameSearch, setNameSearch] = useState(''); // Name search string
     const [objectDetails, setObjectDetails] = useState({
@@ -46,7 +45,6 @@ export default function Order() {
         unit_price3: 0.0,
     });
 
-    // NEW: Fetching stock cache
     useEffect(() => {
         const fetchAllStockItems = async () => {
             try {
@@ -76,11 +74,7 @@ export default function Order() {
                     }
                 });
                 const data = await response.json();
-                // const allOrders = data.map(order2 => {
-                //        setObjectList(order2) 
-                //        console.log(order2);
-                                                           
-                // });
+
                 const modifiedOrders = data.map(order => {
                     // Deep cloning the order
                     const clonedOrder = { ...order };
@@ -99,7 +93,6 @@ export default function Order() {
                     return clonedOrder;
                 });
                 setOrders(modifiedOrders);
-                console.log(modifiedOrders)
             } catch (error) {
                 console.error("Error fetching orders:", error);
             }
@@ -167,7 +160,6 @@ export default function Order() {
     };
 
     const [selectedValue, setSelectedValue] = useState('');
-    const [selectedId, setSelectedId] = useState('');
     const handleChange = (event) => {
         const newValue = event.target.value;
         console.log(newValue);
@@ -274,11 +266,8 @@ export default function Order() {
     //SUBMITTING NEW ORDER
     const handleSubmit = async (event) => {
         const quantity1 = Math.round(totalProdCost / objectDetails.unit_price);
-        console.log(quantity1);
         const quantity2 = Math.round(totalProdCost2 / objectDetails2.unit_price2);
-        console.log(quantity2);
         const quantity3 = Math.round(totalProdCost3 / objectDetails3.unit_price3);
-        console.log(quantity3);
         //Variables needed for the new order: status, order date, delivery date, order items: (stock: (stock ID, stock type) quantity)
         console.log(objectDetails.stockType, objectDetails2.stockType2, objectDetails3.stockType3)
         const order = {

@@ -89,6 +89,7 @@ export default function Settings() {
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>General</h2>
         <div className="settings-content-info">
+          {/*These don't work as we didn't really think they we're needed but needed the page to look nicer */}
           <fieldset className="settings-fieldset">
             <label htmlFor="Lang">Preferred Language </label>
             <select name="Lang" id="">
