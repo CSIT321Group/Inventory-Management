@@ -46,10 +46,6 @@ export default function Reporting() {
 		}
 	}
 
-	useEffect (() => {
-		fetchData();
-	}, []);
-
 	useEffect(() => {
 		const fetchData = async () => {
 			let endpoint = `http://localhost:8080/api/stock`;
@@ -81,6 +77,10 @@ export default function Reporting() {
 		}
 		fetchData();
 	}, [skuSearch, nameSearch]);
+
+	const handleFilterClick = () => {
+		setData([]);
+	}
 
 	const options = {
 		responsive: true,
@@ -114,7 +114,7 @@ export default function Reporting() {
 			<br/><br/>
 			<div className='header'>
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
-				<button onClick= {fetchData} className='button'> GENERATE REPORT</button>
+				<button onClick= {handleFilterClick} className='button'> GENERATE REPORT</button>
 			</div>
 			<div className='content'>
 				<table>
@@ -125,13 +125,13 @@ export default function Reporting() {
 						</td>
 						<td className='filterData'>
 							<h3 style={{color: localStorage.getItem('fontColour')}}>Report Name</h3>
-							<input type='text' placeholder='General Report...' value={reportName} onChange={handleInputChange}/>
+							<input type='text' placeholder='General Report...' value={reportName}/>
 						</td>
 					</tr>
 					<br/>
 					<tr className='filterRows'>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>SKU: &ensp;</h3>
-						<input type='text'/>
+						<input type='text' value={skuSearch}/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Category: &ensp;</h3>
 						<input type='text'/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Supplier: &ensp;</h3>
@@ -139,7 +139,7 @@ export default function Reporting() {
 					</tr>
 					<tr className='filterRows'>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Name: &ensp;</h3>
-						<input type='text'/>
+						<input type='text' value={nameSearch}/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Order ID: &ensp;</h3>
 						<input type='text'/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Location: &ensp;</h3>
@@ -202,15 +202,12 @@ export default function Reporting() {
 			
 			<div className="header">
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
-				<button onClick={fetchData} className="button">
-					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
-				</button>
 			</div>
 			<div className="content">
 				{showCharts && !loading ? (
 				<table className="reportingTable">
 					<tr>
-						<td style={AlignHorizontalCenterSharp}>
+						<td>
 							<h1>{reportName}</h1>
 						</td>
 					</tr>
