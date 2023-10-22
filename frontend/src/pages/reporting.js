@@ -6,6 +6,8 @@ import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
+import { alignPropType } from 'react-bootstrap/esm/types';
+import { AlignHorizontalCenterSharp } from '@mui/icons-material';
 export default function Reporting() {
 	Chart.register(
 		ArcElement,
@@ -14,11 +16,16 @@ export default function Reporting() {
 		LinearScale
 		);
 
+	const [reportName, setReportName] = useState('');
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [showAnotherItem, setShowAnotherItem] = useState(false);
 	const [additionalItemsCount, setAdditionalItemsCount] = useState(1);
 	const [showCharts, setShowCharts] = useState(false);
+
+	const handleInputChange = (e) => {
+		setReportName(e.target.value);
+	}
 
 	const toggleAnotherItem = () => {
 		if(additionalItemsCount < 5) {
@@ -39,10 +46,31 @@ export default function Reporting() {
 		fetchData();
 	}, []);
 
+	useEffect(() => {
+		const fetchSupplierData = async () => {
+			try {
+				const supplierData = await fetch('http://localhost:8080/api/stock/search/Test', {
+					headers: {
+						'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+					}
+				});
+				
+			} catch (error) {
+				console.error();
+			}
+		}
+
+		fetchSupplierData();
+	});
+
 	const fetchData = async () => {
 		if (data.length === 0) {
 			try {
-			  const result = await fetch('');
+			  	const result = await fetch('http://localhost:8080/api/supplier', {
+					headers: {
+						'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+					}
+			  });
 			  const doughnutData = await result.json();
 			  setData(doughnutData);
 			} catch (error) {
@@ -83,26 +111,6 @@ export default function Reporting() {
 		],
 	};
 
-	// const options = {
-	// 	labels: labels,
-	// 	datasets: [{
-	// 		label: 'Test',
-	// 		data: [10, 8, 13, 4, 20],
-	// 		backgroundColor: [
-	// 			'#007bff', // blue
-	// 			'#FF0000', // red
-	// 			'#FFD700', // yellow
-	// 			'#28a745', // green
-	// 			'#FF00FF', // voilet
-	// 			'ff9900',  // orange
-	// 			'00FFFF',  // aqua marine
-	// 			'#d69ae5', // red violet
-	// 			'#FF8F66', // orange red
-	// 			'#00FF00'  // lime
-	// 		],
-	// 	}],
-	// };
-
 	return (
 		<div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<br/><br/>
@@ -119,7 +127,7 @@ export default function Reporting() {
 						</td>
 						<td className='filterData'>
 							<h3>Report Name</h3>
-							<input type='text' placeholder='General Report...'/>
+							<input type='text' placeholder='General Report...' value={reportName} onChange={handleInputChange}/>
 						</td>
 					</tr>
 					<br/>
@@ -142,15 +150,15 @@ export default function Reporting() {
 					</tr>
 				</table>
 			</div>
-			<div>
-			<Accordion className="anotherItemButton">
-        		<AccordionSummary
-          			id="panel1-header"
-          			aria-controls="panel1-content"
-          			onClick={toggleAnotherItem}
-        		>
+			{/* <div>
+				<Accordion className="anotherItemButton">
+        			<AccordionSummary
+          				id="panel1-header"
+          				aria-controls="panel1-content"
+          				onClick={toggleAnotherItem}
+        			>
           			<Typography>Add items</Typography>
-        		</AccordionSummary>
+        			</AccordionSummary>
 				{showAnotherItem && (
 					<AccordionDetails className="anotherItemDetails">
 					<br/>
@@ -192,17 +200,19 @@ export default function Reporting() {
 					</AccordionDetails>
 				)}
 				</Accordion>
-			</div>
+			</div> */}
 			
 			<div className="header">
 				<h1>Report Filters</h1>
-				<button onClick={fetchData} className="button">
-					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
-				</button>
 			</div>
 			<div className="content">
 				{showCharts && !loading ? (
 				<table className="reportingTable">
+					<tr>
+						<td style={AlignHorizontalCenterSharp}>
+							<h1>{reportName}</h1>
+						</td>
+					</tr>
 					<tr>
 						<td>
 							<Doughnut data={chartData} options={options} />

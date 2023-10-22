@@ -48,8 +48,8 @@ export default function Order() {
                 const response = await fetch(`http://localhost:8080/api/stock`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            }
-            });
+                    }
+                });
                 const data = await response.json();
                 setStockCache(data);
             } catch (error) {
