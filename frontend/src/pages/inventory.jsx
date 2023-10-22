@@ -66,37 +66,37 @@ const Inventory = () => {
 
     // JSX to render the component
     return (
-        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom'))}}>
             <div className='header'>
-                <h1>Inventory Filters</h1>
+                <h1 style={{color: localStorage.getItem('fontColour')}}>Inventory Filters</h1>
             </div>
             <div className='content'>
                 <table className='inventoryFilterTable'>
                     <tr className='filterRow'>
                         <div className='filterRowDiv'>
-                            <h3>SKU: &ensp;</h3>
+                            <h3 style={{color: localStorage.getItem('fontColour')}}>SKU: &ensp;</h3>
                             <input type='text' value={skuSearch} onChange={(e) => setSkuSearch(e.target.value)} />
                         </div>
                         <div className='filterRowDiv'>
-                            <h3>Category: &ensp;</h3>
+                            <h3 style={{color: localStorage.getItem('fontColour')}}>Category: &ensp;</h3>
                             <input type='text' />
                         </div>
                         <div  className='filterRowDiv'>
-                            <h3>Supplier: &ensp;</h3>
+                            <h3 style={{color: localStorage.getItem('fontColour')}}>Supplier: &ensp;</h3>
                             <input type='text' />
                         </div>
                     </tr>
                     <tr className='filterRow'>
                         <div className='filterRowDiv'>
-                            <h3>Name: &ensp;</h3>
+                            <h3 style={{color: localStorage.getItem('fontColour')}}>Name: &ensp;</h3>
                             <input type='text' value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} />
                         </div>
                         <div className='filterRowDiv'>
-                            <h3>Last Update: &ensp;</h3>
+                            <h3 style={{color: localStorage.getItem('fontColour')}}>Last Update: &ensp;</h3>
                             <input type='text' />
                         </div>
                         <div className='filterRowDiv'>
-                            <h3>Location: &ensp;</h3>
+                            <h3 style={{color: localStorage.getItem('fontColour')}}>Location: &ensp;</h3>
                             <input type='text' />
                         </div>
                     </tr>
@@ -106,7 +106,7 @@ const Inventory = () => {
                 </table>
             </div>
             <div className='header'>
-                <h1>Inventory Table</h1>
+                <h1 style={{color: localStorage.getItem('fontColour')}}>Inventory Table</h1>
             </div>
             <div className='content'>
                 {data.length > 0 && (
@@ -118,7 +118,6 @@ const Inventory = () => {
                                 <th>Category</th>
                                 <th>Supplier</th>
                                 <th>Location</th>
-                                <th>Last Update</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total Value</th>
@@ -132,7 +131,6 @@ const Inventory = () => {
                                     <td>{formatStockType(item.stock_type)}</td>
                                     <td>{item.supplierName}</td>
                                     <td>{item.location}</td>
-                                    <td>"Placeholder"</td>
                                     <td>{item.stock_quantity}</td>
                                     <td>{`$${item.unit_price.toFixed(2)}`}</td>
                                     <td>{`$${(item.unit_price * item.stock_quantity).toFixed(2)}`}</td>

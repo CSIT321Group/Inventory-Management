@@ -5,17 +5,17 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const data = [
     {
-      name: '2020',
+      name: '2013',
       Revenue: 3800,
       
     },
     {
-      name: '2018',
+      name: '2014',
       Revenue: 3000,
       
     },
     {
-      name: '2017',
+      name: '2015',
       Revenue: 2000,
       
     },
@@ -26,17 +26,17 @@ const data = [
       
     },
     {
-      name: '2015',
+      name: '2017',
       Revenue: 1890,
       
     },
     {
-      name: '2014',
+      name: '2018',
       Revenue: 2390,
       
     },
     {
-      name: '2013',
+      name: '2019',
       Revenue: 3490,
     },
   ];
@@ -44,29 +44,29 @@ const data = [
 
 const Chart =() => {
     return (
-        <div className="chart">
+        <div className="chart" style={{color: "", backgroundColor: ""}}>
             <div className="title"> Last couple years revenue</div>
             <ResponsiveContainer width="100%" aspect={2/1}>
-			<BarChart
-				width={500}
-				height={300}
-				data={data}
-				margin={{
-					top: 5,
-					right: 30,
-					left: 20,
-					bottom: 5,
-          
-				}}
-        	>
-			<CartesianGrid strokeDasharray="3 3" />
-			<XAxis dataKey="name" />
-			<YAxis />
-			<Tooltip />
-			<Legend />
-			<Bar dataKey="Revenue" fill="#82ca9d"  />
-			</BarChart>
-			</ResponsiveContainer>
+              <BarChart
+                width={500}
+                height={300}
+                data={data}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                  
+                }}
+                  >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Revenue" fill="#82ca9d"  />
+              </BarChart>
+              </ResponsiveContainer>
         </div>
     )
 };

@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+/**
+ * This class serves as a REST Controller responsible for handling authentication-related operations.
+ * It provides endpoints for user authentication, role-based access control, and user information retrieval.
+ */
 @RestController  // Indicates that this class is a REST Controller
 @RequestMapping("/api/test")  // Maps this controller to the /api/test route
 @RequiredArgsConstructor  // Lombok annotation to generate a constructor with required fields
@@ -29,6 +32,11 @@ public class AuthenticationController {
     private final JwtUtil jwtUtil;  // Utility class to deal with JWTs
     private final UserDetailsService userDetailsService;  // Spring Security interface to load user-specific data
 
+    /**
+     * Endpoint to test user roles. Only users with 'ROLE_USER' or 'ROLE_ADMIN' authority can access this method.
+     *
+     * @return A ResponseEntity containing a message with the roles of the authenticated user.
+     */
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")  // This method can be accessed only by users with 'ROLE_USER' or 'ROLE_ADMIN' authority
     @GetMapping  // Maps HTTP GET requests onto this method
     public ResponseEntity<String> helloTest() {  // Method to test user roles
@@ -39,6 +47,13 @@ public class AuthenticationController {
         return ResponseEntity.ok("Hello, mate! Your roles: " + roles);  // Respond with the roles of the authenticated user
     }
 
+    /**
+     * Endpoint for user authentication. It handles user login and issues a JWT token upon successful authentication.
+     *
+     * @param request   The authentication request containing user credentials.
+     * @param response  The HTTP response used to set an HttpOnly JWT cookie.
+     * @return A ResponseEntity containing a message and the JWT token upon successful login.
+     */
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> authenticate(@RequestBody AuthRequest request, HttpServletResponse response) {
         System.out.println("Attempting authentication for user: " + request.getUserName());
@@ -112,6 +127,12 @@ public class AuthenticationController {
         return ResponseEntity.ok("You have access to employeeInfo");
     }
 
+    /**
+     * Endpoint for user logout. It deletes the JWT cookie to log the user out.
+     *
+     * @param response  The HTTP response used to remove the JWT cookie.
+     * @return A ResponseEntity indicating successful logout.
+     */
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
 
@@ -127,6 +148,11 @@ public class AuthenticationController {
         return ResponseEntity.ok("Logged out successfully");
     }
 
+    /**
+     * Endpoint to retrieve the roles of the currently authenticated user.
+     *
+     * @return A ResponseEntity containing a list of role names for the authenticated user.
+     */
     @GetMapping("/current-user-roles")
     public ResponseEntity<List<String>> currentUserRoles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

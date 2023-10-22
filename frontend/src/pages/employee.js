@@ -63,10 +63,10 @@ export default function Employee() {
 
 
     return (
-        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+        <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont')}}>
             <br/><br/>
             <div className='header'>
-                <h1>Table Filter</h1>
+                <h1 style={{color: localStorage.getItem('fontColour')}}>Table Filter</h1>
             </div>
             <div className="content">
                 <div>
@@ -81,13 +81,13 @@ export default function Employee() {
                                            onChange={e => setSearchInput(e.target.value)}/>
                                 </td>
                                 <td className="filterCols">
-                                    <label htmlFor="Position"><h3>Position</h3></label>
+                                    <label htmlFor="Position"><h3 style={{color: localStorage.getItem('fontColour')}}>Position</h3></label>
                                     <input type="checkbox" value="Associate"/>Associate<br/>
                                     <input type="checkbox" value="Manager"/>Manager<br/>
                                     <input type="checkbox" value="Office"/>Office<br/>
                                 </td>
                                 <td className="filterCols">
-                                    <label htmlFor="permissions"><h3>Permissions</h3></label>
+                                    <label htmlFor="permissions"><h3 style={{color: localStorage.getItem('fontColour')}}>Permissions</h3></label>
                                     Inventory<input type="checkbox" value="Inventory"/><br/>
                                     Order<input type="checkbox" value="Order"/><br/>
                                     Reporting<input type="checkbox" value="Reporting"/><br/>
@@ -104,7 +104,7 @@ export default function Employee() {
             <br/><br/>
             <IconContext.Provider value={{color: 'black'}}>
                 <div className='header'>
-                    <h1>Employees Table</h1>
+                    <h1 style={{color: localStorage.getItem('fontColour')}}>Employees Table</h1>
                 </div>
                 <div className='content'>
                     <div>

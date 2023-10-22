@@ -112,39 +112,39 @@ export default function Reporting() {
 	};
 
 	return (
-		<div style={{fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
+		<div style={{zoom: JSON.parse(localStorage.getItem('zoom')),fontSize: JSON.parse(localStorage.getItem('newSize'))}}>
 			<br/><br/>
 			<div className='header'>
-				<h1>Report Filters</h1>
+				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
 				<button onClick= {fetchData} className='button'> GENERATE REPORT</button>
 			</div>
 			<div className='content'>
 				<table>
 					<tr>
 						<td className='filterData'>
-							<h3>Report Type</h3>
+							<h3 style={{color: localStorage.getItem('fontColour')}}>Report Type</h3>
 							<DropDown/>
 						</td>
 						<td className='filterData'>
-							<h3>Report Name</h3>
+							<h3 style={{color: localStorage.getItem('fontColour')}}>Report Name</h3>
 							<input type='text' placeholder='General Report...' value={reportName} onChange={handleInputChange}/>
 						</td>
 					</tr>
 					<br/>
 					<tr className='filterRows'>
-						<h3>SKU: &ensp;</h3>
+						<h3 style={{color: localStorage.getItem('fontColour')}}>SKU: &ensp;</h3>
 						<input type='text'/>
-						<h3>Category: &ensp;</h3>
+						<h3 style={{color: localStorage.getItem('fontColour')}}>Category: &ensp;</h3>
 						<input type='text'/>
-						<h3>Supplier: &ensp;</h3>
+						<h3 style={{color: localStorage.getItem('fontColour')}}>Supplier: &ensp;</h3>
 						<input type='text'/>
 					</tr>
 					<tr className='filterRows'>
-						<h3>Name: &ensp;</h3>
+						<h3 style={{color: localStorage.getItem('fontColour')}}>Name: &ensp;</h3>
 						<input type='text'/>
-						<h3>Order ID: &ensp;</h3>
+						<h3 style={{color: localStorage.getItem('fontColour')}}>Order ID: &ensp;</h3>
 						<input type='text'/>
-						<h3>Location: &ensp;</h3>
+						<h3 style={{color: localStorage.getItem('fontColour')}}>Location: &ensp;</h3>
 						<input type='text'/>
 						<span className='checkBox'><input type='checkbox' />&ensp;Include zero qty</span>
 					</tr>
@@ -166,11 +166,11 @@ export default function Reporting() {
 						<table>
 							<tr>
 								<td className='filterData'>
-									<h3>Report Type</h3>
+									<h3 style={{color: localStorage.getItem('fontColour')}}>Report Type</h3>
 									<DropDown/>
 								</td>
 								<td className='filterData'>
-									<h3>Report Name</h3>
+									<h3 style={{color: localStorage.getItem('fontColour')}}>Report Name</h3>
 									<input type='text' placeholder='General Report...'/>
 								</td>
 							</tr>
@@ -203,7 +203,10 @@ export default function Reporting() {
 			</div> */}
 			
 			<div className="header">
-				<h1>Report Filters</h1>
+				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
+				<button onClick={fetchData} className="button">
+					{data.length === 0 ? 'GENERATE REPORT' : 'TOGGLE CHARTS'}
+				</button>
 			</div>
 			<div className="content">
 				{showCharts && !loading ? (

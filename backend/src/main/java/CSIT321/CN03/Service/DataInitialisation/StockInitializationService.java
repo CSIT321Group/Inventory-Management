@@ -42,9 +42,6 @@ public class StockInitializationService {
     public void initializeStocks() {
         log.info("Initializing stocks...");
 
-        Supplier supplierA = supplierRepository.findBySupplierName("SupplierA");
-        StockRoom stockRoom1 = stockRoomRepository.findByName("Stock Room 1");
-        StockRoom stockRoom2 = stockRoomRepository.findByName("Stock Room 2");
 
         Random random = new Random();
 
@@ -52,10 +49,10 @@ public class StockInitializationService {
 
         Set<String> consumedNames = new HashSet<>();
         List<Runnable> stockCreators = new ArrayList<Runnable>() {{
-            add(() -> createConsumable(generateRandomName(StockSimulationUtils.CONSUMABLES_FIRST_WORD, StockSimulationUtils.CONSUMABLES_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(5.0, 15.0)));
-            add(() -> createEquipment(generateRandomName(StockSimulationUtils.EQUIPMENT_FIRST_WORD, StockSimulationUtils.EQUIPMENT_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(10.0, 30.0)));
-            add(() -> createRawMaterial(generateRandomName(StockSimulationUtils.RAW_MATERIALS_FIRST_WORD, StockSimulationUtils.RAW_MATERIALS_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(15.0, 40.0)));
-            add(() -> createMachinery(generateRandomName(StockSimulationUtils.MACHINERY_FIRST_WORD, StockSimulationUtils.MACHINERY_SECOND_WORD, consumedNames), randomQuantity(), supplierA, null, null, randomPrice(20.0, 50.0)));
+            add(() -> createConsumable(generateRandomName(StockSimulationUtils.CONSUMABLES_FIRST_WORD, StockSimulationUtils.CONSUMABLES_SECOND_WORD, consumedNames), randomQuantity(), getRandomSupplier(), null, null, randomPrice(5.0, 15.0)));
+            add(() -> createEquipment(generateRandomName(StockSimulationUtils.EQUIPMENT_FIRST_WORD, StockSimulationUtils.EQUIPMENT_SECOND_WORD, consumedNames), randomQuantity(), getRandomSupplier(), null, null, randomPrice(10.0, 30.0)));
+            add(() -> createRawMaterial(generateRandomName(StockSimulationUtils.RAW_MATERIALS_FIRST_WORD, StockSimulationUtils.RAW_MATERIALS_SECOND_WORD, consumedNames), randomQuantity(), getRandomSupplier(), null, null, randomPrice(15.0, 40.0)));
+            add(() -> createMachinery(generateRandomName(StockSimulationUtils.MACHINERY_FIRST_WORD, StockSimulationUtils.MACHINERY_SECOND_WORD, consumedNames), randomQuantity(), getRandomSupplier(), null, null, randomPrice(20.0, 50.0)));
         }};
 
         for (int i = 0; i < totalStocks; i++) {
@@ -71,6 +68,11 @@ public class StockInitializationService {
         log.info("Stocks Done");
         List<Stock> allStocks = stockRepository.findAll();
         warehouseReportService.printAverageStockDistances(allStocks);
+    }
+
+    private Supplier getRandomSupplier() {
+        List<Supplier> suppliers = supplierRepository.findAll();
+        return suppliers.get(new Random().nextInt(suppliers.size()));
     }
 
     private String generateRandomName(List<String> firstWords, List<String> secondWords, Set<String> consumedNames) {

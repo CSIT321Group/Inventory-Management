@@ -3,8 +3,12 @@ package CSIT321.CN03.Service;
 import CSIT321.CN03.Model.Enums.Order_Status;
 import CSIT321.CN03.Model.Order.Order;
 import CSIT321.CN03.Model.Order.Order_Item;
+import CSIT321.CN03.Model.Stock.Stock;
 import CSIT321.CN03.Model.Supplier;
 import CSIT321.CN03.Repository.Order.OrderRepository;
+import CSIT321.CN03.Repository.Stock.StockRepository;
+import CSIT321.CN03.Repository.SupplierRepository;
+import CSIT321.CN03.Repository.WarehouseRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,7 +28,13 @@ public class OrderService {
 
     @Autowired
     private SupplierService supplierService;
+    @Autowired
+    private StockRepository stockRepository;
 
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+    @Autowired
+    private SupplierRepository supplierRepository;
     public Order getOrderById(Long id) {
         return orderRepository.findOrderWithOrderItemsAndPositions(id).orElseThrow(() -> new EntityNotFoundException("Order not found with id: " + id));
     }
@@ -34,10 +45,22 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(Order order) {
-        // Automatically create Order_Item and add it to the order
-        Order_Item orderItem = new Order_Item();
-        // Set attributes for orderItem as needed
-        order.getOrderItems().add(orderItem);
+        // Fetch and set associated entities for each Order_Item
+        for (Order_Item orderItem : order.getOrderItems()) {
+            // Fetch the Stock entity based on stockId
+            Stock stock = stockRepository.findById(orderItem.getStock().getStockId())
+                    .orElseThrow(() -> new EntityNotFoundException("Stock not found with ID: " + orderItem.getStock().getStockId()));
+
+            // Set the fetched Stock entity in the Order_Item
+            orderItem.setStock(stock);
+
+            // Set the Order reference in the Order_Item
+            orderItem.setOrder(order);
+        }
+        order.setWarehouse(warehouseRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException("Warehouse not found with ID: 1")));
+        order.setSupplier(getRandomSupplier());
+
+        // Save the Order, which will also save the associated Order_Item objects
         return orderRepository.save(order);
     }
 
@@ -49,6 +72,11 @@ public class OrderService {
         order.setSupplier(supplier);
 
         return orderRepository.save(order);
+    }
+
+    private Supplier getRandomSupplier() {
+        List<Supplier> suppliers = supplierRepository.findAll();
+        return suppliers.get(new Random().nextInt(suppliers.size()));
     }
 
     @Transactional
