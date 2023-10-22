@@ -84,7 +84,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+    <div className="settings-div" style={{marginTop: "40px", paddingTop: "20px", paddingBottom: "80px",fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
       <h1 style={{color: localStorage.getItem('fontColour'), padding: "10px"}}>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>General</h2>
