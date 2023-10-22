@@ -9,6 +9,7 @@ import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart
 // import { alignPropType } from 'react-bootstrap/esm/types';
 // import { AlignHorizontalCenterSharp } from '@mui/icons-material';
 import axios from 'axios';
+import { AlignHorizontalLeft } from '@mui/icons-material';
 const Reporting = () => {
 	Chart.register(
 		ArcElement,
@@ -91,16 +92,8 @@ const Reporting = () => {
 				text: 'Chart.js Doghnut Chart',
 			},
 		},
-		layout: {
-			padding: {
-				left: 0,
-				right: 0,
-				top: 30,
-			},
-		},
-		aspectRatio: 1,
-		maxWidth: 800,
-		maxHeight: 400,
+		maxWidth: 200,
+		maxHeight: 100,
 	};
 
 	const doughnutChartData = {
