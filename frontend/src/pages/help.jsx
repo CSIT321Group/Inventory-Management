@@ -21,6 +21,7 @@ export default function Help(){
         <div className="helpPageLayout" style={{marginTop: "40px", paddingTop: "20px", paddingBottom: "80px", fontWeight: localStorage.getItem('boldFont'), zoom: JSON.parse(localStorage.getItem('zoom')), fontSize: JSON.parse(localStorage.getItem('newSize')), backgroundColor: localStorage.getItem('backgroundColour')}}>
             <h1 style={{color: localStorage.getItem('fontColour')}}>Having trouble??? This page might help you!</h1>
             <div className="helpContent">
+                {/*This section has some FAQ answers for some basic enquiries*/}
                 <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Frequently Asked Questions (FAQs)</h2>
                 <div className="content-info">
                     <div className="app">
@@ -98,6 +99,7 @@ export default function Help(){
             </div>
             <br/><br/>
             <div className="helpContent">
+                {/*This has some documentation that can be downloaded, these just need to be uploaded so it can be downloaded*/}
                 <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Helpful Documentation</h2>
                 <div className="content-info">
                     <a style={{color: localStorage.getItem('fontColour')}} href="./Help_Documentation/Operation_Manual.docx" download>Operation Manual</a>&emsp;&emsp;
@@ -107,6 +109,7 @@ export default function Help(){
             <br/><br/>
             <div className="helpContent">                
                 <h2 className="contentHeaders" style={{color: localStorage.getItem('fontColour')}}>Contact Us</h2>
+                {/*This is a contact us page that has information on how to contact us and a form to submit a help request*/}
                 <div className="content-info">
                     <p>If you still haven't been able to find something to help you, 
                     please contact us using the following platforms or fill in the help form below.</p>
