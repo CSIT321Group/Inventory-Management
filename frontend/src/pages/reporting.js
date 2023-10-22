@@ -125,13 +125,13 @@ export default function Reporting() {
 						</td>
 						<td className='filterData'>
 							<h3 style={{color: localStorage.getItem('fontColour')}}>Report Name</h3>
-							<input type='text' placeholder='General Report...' value={reportName}/>
+							<input type='text' placeholder='General Report...' value={reportName} onChange={(e) => setReportName(e.target.value)}/>
 						</td>
 					</tr>
 					<br/>
 					<tr className='filterRows'>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>SKU: &ensp;</h3>
-						<input type='text' value={skuSearch}/>
+						<input type='text' value={skuSearch} onChange={(e) => setSkuSearch(e.target.value)}/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Category: &ensp;</h3>
 						<input type='text'/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Supplier: &ensp;</h3>
@@ -139,7 +139,7 @@ export default function Reporting() {
 					</tr>
 					<tr className='filterRows'>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Name: &ensp;</h3>
-						<input type='text' value={nameSearch}/>
+						<input type='text' value={nameSearch} onChange={(e) => setNameSearch(e.target.value)}/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Order ID: &ensp;</h3>
 						<input type='text'/>
 						<h3 style={{color: localStorage.getItem('fontColour')}}>Location: &ensp;</h3>
