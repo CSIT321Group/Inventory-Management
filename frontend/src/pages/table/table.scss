@@ -8,13 +8,22 @@
       padding: 5px;
       border-radius: 5px;
   
-      &.Approved {
+      &.DELIVERED {
         color: green;
         background-color: rgba(0, 128, 0, 0.151);
       }
-      &.Pending {
+      &.SHIPPED{
         color: goldenrod;
         background-color: rgba(189, 189, 3, 0.103);
+      }
+      &.PROCESSING , &.PENDING{
+        color: blue;
+        background-color: rgba(3, 189, 80, 0.103);
+
+      }
+      &.CANCELLED{
+        color:pink;
+        background-color: rgba(255, 125, 125, 0.103);
       }
     }
   }
