@@ -8,6 +8,7 @@ import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart
 import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import { AlignHorizontalCenterSharp } from '@mui/icons-material';
+import axios from 'axios';
 export default function Reporting() {
 	Chart.register(
 		ArcElement,
@@ -17,6 +18,9 @@ export default function Reporting() {
 		);
 
 	const [reportName, setReportName] = useState('');
+	const [skuSearch, setSkuSearch] = useState('');
+	const [nameSearch, setNameSearch] = useState('');
+	const [chartDetails, setChartDetails] = useState([]);
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [showAnotherItem, setShowAnotherItem] = useState(false);
@@ -47,42 +51,36 @@ export default function Reporting() {
 	}, []);
 
 	useEffect(() => {
-		const fetchSupplierData = async () => {
+		const fetchData = async () => {
+			let endpoint = `http://localhost:8080/api/stock`;
+
+			if (skuSearch || nameSearch) {
+				const search = `${skuSearch}${nameSearch}`;
+				endpoint = `http://localhost:8080/api/stock/search/${search}`;
+			}
+			
 			try {
-				const supplierData = await fetch('http://localhost:8080/api/stock/search/Test', {
+				const response = await axios.get(endpoint, {
 					headers: {
 						'Authorization': `Bearer ${localStorage.getItem('jwt')}`
 					}
 				});
-				
+
+				const updateData = response.data.map(item => {
+					return {
+						...item,
+						stockRoom: item.stockRoom || "Placeholder",
+						supplier: item.supplierName || "Placeholder",
+						totalValue: `$${item.unit_price * item.stock_quantity}`
+					};
+				});
+				setData(updateData);
 			} catch (error) {
 				console.error();
 			}
 		}
-
-		fetchSupplierData();
-	});
-
-	const fetchData = async () => {
-		if (data.length === 0) {
-			try {
-			  	const result = await fetch('http://localhost:8080/api/supplier', {
-					headers: {
-						'Authorization':`Bearer ${localStorage.getItem('jwt')}`
-					}
-			  });
-			  const doughnutData = await result.json();
-			  setData(doughnutData);
-			} catch (error) {
-			  console.error("Error fetching data: ", error);
-			} finally {
-			  setLoading(false);
-			  setShowCharts(true);
-			}
-		} else {
-			setShowCharts(!showCharts);
-		}
-	};
+		fetchData();
+	}, [skuSearch, nameSearch]);
 
 	const options = {
 		responsive: true,
