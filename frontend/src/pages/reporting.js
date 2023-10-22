@@ -5,9 +5,9 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 import DropDown from './DropDownReport';
 import { Chart, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
-import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
-import { alignPropType } from 'react-bootstrap/esm/types';
-import { AlignHorizontalCenterSharp } from '@mui/icons-material';
+// import { Accordion, AccordionDetails, AccordionSummary, Typography }from '@mui/material';
+// import { alignPropType } from 'react-bootstrap/esm/types';
+// import { AlignHorizontalCenterSharp } from '@mui/icons-material';
 import axios from 'axios';
 export default function Reporting() {
 	Chart.register(
@@ -20,31 +20,26 @@ export default function Reporting() {
 	const [reportName, setReportName] = useState('');
 	const [skuSearch, setSkuSearch] = useState('');
 	const [nameSearch, setNameSearch] = useState('');
-	const [chartDetails, setChartDetails] = useState([]);
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [showAnotherItem, setShowAnotherItem] = useState(false);
-	const [additionalItemsCount, setAdditionalItemsCount] = useState(1);
 	const [showCharts, setShowCharts] = useState(false);
+	// const [showAnotherItem, setShowAnotherItem] = useState(false);
+	// const [additionalItemsCount, setAdditionalItemsCount] = useState(1);
 
-	const handleInputChange = (e) => {
-		setReportName(e.target.value);
-	}
+	// const toggleAnotherItem = () => {
+	// 	if(additionalItemsCount < 5) {
+	// 		setShowAnotherItem(true);
+	// 		setAdditionalItemsCount((count) => count++);
+	// 	}
+	// };
 
-	const toggleAnotherItem = () => {
-		if(additionalItemsCount < 5) {
-			setShowAnotherItem(true);
-			setAdditionalItemsCount((count) => count++);
-		}
-	};
-
-	const removeAdditionalItem = () => {
-		if (additionalItemsCount > 1){ 
-			setAdditionalItemsCount((count) => count--);
-		} else {
-			setShowAnotherItem(false);
-		}
-	}
+	// const removeAdditionalItem = () => {
+	// 	if (additionalItemsCount > 1){ 
+	// 		setAdditionalItemsCount((count) => count--);
+	// 	} else {
+	// 		setShowAnotherItem(false);
+	// 	}
+	// }
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -57,22 +52,21 @@ export default function Reporting() {
 			
 			try {
 				const response = await axios.get(endpoint, {
-					headers: {
-						'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-					}
+				  headers: {
+					'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+				  }
 				});
-
-				const updateData = response.data.map(item => {
-					return {
-						...item,
-						stockRoom: item.stockRoom || "Placeholder",
-						supplier: item.supplierName || "Placeholder",
-						totalValue: `$${item.unit_price * item.stock_quantity}`
-					};
-				});
-				setData(updateData);
+		
+				const formattedData = response.data.map(item => ({
+				  label: item.Name || item.SKU,
+				  quantity: item.Quantity
+				}));
+		
+				setData(formattedData);
 			} catch (error) {
-				console.error();
+				console.error(error);
+			} finally {
+				setLoading(false);
 			}
 		}
 		fetchData();
@@ -80,6 +74,8 @@ export default function Reporting() {
 
 	const handleFilterClick = () => {
 		setData([]);
+		setLoading(false);
+		setShowCharts(true);
 	}
 
 	const options = {
@@ -96,17 +92,38 @@ export default function Reporting() {
 		},
 	};
 
-	const chartData = {
-		labels: ["In-stock", "Out-of-Stock", "Future Stock", "Predicted Loss", "Future Growth"],
-		datasets: [
-			{
-				label: 'Stock',
-				data: data.colors,
-				backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-				borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
-				borderWidth: 1,
-			},
-		],
+	const doughnutChartData = {
+		labels: data.map(item => item.label),
+		datasets: [{
+		label: 'Quantity',
+		data: data.map(item => item.quantity),
+		backgroundColor: [
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(255, 206, 86, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(153, 102, 255, 0.2)',
+		  ],
+		  borderColor: [
+			'rgba(255, 99, 132, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(255, 206, 86, 1)',
+			'rgba(75, 192, 192, 1)',
+			'rgba(153, 102, 255, 1)',
+		  ],
+		  borderWidth: 1,
+		}],
+	};
+
+	const barChartData = {
+		labels: data.map(item => item.label),
+		datasets: [{
+			label: 'Quantity',
+			data: data.map(item => item.quantity),
+			backgroundColor: 'rgba(75, 192, 192, 0.2)',
+			borderColor: 'rgba(75, 192, 192, 1)',
+			borderWidth: 1,
+		}],
 	};
 
 	return (
@@ -114,7 +131,7 @@ export default function Reporting() {
 			<br/><br/>
 			<div className='header'>
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Report Filters</h1>
-				<button onClick= {handleFilterClick} className='button'> GENERATE REPORT</button>
+				<button onClick= {handleFilterClick} className='button'> GENERATE REPORT </button>
 			</div>
 			<div className='content'>
 				<table>
@@ -208,15 +225,15 @@ export default function Reporting() {
 				<table className="reportingTable">
 					<tr>
 						<td>
-							<h1>{reportName}</h1>
+							{reportName}
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<Doughnut data={chartData} options={options} />
+							<Doughnut data={doughnutChartData} options={options} />
 						</td>
 						<td>
-							<Bar style={{ padding: '20px' }} data={chartData} options={options} />
+							<Bar style={{ padding: '20px' }} data={barChartData} options={options} />
 						</td>
 					</tr>
 				</table>
