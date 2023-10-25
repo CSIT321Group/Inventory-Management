@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PrototypeApplication<CN03>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "CSIT321.CN03.PrototypeApplication",
+            "projectName": "CN03",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
