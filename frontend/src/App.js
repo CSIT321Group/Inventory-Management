@@ -19,7 +19,6 @@ function App() {
     const [userRoles, setUserRoles] = useState([]);
 
     useEffect(() => {
-
         const jwt = localStorage.getItem('jwt');
         if (!jwt) {
             setLoggedIn(false);

@@ -2,8 +2,7 @@ import React from 'react';
 import './settings.css';
 
 export default function Settings() {
-
-
+  //these 3 are used to decrease/increase/reset font size
   function decreaseFontSize() {
     if(JSON.parse(localStorage.getItem('newSize')) === "NaN"){
       localStorage.setItem("newSize",16);
@@ -30,6 +29,7 @@ export default function Settings() {
     localStorage.setItem("newSize",newSize);
   }
 
+  //these 2 are used to bold and reset the font
   function boldFont() {
     const fontWeight = "bold";
     localStorage.setItem("boldFont",fontWeight);
@@ -40,6 +40,7 @@ export default function Settings() {
     localStorage.setItem("boldFont",fontWeight);
   }
 
+  //these are used to change the appearance of each page
   function defaultColour() {
     const backgroundColour = "";
     const fontColour = "";
@@ -68,6 +69,7 @@ export default function Settings() {
     localStorage.setItem("fontColour",fontColour);
   }
 
+  //these are used to enable zoom to help viewing the app
   function zoomDefault() {
     const zoom = "0";
     localStorage.setItem("zoom",zoom);
@@ -84,11 +86,12 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings-div" style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
+    <div className="settings-div" style={{marginTop: "40px", paddingTop: "20px", paddingBottom: "80px",fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont'), color: localStorage.getItem('fontColour'), backgroundColor: localStorage.getItem('backgroundColour')}}>
       <h1 style={{color: localStorage.getItem('fontColour'), padding: "10px"}}>Settings</h1>
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>General</h2>
         <div className="settings-content-info">
+          {/*These don't work as we didn't really think they we're needed but needed the page to look nicer */}
           <fieldset className="settings-fieldset">
             <label htmlFor="Lang">Preferred Language </label>
             <select name="Lang" id="">
@@ -121,6 +124,7 @@ export default function Settings() {
         </div>
       </div>
       <br/><br/>
+      {/*these buttons are used to change the accessibility features*/}
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>Accessibility</h2>
         <div className="settings-content-info">

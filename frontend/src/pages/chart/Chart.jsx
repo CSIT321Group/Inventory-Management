@@ -5,17 +5,17 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const data = [
     {
-      name: '2020',
+      name: '2013',
       Revenue: 3800,
       
     },
     {
-      name: '2018',
+      name: '2014',
       Revenue: 3000,
       
     },
     {
-      name: '2017',
+      name: '2015',
       Revenue: 2000,
       
     },
@@ -26,17 +26,17 @@ const data = [
       
     },
     {
-      name: '2015',
+      name: '2017',
       Revenue: 1890,
       
     },
     {
-      name: '2014',
+      name: '2018',
       Revenue: 2390,
       
     },
     {
-      name: '2013',
+      name: '2019',
       Revenue: 3490,
     },
   ];
