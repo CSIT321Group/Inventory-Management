@@ -2,8 +2,7 @@ import React from 'react';
 import './settings.css';
 
 export default function Settings() {
-
-
+  //these 3 are used to decrease/increase/reset font size
   function decreaseFontSize() {
     if(JSON.parse(localStorage.getItem('newSize')) === "NaN"){
       localStorage.setItem("newSize",16);
@@ -30,6 +29,7 @@ export default function Settings() {
     localStorage.setItem("newSize",newSize);
   }
 
+  //these 2 are used to bold and reset the font
   function boldFont() {
     const fontWeight = "bold";
     localStorage.setItem("boldFont",fontWeight);
@@ -40,6 +40,7 @@ export default function Settings() {
     localStorage.setItem("boldFont",fontWeight);
   }
 
+  //these are used to change the appearance of each page
   function defaultColour() {
     const backgroundColour = "";
     const fontColour = "";
@@ -68,6 +69,7 @@ export default function Settings() {
     localStorage.setItem("fontColour",fontColour);
   }
 
+  //these are used to enable zoom to help viewing the app
   function zoomDefault() {
     const zoom = "0";
     localStorage.setItem("zoom",zoom);
@@ -122,6 +124,7 @@ export default function Settings() {
         </div>
       </div>
       <br/><br/>
+      {/*these buttons are used to change the accessibility features*/}
       <div className="settings-content">
         <h2 className="settings-content-header" style={{color: localStorage.getItem('fontColour')}}>Accessibility</h2>
         <div className="settings-content-info">

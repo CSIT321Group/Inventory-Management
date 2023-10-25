@@ -12,7 +12,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 
 export default function Order() {
-    
+    //constraits declared 
     const [buttonPopup, setButtonPopup] = useState(false);
     const [orders, setOrders] = useState([]);
     const [stockCache, setStockCache] = useState([]); // NEW: Stock cache state
@@ -20,6 +20,7 @@ export default function Order() {
     const [data, setData] = useState([]); // To store fetched data
     const [skuSearch, setSkuSearch] = useState(''); // SKU search string
     const [nameSearch, setNameSearch] = useState(''); // Name search string
+    //these are used to store the selected stock items for the new order
     const [objectDetails, setObjectDetails] = useState({
         stockId: 0,
         supplierName: "",
@@ -103,11 +104,13 @@ export default function Order() {
         }
     }, [stockCache]);
 
+    //used to get all stock items for the new order
     useEffect(() => {
         const fetchData = async () => {  // Defining an async function to fetch data from the API
             // Setting a default endpoint URL
             let endpoint = `http://localhost:8080/api/stock`;
 
+            
             // If either skuSearch or nameSearch has a value, we modify the endpoint to search with that value
             // if (skuSearch || nameSearch) {
             //     const search = `${skuSearch}${nameSearch}`;
@@ -148,17 +151,18 @@ export default function Order() {
     // Used for adding another new item to a new order State to show/hide accordion
     const [show, setShow] = useState(false);
     const handleOpen = () => {
-        setShow(!show); // Toggle accordion
+        setShow(!show);
     };
     const [show2, setShow2] = useState(false);
     const handleOpen2 = () => {
-        setShow2(!show2); // Toggle accordion
+        setShow2(!show2);
     };
     const [show3, setShow3] = useState(false);
     const handleOpen3 = () => {
-        setShow3(!show3); // Toggle accordion
+        setShow3(!show3);
     };
 
+    //these are used for the 3 items selected in the order to provide the supplier and quantity per item
     const [selectedValue, setSelectedValue] = useState('');
     const handleChange = (event) => {
         const newValue = event.target.value;
@@ -214,6 +218,7 @@ export default function Order() {
             });
         }
     };
+
     //calculates the cost of the 1st item
     const [totalProdCost, setTotalProdCost] = useState('');
     const handleCost = (event) => {
@@ -238,6 +243,7 @@ export default function Order() {
         const roundedTotal = Math.round(total*100)/100;
         setTotalProdCost3(roundedTotal);
     }
+    //calculates the total of the order
     const [totalProdSum, setTotalProdSum] = useState('');
     const [totalOrderCost, setTotalOrderCost] = useState('');
     const calculateButtonClick = (event) => {
@@ -259,6 +265,8 @@ export default function Order() {
             setOpenRows([...openRows, orderId]);
         }
     };
+
+    //used to find todays date and set the delivery date a week out from today
     let deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 7);
     deliveryDate = deliveryDate.toISOString().split('T')[0];
@@ -312,6 +320,7 @@ export default function Order() {
             ],
         };
         try {
+            //tests if the post is successful, if not error is thrown
             const token = localStorage.getItem('jwt');
             const response = await axios.post('http://localhost:8080/api/order', order, {
                 headers: {
@@ -319,7 +328,7 @@ export default function Order() {
                 }
             });
             console.log('Order submitted successfully', response.data);
-            window.alert("Your order was submitted successfully!" + order);
+            window.alert("Your order was submitted successfully!");
         } catch (error) {
             console.error('There was an error submitting the order!', error);
             console.log(order);
