@@ -1,8 +1,11 @@
 package CSIT321.CN03.Config;
 
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -34,8 +37,8 @@ public class JwtUtil{
     public Date extractExpiration(String token) { return extractClaim(token, Claims::getExpiration); }
 
     //public Boolean validateToken(String token, UserDetails userDetails) {
-      //  final String email = extractUsername(token);
-      //  return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    //  final String email = extractUsername(token);
+    //  return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     //}
 
     public Boolean isTokenExpired(String token) {
@@ -56,7 +59,7 @@ public class JwtUtil{
         } catch (SignatureException e) {
             System.out.println("Invalid JWT signature.");
         } catch (MalformedJwtException e) {
-            System.out.println("Invalid JWT token.");
+            System.out.println("Invalid JWT token." + token);
         } catch (ExpiredJwtException e) {
             System.out.println("Expired JWT token.");
         } catch (UnsupportedJwtException e) {
@@ -67,12 +70,12 @@ public class JwtUtil{
         return false;
     }
 
-    //public String getToken (@NonNull HttpServletRequest httpServletRequest) {
-    //    final String bearerToken = httpServletRequest.getHeader("Authorization");
-    //    if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer "))
-    //    {return bearerToken.substring(7,bearerToken.length()); } // The part after "Bearer "
-    //    return null;
-    //}
+    public String getToken (@NonNull HttpServletRequest httpServletRequest) {
+        final String bearerToken = httpServletRequest.getHeader("Authorization");
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer "))
+        {return bearerToken.substring(7,bearerToken.length()); } // The part after "Bearer "
+        return null;
+    }
 
     public List<String> extractRoles(String token) {
         Claims claims = extractAllClaims(token);

@@ -1,7 +1,7 @@
 package CSIT321.CN03.Service;
 
-import CSIT321.CN03.Model.StaffMember;
-import CSIT321.CN03.Repository.StaffMemberRepository;
+import CSIT321.CN03.Model.Employee.StaffMember;
+import CSIT321.CN03.Repository.Employee.StaffMemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

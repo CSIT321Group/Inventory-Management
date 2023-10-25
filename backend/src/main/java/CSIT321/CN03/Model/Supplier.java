@@ -1,5 +1,7 @@
 package CSIT321.CN03.Model;
 
+import CSIT321.CN03.Model.Order.Order;
+import CSIT321.CN03.Model.Stock.Stock;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -25,8 +27,11 @@ public class Supplier {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Stock> stocks = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
+    private Set<Order> orders = new LinkedHashSet<>();
 
     private String supplierName;
     private String supplier_address;

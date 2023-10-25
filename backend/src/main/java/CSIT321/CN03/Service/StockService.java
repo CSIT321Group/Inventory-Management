@@ -1,11 +1,12 @@
 package CSIT321.CN03.Service;
 
-import CSIT321.CN03.Model.Stock;
+import CSIT321.CN03.Model.Stock.Stock;
 import CSIT321.CN03.Model.Supplier;
-import CSIT321.CN03.Repository.StockRepository;
+import CSIT321.CN03.Repository.Stock.StockRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class StockService {
     }
 
     public List<Stock> getAllStock() {
-        return stockRepository.findAll();
+        return stockRepository.findAllWithDetails();
     }
 
     public List<Stock> search(String searchText) {
@@ -41,6 +42,14 @@ public class StockService {
         stock.setSupplier(supplier);
 
         return stockRepository.save(stock);
+    }
+
+    public List<Stock> getTop10LowestStockedItems() {
+        return stockRepository.findTop10LowestStockedItems(PageRequest.of(0, 10));
+    }
+
+    public List<Stock> getRandomStockItems() {
+        return stockRepository.findRandomStockItems();
     }
 }
 

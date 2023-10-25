@@ -1,11 +1,16 @@
 import React from 'react';
-import Login from './login';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function logout() {
-  return (
-    
-  );
+function Logout({ onLogout }) {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    localStorage.removeItem('jwt');
+    onLogout();  // Update the loggedIn state
+    navigate('/login');
+  }, [navigate, onLogout]);
+
+  return null;
 }
 
-export default logout
+export default Logout;

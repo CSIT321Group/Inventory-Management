@@ -38,11 +38,23 @@ input[text] {
 }
 
 .anotherItemButton {
-    margin-left: 250px;
+    margin-left: 260px;
     margin-top: 40px;
-    width: 130px;
+    margin-right:50px;
     background-color: white;
     color: blue;
+    box-shadow: none;
+    border:1px solid;
+    transition:none;
+    width:-300px;
+}
+
+.anotherItemDetails{
+    margin-left: 1px;
+    margin-right:1px;
+    margin-top: 1px;
+    width:130px;
+    padding:8px;
 }
 
 .reportingTable {

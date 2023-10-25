@@ -3,8 +3,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function Login() {
+export default function Login({ onLogin }) {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -13,9 +14,33 @@ export default function Login() {
         return username.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        navigate('/');
+
+        // Create login payload
+        const loginDetails = {
+            userName: username,
+            password: password
+        };
+
+        try {
+            // Make POST request to login API
+            const response = await axios.post("http://localhost:8080/api/test/login", loginDetails);
+
+            // Check if the response status is 200 and if the JWT token is present in the response
+            if (response.status === 200 && response.data.token) {
+                localStorage.setItem('jwt', response.data.token);
+                if (onLogin) {  // invoke the callback
+                    onLogin();
+                }
+                navigate('/');
+            } else {
+                console.error("Login failed");
+            }
+        } catch (error) {
+            // Handle any errors that occur during the Axios request
+            console.error("An error occurred during login:", error);
+        }
     }
 
     return (
@@ -23,7 +48,6 @@ export default function Login() {
             <div className="sub-main">
                 <div>
                     <h1>Welcome</h1>
-                    <div>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group size="lg" className="form" controlId="username">
                             <Form.Control
@@ -48,11 +72,10 @@ export default function Login() {
                                 Forgot Password?
                             </Link>
                         </div>
-                        <Button block size="lg" type="submit" disabled={!validateForm()} onClick={handleSubmit}>
+                        <Button block size="lg" type="submit" disabled={!validateForm()}>
                             Login
                         </Button>
                     </Form>
-                    </div>
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@
 
 .nav-menu {
     background-color: #003463;
-    width: 200px;
+    width: 227px;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -68,4 +68,7 @@ span{
 
 .notifications:hover {
     background-color: #1a83ff;
+}
+.logoNavBar {
+    margin-top: 7px;
 }

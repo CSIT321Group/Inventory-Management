@@ -3,16 +3,19 @@
     -webkit-box-sizing: 2px 4px 10px 1px rgba(0,0,0,0.47);
     box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
     padding: 10px;
+    z-index:0;
 
     .top{
         display:flex;
         align-items:center;
         justify-content: space-between;
         color:gray;
-        .title{
-            font-style: 16px;
-            font-weight: 500;
-        }
+    }
+    .title{
+        font-style: 16px;
+        font-weight: 500;
+        color:black;
+        font-size: 33px;
     }
     .bottom {
         align-items:right;

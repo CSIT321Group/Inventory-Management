@@ -1,8 +1,7 @@
 package CSIT321.CN03.Service;
 
-import CSIT321.CN03.Model.StaffMember;
-import CSIT321.CN03.Repository.StaffMemberRepository;
-import lombok.RequiredArgsConstructor;
+import CSIT321.CN03.Model.Employee.StaffMember;
+import CSIT321.CN03.Repository.Employee.StaffMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
