@@ -328,7 +328,7 @@ export default function Order() {
                 }
             });
             console.log('Order submitted successfully', response.data);
-            window.alert("Your order was submitted successfully!" + order);
+            window.alert("Your order was submitted successfully!");
         } catch (error) {
             console.error('There was an error submitting the order!', error);
             console.log(order);

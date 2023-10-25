@@ -4,20 +4,26 @@ import './employee.css';
 import * as FaIcons from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
+import Popup from './employee_popup';
 
 export default function Employee() {
     const [employees, setEmployees] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [employeeList, setEmployeeList] = useState([]);
+    const [employeeDetails, setEmployeeDetails] = useState({
+        id: "",
+        first_name: "",
+        last_name: "",
+        username: "",
+        authorities: [],
+    });
 
     const getAuthHeaders = () => {
         return {
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         };
     };
-
-    useEffect(() => {
-        fetchAllEmployees(); // Fetch all employees on component mount
-    }, []);
 
     const searchEmployees = async (searchText) => {
         const result = await axios.get(`http://localhost:8080/api/staff/search/${searchText}`, {
@@ -32,15 +38,58 @@ export default function Employee() {
         });
         setEmployees(result.data);
     }
+    
+
+    useEffect(() => {
+        fetchAllEmployees(); // Fetch all employees on component mount
+    }, []);
 
     const handleApplyFilters = (event) => {
         event.preventDefault();
-        if(searchInput) {
-            searchEmployees(searchInput);
-        } else {
+        fetchAllEmployees();
+        if(!searchInput) {
             fetchAllEmployees();
+        } else {
+            searchEmployees(searchInput);
         }
     }
+    //this is executed straight after 2.5 seconds to allow it to fill the employees table
+    //setTimeout(fetchAllEmployees(), 2500);
+
+    useEffect(() => {
+        const fetchData = async () => {  // Defining an async function to fetch data from the API
+            // Setting a default endpoint URL
+            let endpoint = `http://localhost:8080/api/staff`;
+
+            try {
+                // Making an asynchronous GET request to the endpoint
+                const response = await axios.get(endpoint, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                });
+                // Mapping the response data to add/update some fields before setting the state
+                const updatedData = response.data.map(employee => {
+                    return {
+                        ...employee,
+                        id: employee.id,
+                        first_name: employee.first_name,
+                        last_name: employee.last_name,
+                        username: employee.username,
+                        authorities: employee.authorities,
+                        //<td>{getRoleFromAuthorities(employee.authorities)}</td>
+                        //<td>{getFormattedAuthorities(employee.authorities)}</td>
+                    };
+                });
+                setEmployeeList(updatedData) 
+                // Updating the state with the fetched data
+            } catch (error) {
+                // Logging any errors during the fetch process
+                console.error(`Error fetching Staff data: ${error}`);
+            } 
+        };
+        fetchData(); // Calling the fetchData function to initiate the fetch process
+    },);
 
     // Utility function to capitalize the first letter of a word
     const capitalizeFirstLetter = (string) => {
@@ -61,7 +110,33 @@ export default function Employee() {
             .join(', ');
     }
 
+    //used to get the data of the employee selected based on which button they press
+    const handleChange = (event) => {
+        setEmployeeDetails({
+            id: "",
+            first_name: "",
+            last_name: "",
+            username: "",
+            authorities: "",
+        });
+        setButtonPopup(true)
+        const newValue = parseInt(event.target.value);
+        console.log(event.target.value);
 
+        const selectedObject = employeeList.find((item) => item.id === newValue);
+        console.log(selectedObject);
+        
+        if (employeeDetails) {
+            setEmployeeDetails({
+                id: selectedObject.id,
+                first_name: selectedObject.first_name,
+                last_name: selectedObject.last_name,
+                username: selectedObject.username,
+                authorities: selectedObject.authorities,
+            });
+        }
+    };
+    
     return (
         <div style={{fontSize: JSON.parse(localStorage.getItem('newSize')), zoom: JSON.parse(localStorage.getItem('zoom')), fontWeight: localStorage.getItem('boldFont')}}>
             <br/><br/>
@@ -124,13 +199,40 @@ export default function Employee() {
                                         <td>{getRoleFromAuthorities(employee.authorities)}</td>
                                         <td>{getFormattedAuthorities(employee.authorities)}</td>
                                         <td>
-                                            <button className='actionButtons'>
+                                            <button className='actionButtons' onClick={handleChange} value={employee.id}>
                                                 <FaIcons.FaEdit />
                                             </button>
-                                            |
-                                            <button className='actionButtons'>
-                                                <FaIcons.FaShare/>
-                                            </button>
+                                            <Popup trigger={buttonPopup} setTrigger={setButtonPopup} style={{backgroundColor: localStorage.getItem('backgroundColour')}}>
+                                                <div>
+                                                    <h2 style={{color: localStorage.getItem('fontColour')}}>Employee Details</h2>
+                                                        <h3 style={{color: localStorage.getItem('fontColour')}}>Personal Information</h3>
+                                                            <table className="employeeDetails_Table">
+                                                                <tr>
+                                                                    <td style={{border: "none"}}>{employeeDetails.first_name}</td>
+                                                                    <td style={{border: "none"}}>{employeeDetails.last_name}</td>
+                                                                    <td style={{border: "none"}}>{employeeDetails.id}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{border: "none"}}>First Name</th>
+                                                                    <th style={{border: "none"}}>Last Name</th>
+                                                                    <th style={{border: "none"}}>Employee ID</th>
+                                                                </tr>
+                                                            </table>
+                                                        <h3 style={{color: localStorage.getItem('fontColour')}}>Work Information</h3>
+                                                        <table className="employeeDetails_Table">
+                                                            <tr>
+                                                                <td style={{border: "none"}}>{employeeDetails.username}</td>
+                                                                <td style={{border: "none"}}>{getRoleFromAuthorities(employeeDetails.authorities)}</td>
+                                                                <td style={{border: "none"}}>{getFormattedAuthorities(employeeDetails.authorities)}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style={{border: "none"}}>Username</th>
+                                                                <th style={{border: "none"}}>Position</th>
+                                                                <th style={{border: "none"}}>Permissions</th>
+                                                            </tr>
+                                                        </table>
+                                                </div>
+                                            </Popup>
                                         </td>
                                     </tr>
                                 ))
