@@ -14,13 +14,7 @@ function Navbar() {
     // const dispatch = useDispatch();
    return (
     <>
-        {/* {isLoggedIn
-            ?
-        } */}
-
-        {/* if(isLoggedIn){
-            <> */}
-            <IconContext.Provider value={{color:"black"}}>
+        <IconContext.Provider value={{color:"black"}}>
             <div className='navbar'>
                 <div className='logoNavBar'>
                     <img src={Logo} alt='title'/>
@@ -29,40 +23,36 @@ function Navbar() {
                     <IoIcons.IoMdNotifications size={20}/>
                 </button>
            </div>
-           </IconContext.Provider>
-           <IconContext.Provider value={{color: '#fff'}}>
-                <nav className='nav-menu'>
-                    <ul className='nav-menu-items'>
-                        {SidebarData.map((item, index) => {
-                            if(item.title === 'Settings'){
-                                return (
-                                    <>
-                                        <li key={index} className={item.cName} style={{marginTop:'350px'}}>
+        </IconContext.Provider>
+        <IconContext.Provider value={{color: '#fff'}}>
+            <nav className='nav-menu'>
+                <ul className='nav-menu-items'>
+                    {SidebarData.map((item, index) => {
+                        if(item.title === 'Settings'){
+                            return (
+                                <>
+                                    <li key={index} className={item.cName} style={{marginTop:'300px'}}>
                                         <Link to={item.path}>
                                             {item.icon}
                                             <span>{item.title}</span>
                                         </Link>
                                         </li>
-                                    </>
-                                );
-                            } else {
-                                return (
-                                    <li key={index} className={item.cName}>
-                                        <Link to={item.path}>
-                                            {item.icon}
+                                </>
+                            );
+                        } else {
+                            return (
+                                <li key={index} className={item.cName}>
+                                    <Link to={item.path}>
+                                        {item.icon}
                                             <span>{item.title}</span>
-                                        </Link>
-                                    </li>
-                                );
-                            }
-                        })}
-                    </ul>
-                </nav>
-            </IconContext.Provider>
-        {/* </>
-        }else {
-            
-        } */}
+                                    </Link>
+                                </li>
+                            );
+                        }
+                    })}
+                </ul>
+            </nav>
+        </IconContext.Provider>
     </>
   )
 }
