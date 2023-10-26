@@ -24,7 +24,7 @@ const Dashboard = () => {
 			<div className="charts" style={{color: "black", backgroundColor: "white"}}>
 				<Featured/>
 				<Chart/>
-			</div>
+				</div>
 			<div className='header'>
 				<h1 style={{color: localStorage.getItem('fontColour')}}>Daily Inventory Actions</h1>
 			</div>

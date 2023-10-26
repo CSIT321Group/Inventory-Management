@@ -31,7 +31,7 @@ function Navbar() {
                         if(item.title === 'Settings'){
                             return (
                                 <>
-                                    <li key={index} className={item.cName} style={{marginTop:'300px'}}>
+                                    <li key={index} className={item.cName} style={{marginTop:'700px'}}>
                                         <Link to={item.path}>
                                             {item.icon}
                                             <span>{item.title}</span>
